@@ -436,11 +436,6 @@
               <FilePath>.\Sound.c</FilePath>
             </File>
             <File>
-              <FileName>sprite.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\sprite.c</FilePath>
-            </File>
-            <File>
               <FileName>ADC.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ADC.c</FilePath>

@@ -118,15 +118,19 @@ enum typeOfWrite{
 //         message  8-bit code to transmit
 // outputs: none
 // assumes: SSI0 and port A have already been initialized and enabled
-void static lcdwrite(enum typeOfWrite type, char message){
-  if(type == COMMAND){
+void static lcdwrite(enum typeOfWrite type, char message)
+{
+  if(type == COMMAND)
+	{
                                         // wait until SSI0 not busy/transmit FIFO empty
     while((SSI0_SR_R&SSI_SR_BSY)==SSI_SR_BSY){};
     DC = DC_COMMAND;
     SSI0_DR_R = message;                // command out
                                         // wait until SSI0 not busy/transmit FIFO empty
     while((SSI0_SR_R&SSI_SR_BSY)==SSI_SR_BSY){};
-  } else{
+  } 
+	else
+	{
     while((SSI0_SR_R&SSI_SR_TNF)==0){}; // wait until transmit FIFO not full
     DC = DC_DATA;
     SSI0_DR_R = message;                // data out
@@ -436,7 +440,8 @@ void Nokia5110_DisplayBuffer(void){
 //         y - vertical coordinate of the pixel, must be less than 48
 //         Nokia5110_SetPixel(0, 0); turns on the upper left pixel
 // outputs: none
-void Nokia5110_SetPixel(unsigned char x, unsigned char y) {
+void Nokia5110_SetPixel(unsigned char x, unsigned char y) 
+{
   unsigned short PixelByte;            // byte# in screen buffer
   unsigned char PixelBit;              // bit# in byte
   if ((x<84) && (y<48)) {              // check screen boundaries
