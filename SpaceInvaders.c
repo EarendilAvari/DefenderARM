@@ -75,6 +75,9 @@
 #include "ImageArrays.h"
 #include "Switches.h"
 
+bool Switch_shoot;
+bool Switch_special;
+
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
 void Timer2_Init(unsigned long period);
@@ -113,7 +116,6 @@ void TestDisplay()
 
 
 unsigned char counter = 0;
-unsigned long SwitchLast = 0;
 
 int main(void)
 {
@@ -121,22 +123,25 @@ int main(void)
   Random_Init(1);
   Nokia5110_Init();
 	SwitchesInit();
+	EnableInterrupts();
 	Nokia5110_Clear();
 	Nokia5110_OutString("Counter: ");
 	//TestDisplay();
   while(1)
 	{
-		if (GPIO_PORTE_DATA_R&0x01 && !SwitchLast)
+		if (Switch_shoot)
 		{
 			counter++;
+			Switch_shoot = false;
 		}
-		else if (GPIO_PORTE_DATA_R&0x02 && !SwitchLast)
+		else if (Switch_special)
 		{
 			counter--;
+			Switch_special = false;
 		}
 		Nokia5110_SetCursor(0,1);
 		Nokia5110_OutUDec(counter);
-		SwitchLast = GPIO_PORTE_DATA_R&0x03;
+		Delay100ms(1);
   }
 
 }

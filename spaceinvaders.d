@@ -5,3 +5,4 @@
 .\spaceinvaders.o: TExaS.h
 .\spaceinvaders.o: ImageArrays.h
 .\spaceinvaders.o: Switches.h
+.\spaceinvaders.o: D:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
