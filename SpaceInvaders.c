@@ -74,6 +74,7 @@
 #include "TExaS.h"
 #include "ImageArrays.h"
 #include "Switches.h"
+#include "DAC.h"
 
 bool Switch_shoot;
 bool Switch_special;
@@ -115,7 +116,7 @@ void TestDisplay()
 }
 
 
-unsigned char counter = 0;
+unsigned long counter = 0;
 
 int main(void)
 {
@@ -123,6 +124,7 @@ int main(void)
   Random_Init(1);
   Nokia5110_Init();
 	SwitchesInit();
+	DAC_Init();
 	EnableInterrupts();
 	Nokia5110_Clear();
 	Nokia5110_OutString("Counter: ");
@@ -131,16 +133,17 @@ int main(void)
 	{
 		if (Switch_shoot)
 		{
-			counter++;
+			counter = (counter + 1)&0x0F;
 			Switch_shoot = false;
 		}
 		else if (Switch_special)
 		{
-			counter--;
+			counter = (counter - 1)&0x0F;
 			Switch_special = false;
 		}
 		Nokia5110_SetCursor(0,1);
 		Nokia5110_OutUDec(counter);
+		DAC_Out(counter);
 		Delay100ms(1);
   }
 
