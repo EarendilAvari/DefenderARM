@@ -4,3 +4,4 @@
 .\spaceinvaders.o: Random.h
 .\spaceinvaders.o: TExaS.h
 .\spaceinvaders.o: ImageArrays.h
+.\spaceinvaders.o: Switches.h

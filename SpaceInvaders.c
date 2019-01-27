@@ -73,6 +73,7 @@
 #include "Random.h"
 #include "TExaS.h"
 #include "ImageArrays.h"
+#include "Switches.h"
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -111,14 +112,31 @@ void TestDisplay()
 }
 
 
+unsigned char counter = 0;
+unsigned long SwitchLast = 0;
+
 int main(void)
 {
   TExaS_Init(SSI0_Real_Nokia5110_Scope);  // set system clock to 80 MHz
   Random_Init(1);
   Nokia5110_Init();
-	TestDisplay();
+	SwitchesInit();
+	Nokia5110_Clear();
+	Nokia5110_OutString("Counter: ");
+	//TestDisplay();
   while(1)
 	{
+		if (GPIO_PORTE_DATA_R&0x01 && !SwitchLast)
+		{
+			counter++;
+		}
+		else if (GPIO_PORTE_DATA_R&0x02 && !SwitchLast)
+		{
+			counter--;
+		}
+		Nokia5110_SetCursor(0,1);
+		Nokia5110_OutUDec(counter);
+		SwitchLast = GPIO_PORTE_DATA_R&0x03;
   }
 
 }
