@@ -1,4 +1,4 @@
-#ifdef SOUNDARRAYS_H
+#ifndef SOUNDARRAYS_H
 #define SOUNDARRAYS_H
 
 const unsigned char shoot[4080] = {
@@ -1130,4 +1130,5 @@ const unsigned char highpitch[1802] = {
   67, 119, 148, 166, 164, 238, 223, 202, 174, 112, 96, 78, 0, 34, 54, 99, 143, 160, 166, 183, 
   250, 207};
 
-#endif 
+	
+	#endif

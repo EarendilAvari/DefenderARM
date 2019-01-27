@@ -6,45 +6,72 @@
 // Jonathan Valvano
 // November 19, 2012
 
-#include "DAC.h"
-#include "Timer0.h"
 #include "Sound.h"
 #include "SoundArrays.h"
+#include "..//tm4c123gh6pm.h"
 
-unsigned long Index = 0;
+unsigned long Index;
 const unsigned char *Wave;
-unsigned long Count = 0;
-void Play(void)
+unsigned long SoundCounter;
+
+// You can use this timer only if you learn how it works
+void Timer2_Init(unsigned long period)
+{ 
+  unsigned long volatile delay;
+  SYSCTL_RCGCTIMER_R |= 0x04;   // 0) activate timer2
+  delay = SYSCTL_RCGCTIMER_R;
+  TIMER2_CTL_R = 0x00000000;    // 1) disable timer2A during setup
+  TIMER2_CFG_R = 0x00000000;    // 2) configure for 32-bit mode
+  TIMER2_TAMR_R = 0x00000002;   // 3) configure for periodic mode, default down-count settings
+  TIMER2_TAILR_R = period-1;    // 4) reload value
+  TIMER2_TAPR_R = 0;            // 5) bus clock resolution
+  TIMER2_ICR_R = 0x00000001;    // 6) clear timer2A timeout flag
+  TIMER2_IMR_R = 0x00000001;    // 7) arm timeout interrupt
+  NVIC_PRI5_R = (NVIC_PRI5_R&0x00FFFFFF)|0x80000000; // 8) priority 4
+	// interrupts enabled in the main program after all devices initialized
+	// vector number 39, interrupt number 23
+  NVIC_EN0_R = 1<<23;           // 9) enable IRQ 23 in NVIC
+  TIMER2_CTL_R = 0x00000001;    // 10) enable timer2A
+}
+
+void Timer2A_Start(void)
 {
-  if(Count)
+	TIMER2_CTL_R |= 0x00000001;
+}
+
+void Timer2A_Stop(void)
+{
+	TIMER2_CTL_R &= ~0x00000001;
+}
+
+void Timer2A_Handler(void)
+{	
+  TIMER2_ICR_R = 0x00000001;   // acknowledge timer2A timeout
+	if(SoundCounter)
 	{
     DAC_Out(Wave[Index]>>4);
     Index = Index + 1;
-    Count = Count - 1;
+    SoundCounter = SoundCounter - 1;
   }
 	else
 	{
-  NVIC_DIS0_R = 1<<19;           // disable IRQ 19 in NVIC
+		Timer2A_Stop();           // Disables the timer
   }
 }
+
 void Sound_Init(void)
 {
-  DAC_Init(8);               // initialize simple 4-bit DAC
-//  Timer0B_Init(&Play, 20000); // 4 kHz
-  Timer0_Init(&Play, 80000000/11025);     // 11.025 kHz
+  DAC_Init();               			 // initialize simple 4-bit DAC
+  Timer2_Init(80000000/11025);     // 11.025 kHz
   Index = 0;
-  Count = 0;
-//   while(1){
-//     DAC_Out(2048);
-//   }
+  SoundCounter = 0;
 }
 void Sound_Play(const unsigned char *pt, unsigned long count)
 {
   Wave = pt;
   Index = 0;
-  Count = count;
-  NVIC_EN0_R = 1<<19;           // 9) enable IRQ 19 in NVIC
-  TIMER0_CTL_R = 0x00000001;    // 10) enable TIMER0A
+  SoundCounter = count;
+	Timer2A_Start();
 }
 void Sound_Shoot(void)
 {

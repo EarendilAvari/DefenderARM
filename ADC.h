@@ -1,3 +1,6 @@
+#ifndef ADC_H
+#define ADC_H
+
 // ADC.h
 // Runs on LM4F120/TM4C123
 // Provide functions that initialize ADC0 SS3 to be triggered by
@@ -37,3 +40,5 @@ void ADC0_Init(void);
 // Input: none
 // Output: 12-bit result of ADC conversion
 unsigned long ADC0_In(void);
+
+#endif

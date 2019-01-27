@@ -1,3 +1,6 @@
+#ifndef TEXAS_H
+#define TEXAS_H
+
 // TExaS.h
 // Runs on LM4F120/TM4C123
 // Periodic timer Timer5A which will interact with debugger and grade the lab 
@@ -51,3 +54,5 @@ void TExaS_Init(enum DisplayType display);
 // Inputs:  none
 // Outputs: none
 void TExaS_Stop(void);
+
+#endif

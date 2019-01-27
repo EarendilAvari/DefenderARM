@@ -74,7 +74,7 @@
 #include "TExaS.h"
 #include "ImageArrays.h"
 #include "Switches.h"
-#include "DAC.h"
+#include "Sound.h"
 
 bool Switch_shoot;
 bool Switch_special;
@@ -86,38 +86,60 @@ void Delay100ms(unsigned long count); // time delay in 0.1 seconds
 unsigned long TimerCount;
 unsigned long Semaphore;
 
-void TestDisplay()
+unsigned long counter = 0;
+
+int main(void)
 {
-	Nokia5110_ClearBuffer();
-	Nokia5110_DisplayBuffer();      // draw buffer
+  TExaS_Init(SSI0_Real_Nokia5110_Scope);  // set system clock to 80 MHz
+  Random_Init(1);
+  Nokia5110_Init();
+	SwitchesInit();
+	Sound_Init();
+	EnableInterrupts();
+	Nokia5110_Clear();
+	Sound_Shoot();
+	while(!Switch_shoot) {};
+	Switch_shoot = false;
+	Sound_Killed();
+	while(!Switch_shoot) {};
+	Switch_shoot = false;
+	Sound_Explosion();
+	while(!Switch_shoot) {};
+	Switch_shoot = false;
+	Sound_Fastinvader1();
+	while(!Switch_shoot) {};
+	Switch_shoot = false;
+	Sound_Fastinvader2();
+	while(!Switch_shoot) {};
+	Switch_shoot = false;
+	Sound_Fastinvader3();
+	while(!Switch_shoot) {};
+	Switch_shoot = false;
+	Sound_Fastinvader4();
+	while(!Switch_shoot) {};
+	Switch_shoot = false;
+	Sound_Highpitch();
+  while(1)
+	{
+  }
 
-  Nokia5110_PrintBMP(32, 47, PlayerShip0, 0); // player ship middle bottom
-  Nokia5110_PrintBMP(33, 47 - PLAYERH, Bunker0, 0);
+}
 
-  Nokia5110_PrintBMP(0, ENEMY10H - 1, SmallEnemy10PointA, 0);
-  Nokia5110_PrintBMP(16, ENEMY10H - 1, SmallEnemy20PointA, 0);
-  Nokia5110_PrintBMP(32, ENEMY10H - 1, SmallEnemy20PointA, 0);
-  Nokia5110_PrintBMP(48, ENEMY10H - 1, SmallEnemy30PointA, 0);
-  Nokia5110_PrintBMP(64, ENEMY10H - 1, SmallEnemy30PointA, 0);
-  Nokia5110_DisplayBuffer();     // draw buffer
-
-  Delay100ms(50);              // delay 5 sec at 50 MHz
-
-
-  Nokia5110_Clear();
-  Nokia5110_SetCursor(1, 1);
-  Nokia5110_OutString("GAME OVER");
-  Nokia5110_SetCursor(1, 2);
-  Nokia5110_OutString("Nice try,");
-  Nokia5110_SetCursor(1, 3);
-  Nokia5110_OutString("Earthling!");
-  Nokia5110_SetCursor(2, 4);
-  Nokia5110_OutUDec(1234);
+void Delay100ms(unsigned long count)
+{unsigned long volatile time;
+  while(count>0)
+	{
+    time = 727240;  // 0.1sec at 80 MHz
+    while(time)
+		{
+	  	time--;
+    }
+    count--;
+  }
 }
 
 
-unsigned long counter = 0;
-
+/* Main to test switches and DAC
 int main(void)
 {
   TExaS_Init(SSI0_Real_Nokia5110_Scope);  // set system clock to 80 MHz
@@ -147,43 +169,34 @@ int main(void)
 		Delay100ms(1);
   }
 
-}
+} */
+
+/* Function to test display
+void TestDisplay()
+{
+	Nokia5110_ClearBuffer();
+	Nokia5110_DisplayBuffer();      // draw buffer
+
+  Nokia5110_PrintBMP(32, 47, PlayerShip0, 0); // player ship middle bottom
+  Nokia5110_PrintBMP(33, 47 - PLAYERH, Bunker0, 0);
+
+  Nokia5110_PrintBMP(0, ENEMY10H - 1, SmallEnemy10PointA, 0);
+  Nokia5110_PrintBMP(16, ENEMY10H - 1, SmallEnemy20PointA, 0);
+  Nokia5110_PrintBMP(32, ENEMY10H - 1, SmallEnemy20PointA, 0);
+  Nokia5110_PrintBMP(48, ENEMY10H - 1, SmallEnemy30PointA, 0);
+  Nokia5110_PrintBMP(64, ENEMY10H - 1, SmallEnemy30PointA, 0);
+  Nokia5110_DisplayBuffer();     // draw buffer
+
+  Delay100ms(50);              // delay 5 sec at 50 MHz
 
 
-// You can use this timer only if you learn how it works
-void Timer2_Init(unsigned long period){ 
-  unsigned long volatile delay;
-  SYSCTL_RCGCTIMER_R |= 0x04;   // 0) activate timer2
-  delay = SYSCTL_RCGCTIMER_R;
-  TimerCount = 0;
-  Semaphore = 0;
-  TIMER2_CTL_R = 0x00000000;    // 1) disable timer2A during setup
-  TIMER2_CFG_R = 0x00000000;    // 2) configure for 32-bit mode
-  TIMER2_TAMR_R = 0x00000002;   // 3) configure for periodic mode, default down-count settings
-  TIMER2_TAILR_R = period-1;    // 4) reload value
-  TIMER2_TAPR_R = 0;            // 5) bus clock resolution
-  TIMER2_ICR_R = 0x00000001;    // 6) clear timer2A timeout flag
-  TIMER2_IMR_R = 0x00000001;    // 7) arm timeout interrupt
-  NVIC_PRI5_R = (NVIC_PRI5_R&0x00FFFFFF)|0x80000000; // 8) priority 4
-// interrupts enabled in the main program after all devices initialized
-// vector number 39, interrupt number 23
-  NVIC_EN0_R = 1<<23;           // 9) enable IRQ 23 in NVIC
-  TIMER2_CTL_R = 0x00000001;    // 10) enable timer2A
-}
-void Timer2A_Handler(void){ 
-  TIMER2_ICR_R = 0x00000001;   // acknowledge timer2A timeout
-  TimerCount++;
-  Semaphore = 1; // trigger
-}
-void Delay100ms(unsigned long count)
-{unsigned long volatile time;
-  while(count>0)
-	{
-    time = 727240;  // 0.1sec at 80 MHz
-    while(time)
-		{
-	  	time--;
-    }
-    count--;
-  }
-}
+  Nokia5110_Clear();
+  Nokia5110_SetCursor(1, 1);
+  Nokia5110_OutString("GAME OVER");
+  Nokia5110_SetCursor(1, 2);
+  Nokia5110_OutString("Nice try,");
+  Nokia5110_SetCursor(1, 3);
+  Nokia5110_OutString("Earthling!");
+  Nokia5110_SetCursor(2, 4);
+  Nokia5110_OutUDec(1234);
+} */
