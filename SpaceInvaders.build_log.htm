@@ -1,0 +1,45 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\Keil\Labware\Lab15_SpaceInvaders\SpaceInvaders.uvproj
+Project File Date:  01/21/2019
+
+<h2>Output:</h2>
+Build target 'SpaceInvaders'
+compiling SpaceInvaders.c...
+ImageArrays.h(245): warning:  #1-D: last line of file ends without a newline
+  #endif
+SpaceInvaders.c(93): error:  #20: identifier "PlayerShip0" is undefined
+    Nokia5110_PrintBMP(32, 47, PlayerShip0, 0); // player ship middle bottom
+SpaceInvaders.c(94): error:  #20: identifier "PLAYERH" is undefined
+    Nokia5110_PrintBMP(33, 47 - PLAYERH, Bunker0, 0);
+SpaceInvaders.c(94): error:  #20: identifier "Bunker0" is undefined
+    Nokia5110_PrintBMP(33, 47 - PLAYERH, Bunker0, 0);
+SpaceInvaders.c(96): error:  #20: identifier "ENEMY10H" is undefined
+    Nokia5110_PrintBMP(0, ENEMY10H - 1, SmallEnemy10PointA, 0);
+SpaceInvaders.c(96): error:  #20: identifier "SmallEnemy10PointA" is undefined
+    Nokia5110_PrintBMP(0, ENEMY10H - 1, SmallEnemy10PointA, 0);
+SpaceInvaders.c(97): error:  #20: identifier "SmallEnemy20PointA" is undefined
+    Nokia5110_PrintBMP(16, ENEMY10H - 1, SmallEnemy20PointA, 0);
+SpaceInvaders.c(99): error:  #20: identifier "SmallEnemy30PointA" is undefined
+    Nokia5110_PrintBMP(48, ENEMY10H - 1, SmallEnemy30PointA, 0);
+SpaceInvaders.c: 1 warning, 7 errors
+compiling Sound.c...
+Sound.c(9): error:  #5: cannot open source input file "DAC.h": No such file or directory
+  #include "DAC.h"
+Sound.c: 0 warnings, 1 error
+compiling sprite.c...
+sprite.c(68): error:  #5: cannot open source input file "PLL.h": No such file or directory
+  #include "PLL.h"
+sprite.c: 0 warnings, 1 error
+compiling ADC.c...
+ADC.c(35): warning:  #550-D: variable "delay" was set but never used
+        unsigned long delay;
+ADC.c: 1 warning, 0 errors
+".\SpaceInvaders.axf" - 9 Error(s), 2 Warning(s).
+Target not created
+</pre>
+</body>
+</html>
