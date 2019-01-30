@@ -127,7 +127,7 @@
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
             <RestoreFunctions>1</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
-            <LimitSpeedToRealTime>0</LimitSpeedToRealTime>
+            <LimitSpeedToRealTime>1</LimitSpeedToRealTime>
             <RestoreSysVw>1</RestoreSysVw>
           </Simulator>
           <Target>
@@ -440,6 +440,16 @@
               <FileType>1</FileType>
               <FilePath>.\ADC.c</FilePath>
             </File>
+            <File>
+              <FileName>DAC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\DAC.c</FilePath>
+            </File>
+            <File>
+              <FileName>Switches.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Switches.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -479,6 +489,16 @@
               <FileName>TExaS.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\TExaS.h</FilePath>
+            </File>
+            <File>
+              <FileName>DAC.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\DAC.h</FilePath>
+            </File>
+            <File>
+              <FileName>Switches.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Switches.h</FilePath>
             </File>
           </Files>
         </Group>

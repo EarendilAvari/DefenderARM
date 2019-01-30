@@ -8,3 +8,4 @@
 .\spaceinvaders.o: D:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
 .\spaceinvaders.o: Sound.h
 .\spaceinvaders.o: DAC.h
+.\spaceinvaders.o: GameEngine.h

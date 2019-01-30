@@ -76,3 +76,4 @@ unsigned long ADC0_In(void)
 	return result;											// Returns the result value
 
 }
+

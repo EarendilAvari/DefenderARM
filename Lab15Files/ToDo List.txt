@@ -1,0 +1,3 @@
+- Program ADC0 to sample with a timer interrupt
+- Program and test convertADC0 function
+- Organize what we have so far in Call and in data flow graphs.

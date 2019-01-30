@@ -4,58 +4,32 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 D:\Keil\Labware\Lab15_SpaceInvaders\SpaceInvaders.uvproj
-Project File Date:  01/27/2019
+Project File Date:  01/29/2019
 
 <h2>Output:</h2>
-Build target 'SpaceInvaders'
+Rebuild target 'SpaceInvaders'
+assembling startup.s...
+compiling Nokia5110.c...
+assembling random.s...
 compiling SpaceInvaders.c...
 Sound.h(25): warning:  #1-D: last line of file ends without a newline
   #endif
-SpaceInvaders.c: 1 warning, 0 errors
-linking...
-Program Size: Code=3724 RO-data=15828 RW-data=84 ZI-data=1180  
-".\SpaceInvaders.axf" - 0 Error(s), 1 Warning(s).
-Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\SpaceInvaders.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\SpaceInvaders.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-ferred from spaceinvaders.o).
-Not enough information to list image symbols.
-Finished: 1 information, 0 warning and 1 error messages.
-".\SpaceInvaders.axf" - 1 Error(s), 4 Warning(s).
-Target not created
-
-linking...
-Program Size: Code=3356 RO-data=392 RW-data=84 ZI-data=1180  
-".\SpaceInvaders.axf" - 0 Error(s), 5 Warning(s).
-n to list image symbols.
-Not enough information to list the image map.
-Finished: 2 information, 0 warning and 1 error messages.
-".\SpaceInvaders.axf" - 1 Error(s), 5 Warning(s).
-Target not created
-get not created
-t never used
+GameEngine.h(9): warning:  #1295-D: Deprecated declaration GameEngine_Init - give arg types
+  void GameEngine_Init();
+SpaceInvaders.c(230): warning:  #1-D: last line of file ends without a newline
+  } */
+SpaceInvaders.c: 3 warnings, 0 errors
+compiling TExaS.c...
+compiling Sound.c...
+Sound.h(25): warning:  #1-D: last line of file ends without a newline
+  #endif
+SoundArrays.h(1134): warning:  #1-D: last line of file ends without a newline
+        #endif
+Sound.c: 2 warnings, 0 errors
+compiling ADC.c...
+ADC.c(35): warning:  #550-D: variable "delay" was set but never used
         unsigned long delay;
-Switches.c: 1 warning, 0 errors
-compiling Timer2a.c...
-Timer2a.c(32): warning:  #1-D: last line of file ends without a newline
-  }
-Timer2a.c: 1 warning, 0 errors
-".\SpaceInvaders.axf" - 4 Error(s), 5 Warning(s).
-Target not created
-vader3" is undefined
-    Sound_Play(fastinvader3,1054);
-Sound.c(81): error:  #20: identifier "fastinvader4" is undefined
-    Sound_Play(fastinvader4,1098);
-Sound.c(86): error:  #20: identifier "highpitch" is undefined
-    Sound_Play(highpitch,1802);
-Sound.c: 2 warnings, 12 errors
+ADC.c: 1 warning, 0 errors
 compiling DAC.c...
 DAC.c(18): warning:  #550-D: variable "delay" was set but never used
         unsigned long delay;
@@ -64,9 +38,35 @@ compiling Switches.c...
 Switches.c(9): warning:  #550-D: variable "delay" was set but never used
         unsigned long delay;
 Switches.c: 1 warning, 0 errors
-compiling Timer2a.c...
-Timer2a.c(32): warning:  #1-D: last line of file ends without a newline
+compiling SlidePot.c...
+SlidePot.c(48): warning:  #68-D: integer conversion resulted in a change of sign
+                B = -13291;
+SlidePot.c: 1 warning, 0 errors
+compiling GameEngine.c...
+SlidePot.h(5): warning:  #1295-D: Deprecated declaration SlidePot_Init - give arg types
+  void SlidePot_Init();
+SlidePot.h(6): warning:  #1295-D: Deprecated declaration SlidePot_toPixelY - give arg types
+  unsigned long SlidePot_toPixelY();
+GameEngine.h(9): warning:  #1295-D: Deprecated declaration GameEngine_Init - give arg types
+  void GameEngine_Init();
+GameEngine.c: 3 warnings, 0 errors
+linking...
+Program Size: Code=4296 RO-data=872 RW-data=92 ZI-data=1180  
+".\SpaceInvaders.axf" - 0 Error(s), 12 Warning(s).
+Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\SpaceInvaders.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+ngine_Init();
+GameEngine.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+GameEngine.c(11): warning:  #223-D: function "SysTick_Init" declared implicitly
+        SysTick_Init(2666665);
+GameEngine.c(16): error:  #159: declaration is incompatible with previous "SysTick_Init" (declared at line 11)
+  void SysTick_Init(unsigned long period)
+GameEngine.c(28): warning:  #1-D: last line of file ends without a newline
   }
-Timer2a.c: 1 warning, 0 errors
-".\SpaceInvaders.axf" - 12 Error(s), 5 Warning(s).
+GameEngine.c: 7 warnings, 1 error
+".\SpaceInvaders.axf" - 1 Error(s), 19 Warning(s).
 Target not created

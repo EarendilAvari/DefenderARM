@@ -75,9 +75,13 @@
 #include "ImageArrays.h"
 #include "Switches.h"
 #include "Sound.h"
+#include "GameEngine.h"
+
 
 bool Switch_shoot;
 bool Switch_special;
+bool Flag;
+unsigned long Distance;
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -87,6 +91,7 @@ unsigned long TimerCount;
 unsigned long Semaphore;
 
 unsigned long counter = 0;
+unsigned long ADC_Result;
 
 int main(void)
 {
@@ -97,32 +102,16 @@ int main(void)
 	Sound_Init();
 	EnableInterrupts();
 	Nokia5110_Clear();
-	Sound_Shoot();
-	while(!Switch_shoot) {};
-	Switch_shoot = false;
-	Sound_Killed();
-	while(!Switch_shoot) {};
-	Switch_shoot = false;
-	Sound_Explosion();
-	while(!Switch_shoot) {};
-	Switch_shoot = false;
-	Sound_Fastinvader1();
-	while(!Switch_shoot) {};
-	Switch_shoot = false;
-	Sound_Fastinvader2();
-	while(!Switch_shoot) {};
-	Switch_shoot = false;
-	Sound_Fastinvader3();
-	while(!Switch_shoot) {};
-	Switch_shoot = false;
-	Sound_Fastinvader4();
-	while(!Switch_shoot) {};
-	Switch_shoot = false;
-	Sound_Highpitch();
+	GameEngine_Init();
   while(1)
 	{
+		if (Flag)
+		{
+			Nokia5110_SetCursor(0,0);
+			Nokia5110_OutUDec((unsigned short)Distance);
+			Flag = false;
+		}
   }
-
 }
 
 void Delay100ms(unsigned long count)
@@ -199,4 +188,43 @@ void TestDisplay()
   Nokia5110_OutString("Earthling!");
   Nokia5110_SetCursor(2, 4);
   Nokia5110_OutUDec(1234);
+} */
+
+
+/* Main function to test sounds
+int main(void)
+{
+  TExaS_Init(SSI0_Real_Nokia5110_Scope);  // set system clock to 80 MHz
+  Random_Init(1);
+  Nokia5110_Init();
+	SwitchesInit();
+	Sound_Init();
+	EnableInterrupts();
+	Nokia5110_Clear();
+	Sound_Shoot();
+	while(!Switch_shoot) {};
+	Switch_shoot = false;
+	Sound_Killed();
+	while(!Switch_shoot) {};
+	Switch_shoot = false;
+	Sound_Explosion();
+	while(!Switch_shoot) {};
+	Switch_shoot = false;
+	Sound_Fastinvader1();
+	while(!Switch_shoot) {};
+	Switch_shoot = false;
+	Sound_Fastinvader2();
+	while(!Switch_shoot) {};
+	Switch_shoot = false;
+	Sound_Fastinvader3();
+	while(!Switch_shoot) {};
+	Switch_shoot = false;
+	Sound_Fastinvader4();
+	while(!Switch_shoot) {};
+	Switch_shoot = false;
+	Sound_Highpitch();
+  while(1)
+	{
+  }
+
 } */
