@@ -421,9 +421,9 @@
               <FilePath>.\random.s</FilePath>
             </File>
             <File>
-              <FileName>SpaceInvaders.c</FileName>
+              <FileName>Defender.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\SpaceInvaders.c</FilePath>
+              <FilePath>.\Defender.c</FilePath>
             </File>
             <File>
               <FileName>TExaS.c</FileName>
@@ -449,6 +449,16 @@
               <FileName>Switches.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Switches.c</FilePath>
+            </File>
+            <File>
+              <FileName>SlidePot.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SlidePot.c</FilePath>
+            </File>
+            <File>
+              <FileName>GameEngine.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\GameEngine.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -499,6 +509,16 @@
               <FileName>Switches.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Switches.h</FilePath>
+            </File>
+            <File>
+              <FileName>SlidePot.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\SlidePot.h</FilePath>
+            </File>
+            <File>
+              <FileName>GameEngine.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\GameEngine.h</FilePath>
             </File>
           </Files>
         </Group>

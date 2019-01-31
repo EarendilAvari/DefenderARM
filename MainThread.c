@@ -72,7 +72,6 @@
 #include "Nokia5110.h"
 #include "Random.h"
 #include "TExaS.h"
-#include "ImageArrays.h"
 #include "Switches.h"
 #include "Sound.h"
 #include "GameEngine.h"
@@ -107,10 +106,6 @@ int main(void)
 	{
 		if (Flag)
 		{
-			Nokia5110_ClearBuffer();
-			Nokia5110_SetPixel(2, PixelY);
-			Nokia5110_SetPixel(3, PixelY);
-			Nokia5110_SetPixel(4, PixelY);
 			Nokia5110_DisplayBuffer();
 			Flag = false;
 		}

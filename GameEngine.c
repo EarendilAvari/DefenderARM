@@ -4,7 +4,8 @@
 #include "SlidePot.h"
 #include "GameEngine.h"
 #include "SlidePot.h"
-
+#include "Nokia5110.h"
+#include "ImageArrays.h"
 
 // Initialize SysTick interrupts to trigger at 30 Hz, 25 ms
 void SysTick_Init(unsigned long period)
@@ -21,10 +22,18 @@ void GameEngine_Init(void)
 	SysTick_Init(2666665);
 }
 
+void _ControlShip(void)
+{
+	PixelY = SlidePot_toPixelY(SHIPH);	// Converts the ADC data into readable distance value
+	Nokia5110_PrintBMP(0, PixelY, PlayerShipNew, 0);
+}
+
+
 // executes every 25 ms, collects a sample, converts and stores in mailbox
 void SysTick_Handler(void)
 {
-	PixelY = SlidePot_toPixelY();	// Converts the ADC data into readable distance value
-	Flag = 1;										// Sets the flag to 1, indicating that there is a new sample
+	Nokia5110_ClearBuffer();
+	_ControlShip();
+	Flag = true;										// Sets the flag to 1, indicating that there is a new sample
 }
 

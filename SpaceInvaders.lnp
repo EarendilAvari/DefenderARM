@@ -2,7 +2,7 @@
 ".\startup.o"
 ".\nokia5110.o"
 ".\random.o"
-".\spaceinvaders.o"
+".\mainthread.o"
 ".\texas.o"
 ".\sound.o"
 ".\adc.o"

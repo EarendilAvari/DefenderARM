@@ -3,3 +3,5 @@
 .\gameengine.o: SlidePot.h
 .\gameengine.o: GameEngine.h
 .\gameengine.o: D:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
+.\gameengine.o: Nokia5110.h
+.\gameengine.o: ImageArrays.h

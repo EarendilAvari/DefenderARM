@@ -58,14 +58,14 @@ unsigned long SlidePot_Convert(unsigned long sample)
   return outConverted;
 }
 
-unsigned char SlidePot_toPixelY()
+unsigned char SlidePot_toPixelY(unsigned char height)
 {
 	unsigned long dist = SlidePot_Convert(ADC0_In());
 	unsigned long PixelY;
 	
 	if (dist < 1000) 
 	{
-		PixelY = 0;
+		PixelY = height;
 	}
 	else if (dist > 4500)
 	{
@@ -73,8 +73,11 @@ unsigned char SlidePot_toPixelY()
 	}
 	else
 	{
-		PixelY = (47*(dist - 1000))/3500; // Here is important to make sure that the division is done as the last operation
-																			// If not, the result may end being zero.
+		PixelY = ((47 - height)*(dist - 1000))/3500 + height; // Here is important to make sure that the division is done as the last operation
+																													// If not, the result may end being zero.
+																													// We scale the distance measured to the coordinate Y of the display
+																													// using the equation y = ((y1 - y0)/(x1 - x0))*x + y0
+																													// where y1 = 47, y0 = height, x1 = 4500, y1 = 1000
 	}
 	return (unsigned char)PixelY;
 }
