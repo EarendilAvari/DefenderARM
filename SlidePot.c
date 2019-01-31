@@ -69,11 +69,11 @@ unsigned char SlidePot_toPixelY()
 	}
 	else if (dist > 4500)
 	{
-		PixelY = 48;		// Change after for 48 - SizeY of the ship
+		PixelY = 47;		// Change after for 48 - SizeY of the ship
 	}
 	else
 	{
-		PixelY = (48*(dist - 1000))/3500; // Here is important to make sure that the division is done as the last operation
+		PixelY = (47*(dist - 1000))/3500; // Here is important to make sure that the division is done as the last operation
 																			// If not, the result may end being zero.
 	}
 	return (unsigned char)PixelY;

@@ -107,8 +107,11 @@ int main(void)
 	{
 		if (Flag)
 		{
-			Nokia5110_SetCursor(0,0);
-			Nokia5110_OutUDec((unsigned short)PixelY);
+			Nokia5110_ClearBuffer();
+			Nokia5110_SetPixel(2, PixelY);
+			Nokia5110_SetPixel(3, PixelY);
+			Nokia5110_SetPixel(4, PixelY);
+			Nokia5110_DisplayBuffer();
 			Flag = false;
 		}
   }

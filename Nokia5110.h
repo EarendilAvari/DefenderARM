@@ -269,3 +269,20 @@ void Nokia5110_ClearBuffer(void);
 // outputs: none
 // assumes: LCD is in default horizontal addressing mode (V = 0)
 void Nokia5110_DisplayBuffer(void);
+
+//********Nokia5110_SetPixel*****************
+// Turn on the specified pixel in the screen buffer.
+// inputs: x - horizontal coordinate of the pixel, must be less than 84
+//         y - vertical coordinate of the pixel, must be less than 48
+//         Nokia5110_SetPixel(0, 0); turns on the upper left pixel
+// outputs: none
+void Nokia5110_SetPixel(unsigned char x, unsigned char y);
+
+
+//********Nokia5110_ClearPixel*****************
+// Turn off the specified pixel in the screen buffer.
+// inputs: x - horizontal coordinate of the pixel, must be less than 84
+//         y - vertical coordinate of the pixel, must be less than 48
+//         Nokia5110_ClearPixel(0, 0); turns off the upper left pixel
+// outputs: none
+void Nokia5110_ClearPixel(unsigned char x, unsigned char y);

@@ -444,7 +444,8 @@ void Nokia5110_SetPixel(unsigned char x, unsigned char y)
 {
   unsigned short PixelByte;            // byte# in screen buffer
   unsigned char PixelBit;              // bit# in byte
-  if ((x<84) && (y<48)) {              // check screen boundaries
+  if ((x<84) && (y<48)) 
+	{              // check screen boundaries
     PixelByte = ((y/8)*84) + x;
     PixelBit = y % 8;
     Screen[PixelByte] |= 1U<<PixelBit;
@@ -457,10 +458,12 @@ void Nokia5110_SetPixel(unsigned char x, unsigned char y)
 //         y - vertical coordinate of the pixel, must be less than 48
 //         Nokia5110_ClearPixel(0, 0); turns off the upper left pixel
 // outputs: none
-void Nokia5110_ClearPixel(unsigned char x, unsigned char y) {
+void Nokia5110_ClearPixel(unsigned char x, unsigned char y) 
+{
   unsigned short PixelByte;            // byte# in screen buffer
   unsigned char PixelBit;              // bit# in byte
-  if ((x<84) && (y<48)) {              // check screen boundaries
+  if ((x<84) && (y<48)) 
+	{              // check screen boundaries
     PixelByte = ((y/8)*84) + x;
     PixelBit = y % 8;
     Screen[PixelByte] &= ~(1U<<PixelBit);
