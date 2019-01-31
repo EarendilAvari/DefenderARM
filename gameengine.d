@@ -5,3 +5,6 @@
 .\gameengine.o: D:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
 .\gameengine.o: Nokia5110.h
 .\gameengine.o: ImageArrays.h
+.\gameengine.o: Switches.h
+.\gameengine.o: Sound.h
+.\gameengine.o: DAC.h
