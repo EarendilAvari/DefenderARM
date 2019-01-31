@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-extern unsigned long Distance;
+extern unsigned long PixelY;
 extern bool Flag;
 
 void GameEngine_Init();

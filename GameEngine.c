@@ -6,7 +6,7 @@
 #include "SlidePot.h"
 
 
-// Initialize SysTick interrupts to trigger at 40 Hz, 25 ms
+// Initialize SysTick interrupts to trigger at 30 Hz, 25 ms
 void SysTick_Init(unsigned long period)
 {
 	NVIC_ST_CTRL_R = 0;					// Disables SysTick timer during configuring
@@ -24,7 +24,7 @@ void GameEngine_Init(void)
 // executes every 25 ms, collects a sample, converts and stores in mailbox
 void SysTick_Handler(void)
 {
-	Distance = SlidePot_toPixelY();	// Converts the ADC data into readable distance value
+	PixelY = SlidePot_toPixelY();	// Converts the ADC data into readable distance value
 	Flag = 1;										// Sets the flag to 1, indicating that there is a new sample
 }
 

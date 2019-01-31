@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\SpaceInvaders.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\SpaceInvaders.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Thu Jan 31 00:15:25 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Thu Jan 31 01:05:27 2019
 <BR><P>
 <H3>Maximum Stack Usage =         40 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -875,8 +875,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
 </UL>
 
-<P><STRONG><a name="[9e]"></a>SlidePot_toPixelY</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, slidepot.o(i.SlidePot_toPixelY))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = SlidePot_toPixelY &rArr; SlidePot_Convert
+<P><STRONG><a name="[9e]"></a>SlidePot_toPixelY</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, slidepot.o(i.SlidePot_toPixelY))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = SlidePot_toPixelY &rArr; SlidePot_Convert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SlidePot_Convert
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC0_In
@@ -898,7 +898,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c]"></a>SysTick_Handler</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, gameengine.o(i.SysTick_Handler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = SysTick_Handler &rArr; SlidePot_toPixelY &rArr; SlidePot_Convert
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = SysTick_Handler &rArr; SlidePot_toPixelY &rArr; SlidePot_Convert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SlidePot_toPixelY
 </UL>

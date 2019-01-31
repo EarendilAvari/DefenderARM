@@ -81,7 +81,7 @@
 bool Switch_shoot;
 bool Switch_special;
 bool Flag;
-unsigned long Distance;
+unsigned long PixelY;
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -108,7 +108,7 @@ int main(void)
 		if (Flag)
 		{
 			Nokia5110_SetCursor(0,0);
-			Nokia5110_OutUDec((unsigned short)Distance);
+			Nokia5110_OutUDec((unsigned short)PixelY);
 			Flag = false;
 		}
   }
