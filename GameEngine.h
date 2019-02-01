@@ -6,7 +6,7 @@
 extern unsigned long PixelY;
 extern bool Flag;
 
-void GameEngine_Init();
+void GameEngine_Init(void);
 
 #endif
 

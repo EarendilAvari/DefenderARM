@@ -8,3 +8,4 @@
 .\gameengine.o: Switches.h
 .\gameengine.o: Sound.h
 .\gameengine.o: DAC.h
+.\gameengine.o: Random.h

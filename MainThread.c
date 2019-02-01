@@ -77,8 +77,7 @@
 #include "GameEngine.h"
 
 
-bool Switch_shoot;
-bool Switch_special;
+
 bool Flag;
 unsigned long PixelY;
 
@@ -86,11 +85,7 @@ void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
 void Timer2_Init(unsigned long period);
 void Delay100ms(unsigned long count); // time delay in 0.1 seconds
-unsigned long TimerCount;
-unsigned long Semaphore;
 
-unsigned long counter = 0;
-unsigned long ADC_Result;
 
 int main(void)
 {
