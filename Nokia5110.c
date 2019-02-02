@@ -571,3 +571,37 @@ void Nokia5110_OutString_4x4pix_toBuffer(unsigned char xpos, unsigned char ypos,
   }
 }
 
+//********Nokia5110_OutUDec*****************
+// Output a 16-bit number in unsigned decimal format to the display buffer
+// Inputs: n  16-bit unsigned number
+//         xpos      horizontal position of bottom left corner of image, columns from the left edge
+//                     must be less than 84
+//                     0 is on the left; 82 is near the right
+//         ypos      vertical position of bottom left corner of image, rows from the top edge
+//                     must be less than 48
+//                     2 is near the top; 47 is at the bottom
+//         data       character to be printed
+// outputs: none
+void Nokia5110_OutUDec_4x4pix_toBuffer(unsigned char xpos, unsigned char ypos, unsigned short n)
+{
+		unsigned char counter = 0;
+		unsigned char buffer[5];
+		do
+		{
+			buffer[counter] = n%10;
+			n = n/10;
+			counter++;
+		} while (n);
+		
+		for (; counter; counter--)
+		{
+			Nokia5110_OutChar_4x4pix_toBuffer(xpos, ypos, buffer[counter-1] + '0');
+			xpos = xpos + 5;																										// We increase xpos by 5, for the position of the next character
+			if (xpos > (SCREENW - 5))																						// If there is no place in the line to put another character
+			{																																		// we jump to the next line.
+				ypos = ypos + 5;
+				xpos = 0;
+			}
+		}
+}
+

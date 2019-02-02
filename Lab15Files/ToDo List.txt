@@ -3,8 +3,8 @@
 - (DONE) Organize what we have so far in Call and in data flow graphs.
 - (DONE) Draw ship and move it with the slide pot
 - (DONE) Program normal shoots
-- Create a health bar
-- Create a lives bar
+- (DONE) Create a health bar
+- Create points that represent stars
 - Create the terrain
 - Create the enemies
 

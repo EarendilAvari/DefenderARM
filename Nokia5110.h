@@ -436,3 +436,17 @@ void Nokia5110_OutChar_4x4pix_toBuffer(unsigned char xpos, unsigned char ypos, u
 //         data       character to be printed
 // outputs: none
 void Nokia5110_OutString_4x4pix_toBuffer(unsigned char xpos, unsigned char ypos, char *ptr);
+
+
+//********Nokia5110_OutUDec*****************
+// Output a 16-bit number in unsigned decimal format to the display buffer
+// Inputs: n  16-bit unsigned number
+//         xpos      horizontal position of bottom left corner of image, columns from the left edge
+//                     must be less than 84
+//                     0 is on the left; 82 is near the right
+//         ypos      vertical position of bottom left corner of image, rows from the top edge
+//                     must be less than 48
+//                     2 is near the top; 47 is at the bottom
+//         data       character to be printed
+// outputs: none
+void Nokia5110_OutUDec_4x4pix_toBuffer(unsigned char xpos, unsigned char ypos, unsigned short n);

@@ -10,6 +10,8 @@
 #include "Sound.h"
 #include "Random.h"
 
+#define MAXHP 4
+
 bool Switch_shoot;
 bool Switch_special;
 
@@ -28,6 +30,7 @@ typedef struct ShipVariables
 	ShootType shoots[5];
 	unsigned char shCounter;
 	unsigned char healthPoints;
+	unsigned short score;
 	bool dead;
 	unsigned char lives;
 }ShipType;
@@ -54,12 +57,29 @@ void GameEngine_Init(void)
 		playerShip.shoots[i].PosY = 0;
 	}
 	playerShip.shCounter = 0;
+	playerShip.healthPoints = 3;
+	playerShip.score = 0;
 }
 
 
 void _ShowHUD(void)
 {
-	Nokia5110_OutString_4x4pix_toBuffer(0, SCREENH - 5, "HP");
+	unsigned char i;
+	for (i = 0; i < SCREENW; i++)
+	{
+			Nokia5110_SetPixel(i, SCREENH - 7);
+	}
+	Nokia5110_OutString_4x4pix_toBuffer(0, SCREENH - 5, "HP:");
+	Nokia5110_OutUDec_4x4pix_toBuffer(15, SCREENH - 5, playerShip.healthPoints);
+	Nokia5110_OutChar_4x4pix_toBuffer(20, SCREENH - 5, '/');
+	Nokia5110_OutUDec_4x4pix_toBuffer(25, SCREENH - 5, MAXHP);
+	Nokia5110_OutString_4x4pix_toBuffer(35, SCREENH - 5, "score:");
+	Nokia5110_OutUDec_4x4pix_toBuffer(65, SCREENH - 5, playerShip.score);
+}
+
+void _ShowBackground(void)
+{
+	
 }
 
 void _ControlShip(void)
