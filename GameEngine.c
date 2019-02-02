@@ -56,6 +56,12 @@ void GameEngine_Init(void)
 	playerShip.shCounter = 0;
 }
 
+
+void _ShowHUD(void)
+{
+	Nokia5110_OutString_4x4pix_toBuffer(0, SCREENH - 5, "HP");
+}
+
 void _ControlShip(void)
 {
 	int i;
@@ -93,7 +99,7 @@ void _ControlShip(void)
 void SysTick_Handler(void)
 {
 	Nokia5110_ClearBuffer();
-	Nokia5110_OutChar_4x4pix_toBuffer(2,43,'a'); // Only to test the function
+	_ShowHUD();
 	_ControlShip();
 	Flag = true;										// Sets the flag to 1, indicating that there is a new sample for the display
 }

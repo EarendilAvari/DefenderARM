@@ -210,7 +210,7 @@ static const char ASCII_4x4pix[][4] = {
   ,{0x0F, 0x05, 0x05, 0x01} // 46 F
   ,{0x0F, 0x09, 0x09, 0x0D} // 47 G
   ,{0x0F, 0x04, 0x04, 0x0F} // 48 H
-  ,{0x09, 0x0F, 0x09, 0x0F} // 49 I
+  ,{0x09, 0x0F, 0x09, 0x09} // 49 I
   ,{0x0D, 0x09, 0x09, 0x0F} // 4a J
   ,{0x0F, 0x02, 0x05, 0x09} // 4b K
   ,{0x0F, 0x08, 0x08, 0x08} // 4c L
@@ -242,7 +242,7 @@ static const char ASCII_4x4pix[][4] = {
   ,{0x0F, 0x05, 0x05, 0x01} // 46 F
   ,{0x0F, 0x09, 0x09, 0x0D} // 47 G
   ,{0x0F, 0x04, 0x04, 0x0F} // 48 H
-  ,{0x09, 0x0F, 0x09, 0x0F} // 49 I
+  ,{0x09, 0x0F, 0x09, 0x09} // 49 I
   ,{0x0D, 0x09, 0x09, 0x0F} // 4a J
   ,{0x0F, 0x02, 0x05, 0x09} // 4b K
   ,{0x0F, 0x08, 0x08, 0x08} // 4c L
@@ -423,3 +423,16 @@ void Nokia5110_OutString_4x4pix(char *ptr);
 // outputs: none
 void Nokia5110_OutChar_4x4pix_toBuffer(unsigned char xpos, unsigned char ypos, unsigned char data);
 
+//********Nokia5110_OutString4x4_toBuffer*****************
+// Print a string of characters to the Display buffer.
+// The character will be printed at the given position.
+// inputs: ptr  pointer to NULL-terminated ASCII string
+//         xpos      horizontal position of bottom left corner of image, columns from the left edge
+//                     must be less than 84
+//                     0 is on the left; 82 is near the right
+//         ypos      vertical position of bottom left corner of image, rows from the top edge
+//                     must be less than 48
+//                     2 is near the top; 47 is at the bottom
+//         data       character to be printed
+// outputs: none
+void Nokia5110_OutString_4x4pix_toBuffer(unsigned char xpos, unsigned char ypos, char *ptr);
