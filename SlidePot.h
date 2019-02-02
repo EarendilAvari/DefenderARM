@@ -3,7 +3,7 @@
 
 
 void SlidePot_Init();
-unsigned char SlidePot_toPixelY();
+unsigned char SlidePot_toPixelY(unsigned char height);
 
 #endif
 

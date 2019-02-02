@@ -504,3 +504,48 @@ void Nokia5110_OutString_4x4pix(char *ptr){
     ptr = ptr + 1;
   }
 }
+
+
+//********Nokia5110_OutChar4x4_toBuffer*****************
+// Print a character of dimension 4x4 to the Display buffer.  
+// The character will be printed at the given position.
+// One blank column of pixels will be printed on the right side
+// of the character for readability.  
+// inputs: xpos      horizontal position of bottom left corner of image, columns from the left edge
+//                     must be less than 84
+//                     0 is on the left; 82 is near the right
+//         ypos      vertical position of bottom left corner of image, rows from the top edge
+//                     must be less than 48
+//                     2 is near the top; 47 is at the bottom
+//         data       character to be printed
+// outputs: none
+void Nokia5110_OutChar_4x4pix_toBuffer(unsigned char xpos, unsigned char ypos, unsigned char data)
+{
+	unsigned short xpos_byte, ypos_byte;
+  unsigned char	byte_mask, i;
+	if ((xpos > (SCREENW - 4)) || (ypos > (SCREENH - 4)))
+	{
+		return;	// it returns if xpos or ypos are bigger than the dimensions of the display
+	}
+	ypos_byte = ypos/8; 									// This correspond to the row number of the matrix of bytes
+	xpos_byte = xpos + ypos_byte*SCREENW; // This correspond to the element number in the Screen array where we want to write
+	byte_mask = ypos%8;										// This corresponds to the highest bit we want to write on the byte
+  for(i=0; i<4; i=i+1)
+	{
+		Screen[xpos_byte + i] = (ASCII_4x4pix[data - 0x20][i])<<byte_mask;     // We print into the byte with position xpos_byte + 1, moving it down
+																																					 // The quantity of bits given by byte_mask
+		if ((xpos_byte + i + SCREENW < SCREENW*SCREENH/8) && (byte_mask >= 4)) // If byte_mask is bigger than 4, meaning that our character needs to be also written
+																																					 // on the down next element down
+		{
+			Screen[xpos_byte + i + SCREENW] = (ASCII_4x4pix[data - 0x20][i])>>(8-byte_mask); // For the bits that need to be written on the down next byte, we need to move them up
+																																											 // that is given by 8 which is the quantity of bits in a byte minus the byte_mask
+		}
+  }
+	Screen[xpos_byte + i] &= ~0xFF<<byte_mask;																					 // We leave a pixel wide space empty for readability
+	if ((xpos_byte + i + SCREENW < SCREENW*SCREENH/8) && (byte_mask >= 4))
+	{
+		Screen[xpos_byte + i + SCREENW] &= ~0xFF>>(8-byte_mask);
+	}
+}
+
+

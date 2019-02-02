@@ -31,7 +31,7 @@ unsigned long SlidePot_Convert(unsigned long sample)
 
 	// Calibrated version
 
-	unsigned long A, B, outConverted;
+	long A, B, outConverted;
 
 	// Constants A and B are calculated by taking diverse points in the form (Distance, ADCValue)
 	// I calculated the slopes between the different points and I calculated the average to get A

@@ -7,47 +7,54 @@ D:\Keil\Labware\Lab15_SpaceInvaders\SpaceInvaders.uvproj
 Project File Date:  02/01/2019
 
 <h2>Output:</h2>
-Build target 'SpaceInvaders'
+Rebuild target 'SpaceInvaders'
+assembling startup.s...
 compiling Nokia5110.c...
-Nokia5110.c(506): warning:  #1-D: last line of file ends without a newline
-  }
-Nokia5110.c: 1 warning, 0 errors
+assembling random.s...
 compiling MainThread.c...
-MainThread.c(224): warning:  #1-D: last line of file ends without a newline
-  } */
-MainThread.c: 1 warning, 0 errors
+compiling TExaS.c...
+compiling Sound.c...
+SoundArrays.h(1136): warning:  #1-D: last line of file ends without a newline
+        
+Sound.c: 1 warning, 0 errors
+compiling ADC.c...
+ADC.c(35): warning:  #550-D: variable "delay" was set but never used
+        unsigned long delay;
+ADC.c: 1 warning, 0 errors
+compiling DAC.c...
+DAC.c(18): warning:  #550-D: variable "delay" was set but never used
+        unsigned long delay;
+DAC.c: 1 warning, 0 errors
+compiling Switches.c...
+Switches.c(9): warning:  #550-D: variable "delay" was set but never used
+        unsigned long delay;
+Switches.c: 1 warning, 0 errors
+compiling SlidePot.c...
 compiling GameEngine.c...
 SlidePot.h(5): warning:  #1295-D: Deprecated declaration SlidePot_Init - give arg types
   void SlidePot_Init();
-SlidePot.h(6): warning:  #1295-D: Deprecated declaration SlidePot_toPixelY - give arg types
-  unsigned char SlidePot_toPixelY();
-GameEngine.c: 2 warnings, 0 errors
+GameEngine.c: 1 warning, 0 errors
 linking...
-Program Size: Code=4968 RO-data=21784 RW-data=80 ZI-data=1704  
-".\SpaceInvaders.axf" - 0 Error(s), 4 Warning(s).
+Program Size: Code=5236 RO-data=21784 RW-data=80 ZI-data=1704  
+".\SpaceInvaders.axf" - 0 Error(s), 5 Warning(s).
 Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\SpaceInvaders.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
 Verify OK.
-ay" was set but never used
-        unsigned long delay;
-Switches.c: 1 warning, 0 errors
-compiling SlidePot.c...
-SlidePot.c(48): warning:  #68-D: integer conversion resulted in a change of sign
-                B = -13291;
-SlidePot.c: 1 warning, 0 errors
-compiling GameEngine.c...
-SlidePot.h(5): warning:  #1295-D: Deprecated declaration SlidePot_Init - give arg types
+d declaration SlidePot_Init - give arg types
   void SlidePot_Init();
 SlidePot.h(6): warning:  #1295-D: Deprecated declaration SlidePot_toPixelY - give arg types
   unsigned char SlidePot_toPixelY();
 GameEngine.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=4968 RO-data=21784 RW-data=80 ZI-data=1704  
+Program Size: Code=5236 RO-data=21784 RW-data=80 ZI-data=1704  
 ".\SpaceInvaders.axf" - 0 Error(s), 9 Warning(s).
 Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\SpaceInvaders.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
 Verify OK.
+2 warnings, 0 errors
+".\SpaceInvaders.axf" - 2 Error(s), 9 Warning(s).
+Target not created

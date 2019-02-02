@@ -93,6 +93,7 @@ void _ControlShip(void)
 void SysTick_Handler(void)
 {
 	Nokia5110_ClearBuffer();
+	Nokia5110_OutChar_4x4pix_toBuffer(2,43,'a'); // Only to test the function
 	_ControlShip();
 	Flag = true;										// Sets the flag to 1, indicating that there is a new sample for the display
 }

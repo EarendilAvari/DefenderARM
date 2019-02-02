@@ -407,3 +407,19 @@ void Nokia5110_OutChar_4x4pix(unsigned char data);
 // outputs: none
 // assumes: LCD is in default horizontal addressing mode (V = 0)
 void Nokia5110_OutString_4x4pix(char *ptr);
+
+//********Nokia5110_OutChar4x4_toBuffer*****************
+// Print a character of dimension 4x4 to the Display buffer.  
+// The character will be printed at the given position.
+// One blank column of pixels will be printed on the right side
+// of the character for readability.  
+// inputs: xpos      horizontal position of bottom left corner of image, columns from the left edge
+//                     must be less than 84
+//                     0 is on the left; 82 is near the right
+//         ypos      vertical position of bottom left corner of image, rows from the top edge
+//                     must be less than 48
+//                     2 is near the top; 47 is at the bottom
+//         data       character to be printed
+// outputs: none
+void Nokia5110_OutChar_4x4pix_toBuffer(unsigned char xpos, unsigned char ypos, unsigned char data);
+
