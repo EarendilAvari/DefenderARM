@@ -469,3 +469,38 @@ void Nokia5110_ClearPixel(unsigned char x, unsigned char y)
     Screen[PixelByte] &= ~(1U<<PixelBit);
   }
 }
+
+
+//********Nokia5110_OutChar4x4*****************
+// Print a character to the Nokia 5110 48x84 LCD.  The
+// character will be printed at the current cursor position,
+// the cursor will automatically be updated, and it will
+// wrap to the next row or back to the top if necessary.
+// One blank column of pixels will be printed on the right side
+// of the character for readability.  
+// inputs: data  character to print
+// outputs: none
+// assumes: LCD is in default horizontal addressing mode (V = 0)
+void Nokia5110_OutChar_4x4pix(unsigned char data)
+{
+  int i;
+  for(i=0; i<4; i=i+1){
+    lcdwrite(DATA, ASCII_4x4pix[data - 0x20][i]);
+  }
+  lcdwrite(DATA, 0x00);                 // blank vertical line padding
+}
+
+
+//********Nokia5110_OutString4x4*****************
+// Print a string of characters to the Nokia 5110 48x84 LCD.
+// The string will automatically wrap, so padding spaces may
+// be needed to make the output look optimal.
+// inputs: ptr  pointer to NULL-terminated ASCII string
+// outputs: none
+// assumes: LCD is in default horizontal addressing mode (V = 0)
+void Nokia5110_OutString_4x4pix(char *ptr){
+  while(*ptr){
+    Nokia5110_OutChar_4x4pix((unsigned char)*ptr);
+    ptr = ptr + 1;
+  }
+}

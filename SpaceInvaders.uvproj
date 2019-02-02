@@ -421,9 +421,9 @@
               <FilePath>.\random.s</FilePath>
             </File>
             <File>
-              <FileName>Defender.c</FileName>
+              <FileName>MainThread.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Defender.c</FilePath>
+              <FilePath>.\MainThread.c</FilePath>
             </File>
             <File>
               <FileName>TExaS.c</FileName>

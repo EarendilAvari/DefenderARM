@@ -421,9 +421,9 @@
               <FilePath>.\random.s</FilePath>
             </File>
             <File>
-              <FileName>SpaceInvaders.c</FileName>
+              <FileName>Defender.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\SpaceInvaders.c</FilePath>
+              <FilePath>.\Defender.c</FilePath>
             </File>
             <File>
               <FileName>TExaS.c</FileName>

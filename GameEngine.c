@@ -16,9 +16,9 @@ bool Switch_special;
 // Structure used for the normal shoots
 typedef struct ShootVariables
 {
-	unsigned char PosXShoot;
-	unsigned char PosYShoot;
-	bool showingShoot;
+	unsigned char PosX;
+	unsigned char PosY;
+	bool showShoot;
 }ShootType;
 
 typedef struct ShipVariables
@@ -26,7 +26,7 @@ typedef struct ShipVariables
 	unsigned char posX;
 	unsigned char posY;
 	ShootType shoots[5];
-	unsigned char shootCounter;
+	unsigned char shCounter;
 	unsigned char healthPoints;
 	bool dead;
 	unsigned char lives;
@@ -50,10 +50,10 @@ void GameEngine_Init(void)
 	SysTick_Init(2666665);
 	for (i=0; i<5; i++)
 	{
-		playerShip.shoots[i].PosXShoot = SHIPW;
-		playerShip.shoots[i].PosYShoot = 0;
+		playerShip.shoots[i].PosX = SHIPW;
+		playerShip.shoots[i].PosY = 0;
 	}
-	playerShip.shootCounter = 0;
+	playerShip.shCounter = 0;
 }
 
 void _ControlShip(void)
@@ -66,24 +66,24 @@ void _ControlShip(void)
 	//%%%%%%%%%%%%%%%%%% NORMAL SHOOTS %%%%%%%%%%%%%%%%%%%
 	if (Switch_shoot)																				// If the switch is pressed we do the following operations on the next shoot on the array
 	{
-		playerShip.shoots[playerShip.shootCounter].showingShoot = true;							// We make showingShoot true, this variable is used to show the shoot in the display until it dissapears
+		playerShip.shoots[playerShip.shCounter].showShoot = true;							// We make showingShoot true, this variable is used to show the shoot in the display until it dissapears
 		Sound_Shoot();																															// We play the shoot sound by pressing the switch
-		playerShip.shoots[playerShip.shootCounter].PosYShoot = PixelY - (SHIPH/2);  // We set the position Y of the shoot equals to the center of the ship
-		playerShip.shoots[playerShip.shootCounter].PosXShoot = SHIPW;								// We set the position X of the shoot equals to the pick of the ship
-		playerShip.shootCounter++;
-		if (playerShip.shootCounter >= 5) playerShip.shootCounter = 0;							// If ShootCounter is bigger or equal to 5, it is setted again to 0
+		playerShip.shoots[playerShip.shCounter].PosY = PixelY - (SHIPH/2);  // We set the position Y of the shoot equals to the center of the ship
+		playerShip.shoots[playerShip.shCounter].PosX = SHIPW;								// We set the position X of the shoot equals to the pick of the ship
+		playerShip.shCounter++;
+		if (playerShip.shCounter >= 5) playerShip.shCounter = 0;							// If ShootCounter is bigger or equal to 5, it is setted again to 0
 		Switch_shoot = false;																	// We set back the value of the switch
 	}
 	for (i=0; i<5; i++)						// For every possible shoot
 	{
-		if (playerShip.shoots[i].showingShoot)		// If the shoot should be shown
+		if (playerShip.shoots[i].showShoot)		// If the shoot should be shown
 		{
-			Nokia5110_SetPixel(playerShip.shoots[i].PosXShoot, playerShip.shoots[i].PosYShoot);				// We print three pixels which move until they go out of the screen
-			Nokia5110_SetPixel(playerShip.shoots[i].PosXShoot + 1, playerShip.shoots[i].PosYShoot);	
-			Nokia5110_SetPixel(playerShip.shoots[i].PosXShoot + 2, playerShip.shoots[i].PosYShoot);
-			playerShip.shoots[i].PosXShoot++;																		
-			if (playerShip.shoots[i].PosXShoot >= SCREENW)
-				playerShip.shoots[i].showingShoot = false;													// if the shoot reaches the end of the screen, we turn off the value indicating that a shoot should be shown
+			Nokia5110_SetPixel(playerShip.shoots[i].PosX, playerShip.shoots[i].PosY);				// We print three pixels which move until they go out of the screen
+			Nokia5110_SetPixel(playerShip.shoots[i].PosX + 1, playerShip.shoots[i].PosY);	
+			Nokia5110_SetPixel(playerShip.shoots[i].PosX + 2, playerShip.shoots[i].PosY);
+			playerShip.shoots[i].PosX++;																		
+			if (playerShip.shoots[i].PosX >= SCREENW)
+				playerShip.shoots[i].showShoot = false;													// if the shoot reaches the end of the screen, we turn off the value indicating that a shoot should be shown
 		}
 	}
 }
