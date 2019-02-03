@@ -97,7 +97,6 @@ int main(void)
 	EnableInterrupts();
 	Nokia5110_Clear();
 	GameEngine_Init();
-	Nokia5110_OutString_4x4pix("abcdefghijklmnopqrstuvwxyz/.,+-0123456789");
   while(1)
 	{
 		if (Flag)

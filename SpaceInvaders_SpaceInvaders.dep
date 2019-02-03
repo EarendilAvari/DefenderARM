@@ -3,7 +3,7 @@ F (.\startup.s)(0x57017158)(--cpu Cortex-M4 --pd "__RTX SETA 1" --pd "__EVAL SET
 F (.\Nokia5110.c)(0x5C561217)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\nokia5110.o --omf_browse .\nokia5110.crf --depend .\nokia5110.d)
 I (Nokia5110.h)(0x5C5610C7)
 F (.\random.s)(0x54A1096A)(--cpu Cortex-M4 --pd "__RTX SETA 1" --pd "__EVAL SETA 1" -g --apcs=interwork -I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary--list .\random.lst --xref -o .\random.o --depend .\random.d)
-F (.\MainThread.c)(0x5C55FB46)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\mainthread.o --omf_browse .\mainthread.crf --depend .\mainthread.d)
+F (.\MainThread.c)(0x5C56299B)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\mainthread.o --omf_browse .\mainthread.crf --depend .\mainthread.d)
 I (..//tm4c123gh6pm.h)(0x51D43872)
 I (Nokia5110.h)(0x5C5610C7)
 I (Random.h)(0x54A1096A)
@@ -30,9 +30,9 @@ F (.\Switches.c)(0x5C4DEF4D)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=i
 I (Switches.h)(0x5C4DE5AF)
 I (D:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
 I (..//tm4c123gh6pm.h)(0x51D43872)
-F (.\SlidePot.c)(0x5C561E08)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\slidepot.o --omf_browse .\slidepot.crf --depend .\slidepot.d)
+F (.\SlidePot.c)(0x5C561E33)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\slidepot.o --omf_browse .\slidepot.crf --depend .\slidepot.d)
 I (ADC.h)(0x5C536E6A)
-F (.\GameEngine.c)(0x5C561DC7)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\gameengine.o --omf_browse .\gameengine.crf --depend .\gameengine.d)
+F (.\GameEngine.c)(0x5C563386)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\gameengine.o --omf_browse .\gameengine.crf --depend .\gameengine.d)
 I (..//tm4c123gh6pm.h)(0x51D43872)
 I (SlidePot.h)(0x5C55FAF5)
 I (GameEngine.h)(0x5C538567)
