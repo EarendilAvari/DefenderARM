@@ -74,6 +74,7 @@
 #include "TExaS.h"
 #include "Switches.h"
 #include "Sound.h"
+#include "SlidePot.h"
 #include "GameEngine.h"
 
 
@@ -96,6 +97,7 @@ int main(void)
 	Sound_Init();
 	EnableInterrupts();
 	Nokia5110_Clear();
+	SlidePot_Init();
 	GameEngine_Init();
   while(1)
 	{

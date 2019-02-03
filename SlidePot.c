@@ -2,7 +2,7 @@
 
 #include "ADC.h"
 
-void SlidePot_Init()
+void SlidePot_Init(void)
 {
 	ADC0_Init();
 }

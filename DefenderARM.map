@@ -49,6 +49,7 @@ Section Cross References
     mainthread.o(i.main) refers to sound.o(i.Sound_Init) for Sound_Init
     mainthread.o(i.main) refers to startup.o(.text) for EnableInterrupts
     mainthread.o(i.main) refers to nokia5110.o(i.Nokia5110_Clear) for Nokia5110_Clear
+    mainthread.o(i.main) refers to slidepot.o(i.SlidePot_Init) for SlidePot_Init
     mainthread.o(i.main) refers to gameengine.o(i.GameEngine_Init) for GameEngine_Init
     mainthread.o(i.main) refers to nokia5110.o(i.Nokia5110_DisplayBuffer) for Nokia5110_DisplayBuffer
     mainthread.o(i.main) refers to mainthread.o(.data) for Flag
@@ -94,13 +95,11 @@ Section Cross References
     slidepot.o(i.SlidePot_Init) refers to adc.o(i.ADC0_Init) for ADC0_Init
     slidepot.o(i.SlidePot_toPixelY) refers to adc.o(i.ADC0_In) for ADC0_In
     slidepot.o(i.SlidePot_toPixelY) refers to slidepot.o(i.SlidePot_Convert) for SlidePot_Convert
-    gameengine.o(i.GameEngine_Init) refers to slidepot.o(i.SlidePot_Init) for SlidePot_Init
     gameengine.o(i.GameEngine_Init) refers to gameengine.o(i.SysTick_Init) for SysTick_Init
-    gameengine.o(i.GameEngine_Init) refers to random.o(.text) for Random32
+    gameengine.o(i.GameEngine_Init) refers to gameengine.o(i._GroundNextY) for _GroundNextY
     gameengine.o(i.GameEngine_Init) refers to gameengine.o(.constdata) for PlayerShipNew
     gameengine.o(i.GameEngine_Init) refers to gameengine.o(.bss) for playerShip
     gameengine.o(i.SysTick_Handler) refers to nokia5110.o(i.Nokia5110_ClearBuffer) for Nokia5110_ClearBuffer
-    gameengine.o(i.SysTick_Handler) refers to gameengine.o(i._ShowBackground) for _ShowBackground
     gameengine.o(i.SysTick_Handler) refers to gameengine.o(i._ShowTerrain) for _ShowTerrain
     gameengine.o(i.SysTick_Handler) refers to gameengine.o(i._ShowHUD) for _ShowHUD
     gameengine.o(i.SysTick_Handler) refers to gameengine.o(i._ControlShip) for _ControlShip
@@ -114,6 +113,7 @@ Section Cross References
     gameengine.o(i._ControlShip) refers to mainthread.o(.data) for PixelY
     gameengine.o(i._ControlShip) refers to gameengine.o(.data) for Switch_shoot
     gameengine.o(i._ControlShip) refers to gameengine.o(.bss) for playerShip
+    gameengine.o(i._GroundNextY) refers to random.o(.text) for Random32
     gameengine.o(i._ShowBackground) refers to random.o(.text) for Random32
     gameengine.o(i._ShowBackground) refers to nokia5110.o(i.Nokia5110_SetPixel) for Nokia5110_SetPixel
     gameengine.o(i._ShowBackground) refers to gameengine.o(.data) for interruptCounter
@@ -123,7 +123,7 @@ Section Cross References
     gameengine.o(i._ShowHUD) refers to nokia5110.o(i.Nokia5110_OutUDec_4x4pix_toBuffer) for Nokia5110_OutUDec_4x4pix_toBuffer
     gameengine.o(i._ShowHUD) refers to nokia5110.o(i.Nokia5110_OutChar_4x4pix_toBuffer) for Nokia5110_OutChar_4x4pix_toBuffer
     gameengine.o(i._ShowHUD) refers to gameengine.o(.bss) for playerShip
-    gameengine.o(i._ShowTerrain) refers to random.o(.text) for Random32
+    gameengine.o(i._ShowTerrain) refers to gameengine.o(i._GroundNextY) for _GroundNextY
     gameengine.o(i._ShowTerrain) refers to nokia5110.o(i.Nokia5110_SetPixel) for Nokia5110_SetPixel
     gameengine.o(i._ShowTerrain) refers to gameengine.o(.data) for interruptCounter
     gameengine.o(i._ShowTerrain) refers to gameengine.o(.bss) for terrain
@@ -253,8 +253,9 @@ Removing Unused input sections from the image.
     Removing sound.o(i.Sound_Fastinvader4), (20 bytes).
     Removing sound.o(i.Sound_Highpitch), (20 bytes).
     Removing sound.o(i.Sound_Killed), (20 bytes).
+    Removing gameengine.o(i._ShowBackground), (256 bytes).
 
-24 unused section(s) (total 1882 bytes) removed from the image.
+25 unused section(s) (total 2138 bytes) removed from the image.
 
 ==============================================================================
 
@@ -385,52 +386,52 @@ Image Symbol Table
     i.DAC_Out                                0x00000660   Section        0  dac.o(i.DAC_Out)
     i.GPIOPortE_Handler                      0x00000670   Section        0  switches.o(i.GPIOPortE_Handler)
     i.GameEngine_Init                        0x000006b0   Section        0  gameengine.o(i.GameEngine_Init)
-    i.Nokia5110_Clear                        0x0000079c   Section        0  nokia5110.o(i.Nokia5110_Clear)
-    i.Nokia5110_ClearBuffer                  0x000007bc   Section        0  nokia5110.o(i.Nokia5110_ClearBuffer)
-    i.Nokia5110_DisplayBuffer                0x000007d4   Section        0  nokia5110.o(i.Nokia5110_DisplayBuffer)
-    i.Nokia5110_DrawFullImage                0x000007e4   Section        0  nokia5110.o(i.Nokia5110_DrawFullImage)
-    i.Nokia5110_Init                         0x00000808   Section        0  nokia5110.o(i.Nokia5110_Init)
-    i.Nokia5110_OutChar_4x4pix_toBuffer      0x00000974   Section        0  nokia5110.o(i.Nokia5110_OutChar_4x4pix_toBuffer)
-    i.Nokia5110_OutString_4x4pix_toBuffer    0x00000a40   Section        0  nokia5110.o(i.Nokia5110_OutString_4x4pix_toBuffer)
-    i.Nokia5110_OutUDec_4x4pix_toBuffer      0x00000a6c   Section        0  nokia5110.o(i.Nokia5110_OutUDec_4x4pix_toBuffer)
-    i.Nokia5110_PrintBMP                     0x00000ac4   Section        0  nokia5110.o(i.Nokia5110_PrintBMP)
-    i.Nokia5110_SetCursor                    0x00000c6c   Section        0  nokia5110.o(i.Nokia5110_SetCursor)
-    i.Nokia5110_SetPixel                     0x00000c9c   Section        0  nokia5110.o(i.Nokia5110_SetPixel)
-    i.PLL_Init                               0x00000ce0   Section        0  texas.o(i.PLL_Init)
-    i.SetCode                                0x00000d5c   Section        0  texas.o(i.SetCode)
-    i.SetCourse                              0x00000d74   Section        0  texas.o(i.SetCourse)
-    i.SlidePot_Convert                       0x00000d8c   Section        0  slidepot.o(i.SlidePot_Convert)
-    i.SlidePot_Init                          0x00000dc0   Section        0  slidepot.o(i.SlidePot_Init)
-    i.SlidePot_toPixelY                      0x00000dc8   Section        0  slidepot.o(i.SlidePot_toPixelY)
-    i.Sound_Init                             0x00000e0c   Section        0  sound.o(i.Sound_Init)
-    i.Sound_Play                             0x00000e30   Section        0  sound.o(i.Sound_Play)
-    i.Sound_Shoot                            0x00000e58   Section        0  sound.o(i.Sound_Shoot)
-    i.SwitchesInit                           0x00000e6c   Section        0  switches.o(i.SwitchesInit)
-    i.SysTick_Handler                        0x00000f48   Section        0  gameengine.o(i.SysTick_Handler)
-    i.SysTick_Init                           0x00000f78   Section        0  gameengine.o(i.SysTick_Init)
-    i.TExaS_Init                             0x00000f90   Section        0  texas.o(i.TExaS_Init)
-    i.Timer2A_Handler                        0x00001154   Section        0  sound.o(i.Timer2A_Handler)
-    i.Timer2A_Start                          0x000011a0   Section        0  sound.o(i.Timer2A_Start)
-    i.Timer2A_Stop                           0x000011b4   Section        0  sound.o(i.Timer2A_Stop)
-    i.Timer2_Init                            0x000011c8   Section        0  sound.o(i.Timer2_Init)
-    i.Timer4A_Handler                        0x00001228   Section        0  texas.o(i.Timer4A_Handler)
-    i.Timer5A_Handler                        0x00001248   Section        0  texas.o(i.Timer5A_Handler)
-    i.UART0_Init                             0x00001278   Section        0  texas.o(i.UART0_Init)
-    i._ControlShip                           0x00001338   Section        0  gameengine.o(i._ControlShip)
-    i._ShowBackground                        0x00001474   Section        0  gameengine.o(i._ShowBackground)
-    i._ShowHUD                               0x00001574   Section        0  gameengine.o(i._ShowHUD)
-    i._ShowTerrain                           0x000015dc   Section        0  gameengine.o(i._ShowTerrain)
-    i.lcdwrite                               0x00001718   Section        0  nokia5110.o(i.lcdwrite)
-    lcdwrite                                 0x00001719   Thumb Code    66  nokia5110.o(i.lcdwrite)
-    i.main                                   0x00001764   Section        0  mainthread.o(i.main)
-    .constdata                               0x000017a0   Section      860  nokia5110.o(.constdata)
-    ASCII                                    0x000017a0   Data         480  nokia5110.o(.constdata)
-    ASCII_4x4pix                             0x00001980   Data         380  nokia5110.o(.constdata)
-    .constdata                               0x00001afc   Section      360  texas.o(.constdata)
-    .constdata                               0x00001c64   Section    15435  sound.o(.constdata)
-    .constdata                               0x000058af   Section     5097  gameengine.o(.constdata)
-    ASCII                                    0x000058af   Data         480  gameengine.o(.constdata)
-    ASCII_4x4pix                             0x00005a8f   Data         380  gameengine.o(.constdata)
+    i.Nokia5110_Clear                        0x00000770   Section        0  nokia5110.o(i.Nokia5110_Clear)
+    i.Nokia5110_ClearBuffer                  0x00000790   Section        0  nokia5110.o(i.Nokia5110_ClearBuffer)
+    i.Nokia5110_DisplayBuffer                0x000007a8   Section        0  nokia5110.o(i.Nokia5110_DisplayBuffer)
+    i.Nokia5110_DrawFullImage                0x000007b8   Section        0  nokia5110.o(i.Nokia5110_DrawFullImage)
+    i.Nokia5110_Init                         0x000007dc   Section        0  nokia5110.o(i.Nokia5110_Init)
+    i.Nokia5110_OutChar_4x4pix_toBuffer      0x00000948   Section        0  nokia5110.o(i.Nokia5110_OutChar_4x4pix_toBuffer)
+    i.Nokia5110_OutString_4x4pix_toBuffer    0x00000a14   Section        0  nokia5110.o(i.Nokia5110_OutString_4x4pix_toBuffer)
+    i.Nokia5110_OutUDec_4x4pix_toBuffer      0x00000a40   Section        0  nokia5110.o(i.Nokia5110_OutUDec_4x4pix_toBuffer)
+    i.Nokia5110_PrintBMP                     0x00000a98   Section        0  nokia5110.o(i.Nokia5110_PrintBMP)
+    i.Nokia5110_SetCursor                    0x00000c40   Section        0  nokia5110.o(i.Nokia5110_SetCursor)
+    i.Nokia5110_SetPixel                     0x00000c70   Section        0  nokia5110.o(i.Nokia5110_SetPixel)
+    i.PLL_Init                               0x00000cb4   Section        0  texas.o(i.PLL_Init)
+    i.SetCode                                0x00000d30   Section        0  texas.o(i.SetCode)
+    i.SetCourse                              0x00000d48   Section        0  texas.o(i.SetCourse)
+    i.SlidePot_Convert                       0x00000d60   Section        0  slidepot.o(i.SlidePot_Convert)
+    i.SlidePot_Init                          0x00000d94   Section        0  slidepot.o(i.SlidePot_Init)
+    i.SlidePot_toPixelY                      0x00000d9c   Section        0  slidepot.o(i.SlidePot_toPixelY)
+    i.Sound_Init                             0x00000de0   Section        0  sound.o(i.Sound_Init)
+    i.Sound_Play                             0x00000e04   Section        0  sound.o(i.Sound_Play)
+    i.Sound_Shoot                            0x00000e2c   Section        0  sound.o(i.Sound_Shoot)
+    i.SwitchesInit                           0x00000e40   Section        0  switches.o(i.SwitchesInit)
+    i.SysTick_Handler                        0x00000f1c   Section        0  gameengine.o(i.SysTick_Handler)
+    i.SysTick_Init                           0x00000f48   Section        0  gameengine.o(i.SysTick_Init)
+    i.TExaS_Init                             0x00000f60   Section        0  texas.o(i.TExaS_Init)
+    i.Timer2A_Handler                        0x00001124   Section        0  sound.o(i.Timer2A_Handler)
+    i.Timer2A_Start                          0x00001170   Section        0  sound.o(i.Timer2A_Start)
+    i.Timer2A_Stop                           0x00001184   Section        0  sound.o(i.Timer2A_Stop)
+    i.Timer2_Init                            0x00001198   Section        0  sound.o(i.Timer2_Init)
+    i.Timer4A_Handler                        0x000011f8   Section        0  texas.o(i.Timer4A_Handler)
+    i.Timer5A_Handler                        0x00001218   Section        0  texas.o(i.Timer5A_Handler)
+    i.UART0_Init                             0x00001248   Section        0  texas.o(i.UART0_Init)
+    i._ControlShip                           0x00001308   Section        0  gameengine.o(i._ControlShip)
+    i._GroundNextY                           0x00001444   Section        0  gameengine.o(i._GroundNextY)
+    i._ShowHUD                               0x0000148c   Section        0  gameengine.o(i._ShowHUD)
+    i._ShowTerrain                           0x000014f4   Section        0  gameengine.o(i._ShowTerrain)
+    i.lcdwrite                               0x000015dc   Section        0  nokia5110.o(i.lcdwrite)
+    lcdwrite                                 0x000015dd   Thumb Code    66  nokia5110.o(i.lcdwrite)
+    i.main                                   0x00001628   Section        0  mainthread.o(i.main)
+    .constdata                               0x00001668   Section      860  nokia5110.o(.constdata)
+    ASCII                                    0x00001668   Data         480  nokia5110.o(.constdata)
+    ASCII_4x4pix                             0x00001848   Data         380  nokia5110.o(.constdata)
+    .constdata                               0x000019c4   Section      360  texas.o(.constdata)
+    .constdata                               0x00001b2c   Section    15435  sound.o(.constdata)
+    .constdata                               0x00005777   Section     5097  gameengine.o(.constdata)
+    ASCII                                    0x00005777   Data         480  gameengine.o(.constdata)
+    ASCII_4x4pix                             0x00005957   Data         380  gameengine.o(.constdata)
     .data                                    0x20000000   Section        8  mainthread.o(.data)
     .data                                    0x20000008   Section       52  texas.o(.data)
     .data                                    0x2000003c   Section       12  sound.o(.data)
@@ -439,8 +440,8 @@ Image Symbol Table
     M                                        0x20000050   Data           4  random.o(DATA)
     .bss                                     0x20000054   Section      504  nokia5110.o(.bss)
     .bss                                     0x20000250   Section       56  texas.o(.bss)
-    .bss                                     0x20000288   Section      428  gameengine.o(.bss)
-    .bss                                     0x20000434   Section       96  libspace.o(.bss)
+    .bss                                     0x20000288   Section      429  gameengine.o(.bss)
+    .bss                                     0x20000438   Section       96  libspace.o(.bss)
     HEAP                                     0x20000498   Section        0  startup.o(HEAP)
     STACK                                    0x20000498   Section     1024  startup.o(STACK)
     HeapMem                                  0x20000498   Data           0  startup.o(HEAP)
@@ -673,85 +674,85 @@ Image Symbol Table
     DAC_Init                                 0x000005e5   Thumb Code    92  dac.o(i.DAC_Init)
     DAC_Out                                  0x00000661   Thumb Code    10  dac.o(i.DAC_Out)
     GPIOPortE_Handler                        0x00000671   Thumb Code    50  switches.o(i.GPIOPortE_Handler)
-    GameEngine_Init                          0x000006b1   Thumb Code   218  gameengine.o(i.GameEngine_Init)
-    Nokia5110_Clear                          0x0000079d   Thumb Code    32  nokia5110.o(i.Nokia5110_Clear)
-    Nokia5110_ClearBuffer                    0x000007bd   Thumb Code    20  nokia5110.o(i.Nokia5110_ClearBuffer)
-    Nokia5110_DisplayBuffer                  0x000007d5   Thumb Code    10  nokia5110.o(i.Nokia5110_DisplayBuffer)
-    Nokia5110_DrawFullImage                  0x000007e5   Thumb Code    34  nokia5110.o(i.Nokia5110_DrawFullImage)
-    Nokia5110_Init                           0x00000809   Thumb Code   316  nokia5110.o(i.Nokia5110_Init)
-    Nokia5110_OutChar_4x4pix_toBuffer        0x00000975   Thumb Code   194  nokia5110.o(i.Nokia5110_OutChar_4x4pix_toBuffer)
-    Nokia5110_OutString_4x4pix_toBuffer      0x00000a41   Thumb Code    44  nokia5110.o(i.Nokia5110_OutString_4x4pix_toBuffer)
-    Nokia5110_OutUDec_4x4pix_toBuffer        0x00000a6d   Thumb Code    88  nokia5110.o(i.Nokia5110_OutUDec_4x4pix_toBuffer)
-    Nokia5110_PrintBMP                       0x00000ac5   Thumb Code   420  nokia5110.o(i.Nokia5110_PrintBMP)
-    Nokia5110_SetCursor                      0x00000c6d   Thumb Code    48  nokia5110.o(i.Nokia5110_SetCursor)
-    Nokia5110_SetPixel                       0x00000c9d   Thumb Code    64  nokia5110.o(i.Nokia5110_SetPixel)
-    PLL_Init                                 0x00000ce1   Thumb Code   118  texas.o(i.PLL_Init)
-    SetCode                                  0x00000d5d   Thumb Code    20  texas.o(i.SetCode)
-    SetCourse                                0x00000d75   Thumb Code    20  texas.o(i.SetCourse)
-    SlidePot_Convert                         0x00000d8d   Thumb Code    48  slidepot.o(i.SlidePot_Convert)
-    SlidePot_Init                            0x00000dc1   Thumb Code     8  slidepot.o(i.SlidePot_Init)
-    SlidePot_toPixelY                        0x00000dc9   Thumb Code    66  slidepot.o(i.SlidePot_toPixelY)
-    Sound_Init                               0x00000e0d   Thumb Code    26  sound.o(i.Sound_Init)
-    Sound_Play                               0x00000e31   Thumb Code    26  sound.o(i.Sound_Play)
-    Sound_Shoot                              0x00000e59   Thumb Code    14  sound.o(i.Sound_Shoot)
-    SwitchesInit                             0x00000e6d   Thumb Code   172  switches.o(i.SwitchesInit)
-    SysTick_Handler                          0x00000f49   Thumb Code    40  gameengine.o(i.SysTick_Handler)
-    SysTick_Init                             0x00000f79   Thumb Code    22  gameengine.o(i.SysTick_Init)
-    TExaS_Init                               0x00000f91   Thumb Code   324  texas.o(i.TExaS_Init)
-    Timer2A_Handler                          0x00001155   Thumb Code    58  sound.o(i.Timer2A_Handler)
-    Timer2A_Start                            0x000011a1   Thumb Code    14  sound.o(i.Timer2A_Start)
-    Timer2A_Stop                             0x000011b5   Thumb Code    14  sound.o(i.Timer2A_Stop)
-    Timer2_Init                              0x000011c9   Thumb Code    80  sound.o(i.Timer2_Init)
-    Timer4A_Handler                          0x00001229   Thumb Code    20  texas.o(i.Timer4A_Handler)
-    Timer5A_Handler                          0x00001249   Thumb Code    34  texas.o(i.Timer5A_Handler)
-    UART0_Init                               0x00001279   Thumb Code   160  texas.o(i.UART0_Init)
-    _ControlShip                             0x00001339   Thumb Code   298  gameengine.o(i._ControlShip)
-    _ShowBackground                          0x00001475   Thumb Code   246  gameengine.o(i._ShowBackground)
-    _ShowHUD                                 0x00001575   Thumb Code    88  gameengine.o(i._ShowHUD)
-    _ShowTerrain                             0x000015dd   Thumb Code   306  gameengine.o(i._ShowTerrain)
-    main                                     0x00001765   Thumb Code    56  mainthread.o(i.main)
-    NoInputMsg                               0x00001afc   Data          40  texas.o(.constdata)
-    OutputPortMsg0                           0x00001b24   Data          40  texas.o(.constdata)
-    OutputPortMsg1                           0x00001b4c   Data          40  texas.o(.constdata)
-    OutputPortMsg2                           0x00001b74   Data          40  texas.o(.constdata)
-    OutputPortMsg3                           0x00001b9c   Data          40  texas.o(.constdata)
-    BlankMsg                                 0x00001bc4   Data          40  texas.o(.constdata)
-    InitializedMsg                           0x00001bec   Data          40  texas.o(.constdata)
-    IntroMsg                                 0x00001c14   Data          40  texas.o(.constdata)
-    DoneMsg                                  0x00001c3c   Data          40  texas.o(.constdata)
-    shoot                                    0x00001c64   Data        4080  sound.o(.constdata)
-    invaderkilled                            0x00002c54   Data        3377  sound.o(.constdata)
-    explosion                                0x00003985   Data        2000  sound.o(.constdata)
-    fastinvader1                             0x00004155   Data         982  sound.o(.constdata)
-    fastinvader2                             0x0000452b   Data        1042  sound.o(.constdata)
-    fastinvader3                             0x0000493d   Data        1054  sound.o(.constdata)
-    fastinvader4                             0x00004d5b   Data        1098  sound.o(.constdata)
-    highpitch                                0x000051a5   Data        1802  sound.o(.constdata)
-    SmallEnemy30PointA                       0x00005c0b   Data         199  gameengine.o(.constdata)
-    SmallEnemy30PointB                       0x00005cd2   Data         199  gameengine.o(.constdata)
-    SmallEnemy20PointA                       0x00005d99   Data         199  gameengine.o(.constdata)
-    SmallEnemy20PointB                       0x00005e60   Data         199  gameengine.o(.constdata)
-    SmallEnemy10PointA                       0x00005f27   Data         199  gameengine.o(.constdata)
-    SmallEnemy10PointB                       0x00005fee   Data         199  gameengine.o(.constdata)
-    PlayerShip0                              0x000060b5   Data         215  gameengine.o(.constdata)
-    SmallEnemyBonus0                         0x0000618c   Data         203  gameengine.o(.constdata)
-    Bunker0                                  0x00006257   Data         179  gameengine.o(.constdata)
-    Bunker1                                  0x0000630a   Data         179  gameengine.o(.constdata)
-    Bunker2                                  0x000063bd   Data         179  gameengine.o(.constdata)
-    Bunker3                                  0x00006470   Data         179  gameengine.o(.constdata)
-    BigExplosion0                            0x00006523   Data         215  gameengine.o(.constdata)
-    BigExplosion1                            0x000065fa   Data         215  gameengine.o(.constdata)
-    SmallExplosion0                          0x000066d1   Data         199  gameengine.o(.constdata)
-    SmallExplosion1                          0x00006798   Data         199  gameengine.o(.constdata)
-    Missile0                                 0x0000685f   Data         155  gameengine.o(.constdata)
-    Missile1                                 0x000068fa   Data         155  gameengine.o(.constdata)
-    Missile2                                 0x00006995   Data         155  gameengine.o(.constdata)
-    Laser0                                   0x00006a30   Data         155  gameengine.o(.constdata)
-    Laser1                                   0x00006acb   Data         155  gameengine.o(.constdata)
-    PlayerShipNew                            0x00006b66   Data         175  gameengine.o(.constdata)
-    HP                                       0x00006c15   Data         131  gameengine.o(.constdata)
-    Region$$Table$$Base                      0x00006c98   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00006cb8   Number         0  anon$$obj.o(Region$$Table)
+    GameEngine_Init                          0x000006b1   Thumb Code   176  gameengine.o(i.GameEngine_Init)
+    Nokia5110_Clear                          0x00000771   Thumb Code    32  nokia5110.o(i.Nokia5110_Clear)
+    Nokia5110_ClearBuffer                    0x00000791   Thumb Code    20  nokia5110.o(i.Nokia5110_ClearBuffer)
+    Nokia5110_DisplayBuffer                  0x000007a9   Thumb Code    10  nokia5110.o(i.Nokia5110_DisplayBuffer)
+    Nokia5110_DrawFullImage                  0x000007b9   Thumb Code    34  nokia5110.o(i.Nokia5110_DrawFullImage)
+    Nokia5110_Init                           0x000007dd   Thumb Code   316  nokia5110.o(i.Nokia5110_Init)
+    Nokia5110_OutChar_4x4pix_toBuffer        0x00000949   Thumb Code   194  nokia5110.o(i.Nokia5110_OutChar_4x4pix_toBuffer)
+    Nokia5110_OutString_4x4pix_toBuffer      0x00000a15   Thumb Code    44  nokia5110.o(i.Nokia5110_OutString_4x4pix_toBuffer)
+    Nokia5110_OutUDec_4x4pix_toBuffer        0x00000a41   Thumb Code    88  nokia5110.o(i.Nokia5110_OutUDec_4x4pix_toBuffer)
+    Nokia5110_PrintBMP                       0x00000a99   Thumb Code   420  nokia5110.o(i.Nokia5110_PrintBMP)
+    Nokia5110_SetCursor                      0x00000c41   Thumb Code    48  nokia5110.o(i.Nokia5110_SetCursor)
+    Nokia5110_SetPixel                       0x00000c71   Thumb Code    64  nokia5110.o(i.Nokia5110_SetPixel)
+    PLL_Init                                 0x00000cb5   Thumb Code   118  texas.o(i.PLL_Init)
+    SetCode                                  0x00000d31   Thumb Code    20  texas.o(i.SetCode)
+    SetCourse                                0x00000d49   Thumb Code    20  texas.o(i.SetCourse)
+    SlidePot_Convert                         0x00000d61   Thumb Code    48  slidepot.o(i.SlidePot_Convert)
+    SlidePot_Init                            0x00000d95   Thumb Code     8  slidepot.o(i.SlidePot_Init)
+    SlidePot_toPixelY                        0x00000d9d   Thumb Code    66  slidepot.o(i.SlidePot_toPixelY)
+    Sound_Init                               0x00000de1   Thumb Code    26  sound.o(i.Sound_Init)
+    Sound_Play                               0x00000e05   Thumb Code    26  sound.o(i.Sound_Play)
+    Sound_Shoot                              0x00000e2d   Thumb Code    14  sound.o(i.Sound_Shoot)
+    SwitchesInit                             0x00000e41   Thumb Code   172  switches.o(i.SwitchesInit)
+    SysTick_Handler                          0x00000f1d   Thumb Code    36  gameengine.o(i.SysTick_Handler)
+    SysTick_Init                             0x00000f49   Thumb Code    22  gameengine.o(i.SysTick_Init)
+    TExaS_Init                               0x00000f61   Thumb Code   324  texas.o(i.TExaS_Init)
+    Timer2A_Handler                          0x00001125   Thumb Code    58  sound.o(i.Timer2A_Handler)
+    Timer2A_Start                            0x00001171   Thumb Code    14  sound.o(i.Timer2A_Start)
+    Timer2A_Stop                             0x00001185   Thumb Code    14  sound.o(i.Timer2A_Stop)
+    Timer2_Init                              0x00001199   Thumb Code    80  sound.o(i.Timer2_Init)
+    Timer4A_Handler                          0x000011f9   Thumb Code    20  texas.o(i.Timer4A_Handler)
+    Timer5A_Handler                          0x00001219   Thumb Code    34  texas.o(i.Timer5A_Handler)
+    UART0_Init                               0x00001249   Thumb Code   160  texas.o(i.UART0_Init)
+    _ControlShip                             0x00001309   Thumb Code   298  gameengine.o(i._ControlShip)
+    _GroundNextY                             0x00001445   Thumb Code    72  gameengine.o(i._GroundNextY)
+    _ShowHUD                                 0x0000148d   Thumb Code    88  gameengine.o(i._ShowHUD)
+    _ShowTerrain                             0x000014f5   Thumb Code   224  gameengine.o(i._ShowTerrain)
+    main                                     0x00001629   Thumb Code    60  mainthread.o(i.main)
+    NoInputMsg                               0x000019c4   Data          40  texas.o(.constdata)
+    OutputPortMsg0                           0x000019ec   Data          40  texas.o(.constdata)
+    OutputPortMsg1                           0x00001a14   Data          40  texas.o(.constdata)
+    OutputPortMsg2                           0x00001a3c   Data          40  texas.o(.constdata)
+    OutputPortMsg3                           0x00001a64   Data          40  texas.o(.constdata)
+    BlankMsg                                 0x00001a8c   Data          40  texas.o(.constdata)
+    InitializedMsg                           0x00001ab4   Data          40  texas.o(.constdata)
+    IntroMsg                                 0x00001adc   Data          40  texas.o(.constdata)
+    DoneMsg                                  0x00001b04   Data          40  texas.o(.constdata)
+    shoot                                    0x00001b2c   Data        4080  sound.o(.constdata)
+    invaderkilled                            0x00002b1c   Data        3377  sound.o(.constdata)
+    explosion                                0x0000384d   Data        2000  sound.o(.constdata)
+    fastinvader1                             0x0000401d   Data         982  sound.o(.constdata)
+    fastinvader2                             0x000043f3   Data        1042  sound.o(.constdata)
+    fastinvader3                             0x00004805   Data        1054  sound.o(.constdata)
+    fastinvader4                             0x00004c23   Data        1098  sound.o(.constdata)
+    highpitch                                0x0000506d   Data        1802  sound.o(.constdata)
+    SmallEnemy30PointA                       0x00005ad3   Data         199  gameengine.o(.constdata)
+    SmallEnemy30PointB                       0x00005b9a   Data         199  gameengine.o(.constdata)
+    SmallEnemy20PointA                       0x00005c61   Data         199  gameengine.o(.constdata)
+    SmallEnemy20PointB                       0x00005d28   Data         199  gameengine.o(.constdata)
+    SmallEnemy10PointA                       0x00005def   Data         199  gameengine.o(.constdata)
+    SmallEnemy10PointB                       0x00005eb6   Data         199  gameengine.o(.constdata)
+    PlayerShip0                              0x00005f7d   Data         215  gameengine.o(.constdata)
+    SmallEnemyBonus0                         0x00006054   Data         203  gameengine.o(.constdata)
+    Bunker0                                  0x0000611f   Data         179  gameengine.o(.constdata)
+    Bunker1                                  0x000061d2   Data         179  gameengine.o(.constdata)
+    Bunker2                                  0x00006285   Data         179  gameengine.o(.constdata)
+    Bunker3                                  0x00006338   Data         179  gameengine.o(.constdata)
+    BigExplosion0                            0x000063eb   Data         215  gameengine.o(.constdata)
+    BigExplosion1                            0x000064c2   Data         215  gameengine.o(.constdata)
+    SmallExplosion0                          0x00006599   Data         199  gameengine.o(.constdata)
+    SmallExplosion1                          0x00006660   Data         199  gameengine.o(.constdata)
+    Missile0                                 0x00006727   Data         155  gameengine.o(.constdata)
+    Missile1                                 0x000067c2   Data         155  gameengine.o(.constdata)
+    Missile2                                 0x0000685d   Data         155  gameengine.o(.constdata)
+    Laser0                                   0x000068f8   Data         155  gameengine.o(.constdata)
+    Laser1                                   0x00006993   Data         155  gameengine.o(.constdata)
+    PlayerShipNew                            0x00006a2e   Data         175  gameengine.o(.constdata)
+    HP                                       0x00006add   Data         131  gameengine.o(.constdata)
+    Region$$Table$$Base                      0x00006b60   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00006b80   Number         0  anon$$obj.o(Region$$Table)
     Flag                                     0x20000000   Data           1  mainthread.o(.data)
     PixelY                                   0x20000004   Data           4  mainthread.o(.data)
     TExaS_Period                             0x20000008   Data           4  texas.o(.data)
@@ -775,9 +776,9 @@ Image Symbol Table
     Screen                                   0x20000054   Data         504  nokia5110.o(.bss)
     TExaS                                    0x20000250   Data          56  texas.o(.bss)
     playerShip                               0x20000288   Data          24  gameengine.o(.bss)
-    terrain                                  0x200002a0   Data         404  gameengine.o(.bss)
-    __libspace_start                         0x20000434   Data          96  libspace.o(.bss)
-    __temporary_stack_top$libspace           0x20000494   Data           0  libspace.o(.bss)
+    terrain                                  0x200002a0   Data         405  gameengine.o(.bss)
+    __libspace_start                         0x20000438   Data          96  libspace.o(.bss)
+    __temporary_stack_top$libspace           0x20000498   Data           0  libspace.o(.bss)
 
 
 
@@ -787,121 +788,121 @@ Memory Map of the image
 
   Image Entry point : 0x0000026d
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00006d0c, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00006bd4, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Base: 0x00000000, Size: 0x00006cb8, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x00006b80, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x00000000   0x00000284   Code   RO            3  * RESET               startup.o
-    0x00000284   0x00000008   Code   RO          548  * !!!main             c_w.l(__main.o)
-    0x0000028c   0x00000034   Code   RO          702    !!!scatter          c_w.l(__scatter.o)
-    0x000002c0   0x0000001a   Code   RO          704    !!handler_copy      c_w.l(__scatter_copy.o)
+    0x00000284   0x00000008   Code   RO          554  * !!!main             c_w.l(__main.o)
+    0x0000028c   0x00000034   Code   RO          708    !!!scatter          c_w.l(__scatter.o)
+    0x000002c0   0x0000001a   Code   RO          710    !!handler_copy      c_w.l(__scatter_copy.o)
     0x000002da   0x00000002   PAD
-    0x000002dc   0x0000001c   Code   RO          706    !!handler_zi        c_w.l(__scatter_zi.o)
-    0x000002f8   0x00000002   Code   RO          575    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
-    0x000002fa   0x00000000   Code   RO          582    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          585    .ARM.Collect$$libinit$$00000008  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          587    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          589    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          592    .ARM.Collect$$libinit$$0000000F  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          594    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          596    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          598    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          600    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          602    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          604    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          606    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          608    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          610    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          612    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          616    .ARM.Collect$$libinit$$0000002A  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          618    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          620    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
-    0x000002fa   0x00000000   Code   RO          622    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
-    0x000002fa   0x00000002   Code   RO          623    .ARM.Collect$$libinit$$00000031  c_w.l(libinit2.o)
-    0x000002fc   0x00000002   Code   RO          643    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
-    0x000002fe   0x00000000   Code   RO          657    .ARM.Collect$$libshutdown$$00000003  c_w.l(libshutdown2.o)
-    0x000002fe   0x00000000   Code   RO          660    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
-    0x000002fe   0x00000000   Code   RO          663    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
-    0x000002fe   0x00000000   Code   RO          665    .ARM.Collect$$libshutdown$$0000000B  c_w.l(libshutdown2.o)
-    0x000002fe   0x00000000   Code   RO          668    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
-    0x000002fe   0x00000002   Code   RO          669    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
-    0x00000300   0x00000000   Code   RO          550    .ARM.Collect$$rtentry$$00000000  c_w.l(rtentry.o)
-    0x00000300   0x00000000   Code   RO          552    .ARM.Collect$$rtentry$$00000002  c_w.l(rtentry2.o)
-    0x00000300   0x00000006   Code   RO          564    .ARM.Collect$$rtentry$$00000004  c_w.l(rtentry4.o)
-    0x00000306   0x00000000   Code   RO          554    .ARM.Collect$$rtentry$$00000009  c_w.l(rtentry2.o)
-    0x00000306   0x00000004   Code   RO          555    .ARM.Collect$$rtentry$$0000000A  c_w.l(rtentry2.o)
-    0x0000030a   0x00000000   Code   RO          557    .ARM.Collect$$rtentry$$0000000C  c_w.l(rtentry2.o)
-    0x0000030a   0x00000008   Code   RO          558    .ARM.Collect$$rtentry$$0000000D  c_w.l(rtentry2.o)
-    0x00000312   0x00000002   Code   RO          579    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
-    0x00000314   0x00000000   Code   RO          625    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
-    0x00000314   0x00000004   Code   RO          626    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
-    0x00000318   0x00000006   Code   RO          627    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x000002dc   0x0000001c   Code   RO          712    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x000002f8   0x00000002   Code   RO          581    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x000002fa   0x00000000   Code   RO          588    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          591    .ARM.Collect$$libinit$$00000008  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          593    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          595    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          598    .ARM.Collect$$libinit$$0000000F  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          600    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          602    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          604    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          606    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          608    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          610    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          612    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          614    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          616    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          618    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          622    .ARM.Collect$$libinit$$0000002A  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          624    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          626    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x000002fa   0x00000000   Code   RO          628    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x000002fa   0x00000002   Code   RO          629    .ARM.Collect$$libinit$$00000031  c_w.l(libinit2.o)
+    0x000002fc   0x00000002   Code   RO          649    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x000002fe   0x00000000   Code   RO          663    .ARM.Collect$$libshutdown$$00000003  c_w.l(libshutdown2.o)
+    0x000002fe   0x00000000   Code   RO          666    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
+    0x000002fe   0x00000000   Code   RO          669    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
+    0x000002fe   0x00000000   Code   RO          671    .ARM.Collect$$libshutdown$$0000000B  c_w.l(libshutdown2.o)
+    0x000002fe   0x00000000   Code   RO          674    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
+    0x000002fe   0x00000002   Code   RO          675    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
+    0x00000300   0x00000000   Code   RO          556    .ARM.Collect$$rtentry$$00000000  c_w.l(rtentry.o)
+    0x00000300   0x00000000   Code   RO          558    .ARM.Collect$$rtentry$$00000002  c_w.l(rtentry2.o)
+    0x00000300   0x00000006   Code   RO          570    .ARM.Collect$$rtentry$$00000004  c_w.l(rtentry4.o)
+    0x00000306   0x00000000   Code   RO          560    .ARM.Collect$$rtentry$$00000009  c_w.l(rtentry2.o)
+    0x00000306   0x00000004   Code   RO          561    .ARM.Collect$$rtentry$$0000000A  c_w.l(rtentry2.o)
+    0x0000030a   0x00000000   Code   RO          563    .ARM.Collect$$rtentry$$0000000C  c_w.l(rtentry2.o)
+    0x0000030a   0x00000008   Code   RO          564    .ARM.Collect$$rtentry$$0000000D  c_w.l(rtentry2.o)
+    0x00000312   0x00000002   Code   RO          585    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x00000314   0x00000000   Code   RO          631    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x00000314   0x00000004   Code   RO          632    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x00000318   0x00000006   Code   RO          633    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x0000031e   0x00000002   PAD
     0x00000320   0x00000030   Code   RO            4    .text               startup.o
     0x00000350   0x00000040   Code   RO          134    .text               random.o
-    0x00000390   0x00000006   Code   RO          546    .text               c_w.l(heapauxi.o)
-    0x00000396   0x0000004a   Code   RO          566    .text               c_w.l(sys_stackheap_outer.o)
-    0x000003e0   0x0000000c   Code   RO          568    .text               c_w.l(exit.o)
-    0x000003ec   0x00000008   Code   RO          576    .text               c_w.l(libspace.o)
-    0x000003f4   0x0000000c   Code   RO          635    .text               c_w.l(sys_exit.o)
-    0x00000400   0x00000002   Code   RO          646    .text               c_w.l(use_no_semi.o)
-    0x00000402   0x00000000   Code   RO          648    .text               c_w.l(indicate_semi.o)
+    0x00000390   0x00000006   Code   RO          552    .text               c_w.l(heapauxi.o)
+    0x00000396   0x0000004a   Code   RO          572    .text               c_w.l(sys_stackheap_outer.o)
+    0x000003e0   0x0000000c   Code   RO          574    .text               c_w.l(exit.o)
+    0x000003ec   0x00000008   Code   RO          582    .text               c_w.l(libspace.o)
+    0x000003f4   0x0000000c   Code   RO          641    .text               c_w.l(sys_exit.o)
+    0x00000400   0x00000002   Code   RO          652    .text               c_w.l(use_no_semi.o)
+    0x00000402   0x00000000   Code   RO          654    .text               c_w.l(indicate_semi.o)
     0x00000402   0x00000002   PAD
-    0x00000404   0x00000038   Code   RO          397    i.ADC0_In           adc.o
-    0x0000043c   0x000000c8   Code   RO          398    i.ADC0_Init         adc.o
-    0x00000504   0x0000000c   Code   RO          181    i.ADC1_In           texas.o
-    0x00000510   0x000000d4   Code   RO          182    i.ADC1_Init         texas.o
-    0x000005e4   0x0000007c   Code   RO          418    i.DAC_Init          dac.o
-    0x00000660   0x00000010   Code   RO          419    i.DAC_Out           dac.o
-    0x00000670   0x00000040   Code   RO          436    i.GPIOPortE_Handler  switches.o
-    0x000006b0   0x000000ec   Code   RO          478    i.GameEngine_Init   gameengine.o
-    0x0000079c   0x00000020   Code   RO           12    i.Nokia5110_Clear   nokia5110.o
-    0x000007bc   0x00000018   Code   RO           13    i.Nokia5110_ClearBuffer  nokia5110.o
-    0x000007d4   0x00000010   Code   RO           15    i.Nokia5110_DisplayBuffer  nokia5110.o
-    0x000007e4   0x00000022   Code   RO           16    i.Nokia5110_DrawFullImage  nokia5110.o
-    0x00000806   0x00000002   PAD
-    0x00000808   0x0000016c   Code   RO           17    i.Nokia5110_Init    nokia5110.o
-    0x00000974   0x000000cc   Code   RO           20    i.Nokia5110_OutChar_4x4pix_toBuffer  nokia5110.o
-    0x00000a40   0x0000002c   Code   RO           23    i.Nokia5110_OutString_4x4pix_toBuffer  nokia5110.o
-    0x00000a6c   0x00000058   Code   RO           25    i.Nokia5110_OutUDec_4x4pix_toBuffer  nokia5110.o
-    0x00000ac4   0x000001a8   Code   RO           26    i.Nokia5110_PrintBMP  nokia5110.o
-    0x00000c6c   0x00000030   Code   RO           27    i.Nokia5110_SetCursor  nokia5110.o
-    0x00000c9c   0x00000044   Code   RO           28    i.Nokia5110_SetPixel  nokia5110.o
-    0x00000ce0   0x0000007c   Code   RO          183    i.PLL_Init          texas.o
-    0x00000d5c   0x00000018   Code   RO          184    i.SetCode           texas.o
-    0x00000d74   0x00000018   Code   RO          185    i.SetCourse         texas.o
-    0x00000d8c   0x00000034   Code   RO          454    i.SlidePot_Convert  slidepot.o
-    0x00000dc0   0x00000008   Code   RO          455    i.SlidePot_Init     slidepot.o
-    0x00000dc8   0x00000042   Code   RO          456    i.SlidePot_toPixelY  slidepot.o
-    0x00000e0a   0x00000002   PAD
-    0x00000e0c   0x00000024   Code   RO          306    i.Sound_Init        sound.o
-    0x00000e30   0x00000028   Code   RO          308    i.Sound_Play        sound.o
-    0x00000e58   0x00000014   Code   RO          309    i.Sound_Shoot       sound.o
-    0x00000e6c   0x000000dc   Code   RO          437    i.SwitchesInit      switches.o
-    0x00000f48   0x00000030   Code   RO          479    i.SysTick_Handler   gameengine.o
-    0x00000f78   0x00000016   Code   RO          480    i.SysTick_Init      gameengine.o
-    0x00000f8e   0x00000002   PAD
-    0x00000f90   0x000001c4   Code   RO          189    i.TExaS_Init        texas.o
-    0x00001154   0x0000004c   Code   RO          310    i.Timer2A_Handler   sound.o
-    0x000011a0   0x00000014   Code   RO          311    i.Timer2A_Start     sound.o
-    0x000011b4   0x00000014   Code   RO          312    i.Timer2A_Stop      sound.o
-    0x000011c8   0x00000060   Code   RO          313    i.Timer2_Init       sound.o
-    0x00001228   0x00000020   Code   RO          191    i.Timer4A_Handler   texas.o
-    0x00001248   0x00000030   Code   RO          192    i.Timer5A_Handler   texas.o
-    0x00001278   0x000000c0   Code   RO          195    i.UART0_Init        texas.o
-    0x00001338   0x0000013c   Code   RO          481    i._ControlShip      gameengine.o
-    0x00001474   0x00000100   Code   RO          482    i._ShowBackground   gameengine.o
-    0x00001574   0x00000068   Code   RO          483    i._ShowHUD          gameengine.o
-    0x000015dc   0x0000013c   Code   RO          484    i._ShowTerrain      gameengine.o
-    0x00001718   0x0000004c   Code   RO           29    i.lcdwrite          nokia5110.o
-    0x00001764   0x0000003c   Code   RO          138    i.main              mainthread.o
-    0x000017a0   0x0000035c   Data   RO           31    .constdata          nokia5110.o
-    0x00001afc   0x00000168   Data   RO          200    .constdata          texas.o
-    0x00001c64   0x00003c4b   Data   RO          314    .constdata          sound.o
-    0x000058af   0x000013e9   Data   RO          486    .constdata          gameengine.o
-    0x00006c98   0x00000020   Data   RO          700    Region$$Table       anon$$obj.o
+    0x00000404   0x00000038   Code   RO          400    i.ADC0_In           adc.o
+    0x0000043c   0x000000c8   Code   RO          401    i.ADC0_Init         adc.o
+    0x00000504   0x0000000c   Code   RO          184    i.ADC1_In           texas.o
+    0x00000510   0x000000d4   Code   RO          185    i.ADC1_Init         texas.o
+    0x000005e4   0x0000007c   Code   RO          421    i.DAC_Init          dac.o
+    0x00000660   0x00000010   Code   RO          422    i.DAC_Out           dac.o
+    0x00000670   0x00000040   Code   RO          439    i.GPIOPortE_Handler  switches.o
+    0x000006b0   0x000000c0   Code   RO          481    i.GameEngine_Init   gameengine.o
+    0x00000770   0x00000020   Code   RO           12    i.Nokia5110_Clear   nokia5110.o
+    0x00000790   0x00000018   Code   RO           13    i.Nokia5110_ClearBuffer  nokia5110.o
+    0x000007a8   0x00000010   Code   RO           15    i.Nokia5110_DisplayBuffer  nokia5110.o
+    0x000007b8   0x00000022   Code   RO           16    i.Nokia5110_DrawFullImage  nokia5110.o
+    0x000007da   0x00000002   PAD
+    0x000007dc   0x0000016c   Code   RO           17    i.Nokia5110_Init    nokia5110.o
+    0x00000948   0x000000cc   Code   RO           20    i.Nokia5110_OutChar_4x4pix_toBuffer  nokia5110.o
+    0x00000a14   0x0000002c   Code   RO           23    i.Nokia5110_OutString_4x4pix_toBuffer  nokia5110.o
+    0x00000a40   0x00000058   Code   RO           25    i.Nokia5110_OutUDec_4x4pix_toBuffer  nokia5110.o
+    0x00000a98   0x000001a8   Code   RO           26    i.Nokia5110_PrintBMP  nokia5110.o
+    0x00000c40   0x00000030   Code   RO           27    i.Nokia5110_SetCursor  nokia5110.o
+    0x00000c70   0x00000044   Code   RO           28    i.Nokia5110_SetPixel  nokia5110.o
+    0x00000cb4   0x0000007c   Code   RO          186    i.PLL_Init          texas.o
+    0x00000d30   0x00000018   Code   RO          187    i.SetCode           texas.o
+    0x00000d48   0x00000018   Code   RO          188    i.SetCourse         texas.o
+    0x00000d60   0x00000034   Code   RO          457    i.SlidePot_Convert  slidepot.o
+    0x00000d94   0x00000008   Code   RO          458    i.SlidePot_Init     slidepot.o
+    0x00000d9c   0x00000042   Code   RO          459    i.SlidePot_toPixelY  slidepot.o
+    0x00000dde   0x00000002   PAD
+    0x00000de0   0x00000024   Code   RO          309    i.Sound_Init        sound.o
+    0x00000e04   0x00000028   Code   RO          311    i.Sound_Play        sound.o
+    0x00000e2c   0x00000014   Code   RO          312    i.Sound_Shoot       sound.o
+    0x00000e40   0x000000dc   Code   RO          440    i.SwitchesInit      switches.o
+    0x00000f1c   0x0000002c   Code   RO          482    i.SysTick_Handler   gameengine.o
+    0x00000f48   0x00000016   Code   RO          483    i.SysTick_Init      gameengine.o
+    0x00000f5e   0x00000002   PAD
+    0x00000f60   0x000001c4   Code   RO          192    i.TExaS_Init        texas.o
+    0x00001124   0x0000004c   Code   RO          313    i.Timer2A_Handler   sound.o
+    0x00001170   0x00000014   Code   RO          314    i.Timer2A_Start     sound.o
+    0x00001184   0x00000014   Code   RO          315    i.Timer2A_Stop      sound.o
+    0x00001198   0x00000060   Code   RO          316    i.Timer2_Init       sound.o
+    0x000011f8   0x00000020   Code   RO          194    i.Timer4A_Handler   texas.o
+    0x00001218   0x00000030   Code   RO          195    i.Timer5A_Handler   texas.o
+    0x00001248   0x000000c0   Code   RO          198    i.UART0_Init        texas.o
+    0x00001308   0x0000013c   Code   RO          484    i._ControlShip      gameengine.o
+    0x00001444   0x00000048   Code   RO          485    i._GroundNextY      gameengine.o
+    0x0000148c   0x00000068   Code   RO          487    i._ShowHUD          gameengine.o
+    0x000014f4   0x000000e8   Code   RO          488    i._ShowTerrain      gameengine.o
+    0x000015dc   0x0000004c   Code   RO           29    i.lcdwrite          nokia5110.o
+    0x00001628   0x00000040   Code   RO          138    i.main              mainthread.o
+    0x00001668   0x0000035c   Data   RO           31    .constdata          nokia5110.o
+    0x000019c4   0x00000168   Data   RO          203    .constdata          texas.o
+    0x00001b2c   0x00003c4b   Data   RO          317    .constdata          sound.o
+    0x00005777   0x000013e9   Data   RO          490    .constdata          gameengine.o
+    0x00006b60   0x00000020   Data   RO          706    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Base: 0x20000000, Size: 0x00000054, Max: 0xffffffff, ABSOLUTE)
@@ -909,9 +910,9 @@ Memory Map of the image
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x20000000   0x00000008   Data   RW          140    .data               mainthread.o
-    0x20000008   0x00000034   Data   RW          201    .data               texas.o
-    0x2000003c   0x0000000c   Data   RW          315    .data               sound.o
-    0x20000048   0x00000008   Data   RW          487    .data               gameengine.o
+    0x20000008   0x00000034   Data   RW          204    .data               texas.o
+    0x2000003c   0x0000000c   Data   RW          318    .data               sound.o
+    0x20000048   0x00000008   Data   RW          491    .data               gameengine.o
     0x20000050   0x00000004   Data   RW          133    DATA                random.o
 
 
@@ -921,10 +922,10 @@ Memory Map of the image
 
     0x20000054   0x000001f8   Zero   RW           30    .bss                nokia5110.o
     0x2000024c   0x00000004   PAD
-    0x20000250   0x00000038   Zero   RW          199    .bss                texas.o
-    0x20000288   0x000001ac   Zero   RW          485    .bss                gameengine.o
-    0x20000434   0x00000060   Zero   RW          577    .bss                c_w.l(libspace.o)
-    0x20000494   0x00000004   PAD
+    0x20000250   0x00000038   Zero   RW          202    .bss                texas.o
+    0x20000288   0x000001ad   Zero   RW          489    .bss                gameengine.o
+    0x20000435   0x00000003   PAD
+    0x20000438   0x00000060   Zero   RW          583    .bss                c_w.l(libspace.o)
     0x20000498   0x00000000   Zero   RW            2    HEAP                startup.o
     0x20000498   0x00000400   Zero   RW            1    STACK               startup.o
 
@@ -938,8 +939,8 @@ Image component sizes
 
        256         50          0          0          0        794   adc.o
        140         38          0          0          0        741   dac.o
-      1298         80       5097          8        428       6561   gameengine.o
-        60          4          0          8          0        941   mainthread.o
+       982         66       5097          8        429       6706   gameengine.o
+        64          4          0          8          0        945   mainthread.o
       1422         86        860          0        504      10198   nokia5110.o
         64         14          0          4          0        184   random.o
        126          4          0          0          0       1443   slidepot.o
@@ -949,9 +950,9 @@ Image component sizes
       1120        244        360         52         56      15392   texas.o
 
     ----------------------------------------------------------------------
-      5776       1290      21784         84       2016      41454   Object Totals
+      5464       1276      21784         84       2020      41603   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-         6          0          0          0          4          0   (incl. Padding)
+         6          0          0          0          7          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -979,8 +980,8 @@ Image component sizes
          2          0          0          0          0         68   use_no_semi.o
 
     ----------------------------------------------------------------------
-       272         16          0          0        100        576   Library Totals
-         6          0          0          0          4          0   (incl. Padding)
+       272         16          0          0         96        576   Library Totals
+         6          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -989,7 +990,7 @@ Image component sizes
        266         16          0          0         96        576   c_w.l
 
     ----------------------------------------------------------------------
-       272         16          0          0        100        576   Library Totals
+       272         16          0          0         96        576   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -998,15 +999,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      6048       1306      21784         84       2116      39586   Grand Totals
-      6048       1306      21784         84       2116      39586   ELF Image Totals
-      6048       1306      21784         84          0          0   ROM Totals
+      5736       1292      21784         84       2116      39735   Grand Totals
+      5736       1292      21784         84       2116      39735   ELF Image Totals
+      5736       1292      21784         84          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                27832 (  27.18kB)
+    Total RO  Size (Code + RO Data)                27520 (  26.88kB)
     Total RW  Size (RW Data + ZI Data)              2200 (   2.15kB)
-    Total ROM Size (Code + RO Data + RW Data)      27916 (  27.26kB)
+    Total ROM Size (Code + RO Data + RW Data)      27604 (  26.96kB)
 
 ==============================================================================
 

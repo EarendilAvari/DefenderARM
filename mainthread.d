@@ -7,4 +7,5 @@
 .\mainthread.o: D:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
 .\mainthread.o: Sound.h
 .\mainthread.o: DAC.h
+.\mainthread.o: SlidePot.h
 .\mainthread.o: GameEngine.h
