@@ -76,6 +76,7 @@
 #include "Sound.h"
 #include "SlidePot.h"
 #include "GameEngine.h"
+#include "StartImage.h"
 
 
 
@@ -90,14 +91,20 @@ void Delay100ms(unsigned long count); // time delay in 0.1 seconds
 
 int main(void)
 {
+	unsigned long StartCounter = 0;
   TExaS_Init(SSI0_Real_Nokia5110_Scope);  // set system clock to 80 MHz
-  Random_Init(1);
   Nokia5110_Init();
 	SwitchesInit();
 	Sound_Init();
 	EnableInterrupts();
 	Nokia5110_Clear();
 	SlidePot_Init();
+	Nokia5110_PrintBMP(0, 40, StartImage, 0);
+	Nokia5110_OutString_4x4pix_toBuffer(15, 35, "PRESS SHOOT");
+	Nokia5110_DisplayBuffer();
+	while (!Switch_shoot) {StartCounter++;};
+	Switch_shoot = false;
+	Random_Init(StartCounter);
 	GameEngine_Init();
   while(1)
 	{

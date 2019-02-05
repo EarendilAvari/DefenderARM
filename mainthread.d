@@ -9,3 +9,4 @@
 .\mainthread.o: DAC.h
 .\mainthread.o: SlidePot.h
 .\mainthread.o: GameEngine.h
+.\mainthread.o: StartImage.h

@@ -129,8 +129,8 @@ void SysTick_Handler(void)
 		_ControlShip();
 	}
 	_ShowHUD();
-	interruptCounter++;
 	Flag = true;										// Sets the flag to 1, indicating that there is a new sample for the display
+	interruptCounter++;
 }
 
 
