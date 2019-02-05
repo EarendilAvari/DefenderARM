@@ -52,6 +52,8 @@
 // SSI0Clk       (SCLK, pin 7) connected to PA2
 // back light    (LED, pin 8) not connected, consists of 4 white LEDs which draw ~80mA total
 
+#include <stdbool.h>
+
 // Maximum dimensions of the LCD, although the pixels are
 // numbered from zero to (MAX-1).  Address may automatically
 // be incremented after each transmission.
@@ -385,6 +387,13 @@ void Nokia5110_SetPixel(unsigned char x, unsigned char y);
 //         Nokia5110_ClearPixel(0, 0); turns off the upper left pixel
 // outputs: none
 void Nokia5110_ClearPixel(unsigned char x, unsigned char y);
+
+//********Nokia5110_AskPixel*****************
+// Evaluates if the pixel searched is on or off
+// inputs: x - horizontal coordinate of the pixel, must be less than 84
+//         y - vertical coordinate of the pixel, must be less than 48
+// outputs: true if the pixel is setted already, false if the pixel is cleared
+bool Nokia5110_AskPixel(unsigned char x, unsigned char y);
 
 //********Nokia5110_OutChar4x4*****************
 // Print a character to the Nokia 5110 48x84 LCD.  The

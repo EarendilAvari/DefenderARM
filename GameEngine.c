@@ -111,6 +111,7 @@ void SysTick_Handler(void)
 	_ShowHUD();
 	_ControlShip();
 	interruptCounter++;
+	Nokia5110_OutUDec_4x4pix_toBuffer(65, SCREENH - 5, Nokia5110_AskPixel(40,5));
 	Flag = true;										// Sets the flag to 1, indicating that there is a new sample for the display
 }
 
@@ -169,7 +170,7 @@ void _ShowHUD(void)
 	Nokia5110_OutChar_4x4pix_toBuffer(20, SCREENH - 5, '/');
 	Nokia5110_OutUDec_4x4pix_toBuffer(25, SCREENH - 5, MAXHP);
 	Nokia5110_OutString_4x4pix_toBuffer(35, SCREENH - 5, "score:");
-	Nokia5110_OutUDec_4x4pix_toBuffer(65, SCREENH - 5, playerShip.score);
+	//Nokia5110_OutUDec_4x4pix_toBuffer(65, SCREENH - 5, playerShip.score);
 }
 
 

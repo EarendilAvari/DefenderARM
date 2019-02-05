@@ -470,6 +470,25 @@ void Nokia5110_ClearPixel(unsigned char x, unsigned char y)
   }
 }
 
+//********Nokia5110_AskPixel*****************
+// Evaluates if the pixel searched is on or off
+// inputs: x - horizontal coordinate of the pixel, must be less than 84
+//         y - vertical coordinate of the pixel, must be less than 48
+// outputs: true if the pixel is setted already, false if the pixel is cleared
+bool Nokia5110_AskPixel(unsigned char x, unsigned char y) 
+{
+  unsigned short PixelByte;            // byte# in screen buffer
+  unsigned char PixelBit;              // bit# in byte
+	unsigned char Result;
+  if ((x<84) && (y<48)) 
+	{              // check screen boundaries
+    PixelByte = ((y/8)*84) + x;
+    PixelBit = y % 8;
+    Result = Screen[PixelByte]&(1U<<PixelBit);
+  }
+	return (bool)Result;
+}
+
 
 //********Nokia5110_OutChar4x4*****************
 // Print a character to the Nokia 5110 48x84 LCD.  The

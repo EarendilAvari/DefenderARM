@@ -4,7 +4,8 @@
 - (DONE) Draw ship and move it with the slide pot
 - (DONE) Program normal shoots
 - (DONE) Create a health bar
-- Create points that represent stars
-- Create the terrain
+- (DONE) Create points that represent stars
+- (DONE) Create the terrain
+- Create the start display
 - Create the enemies
 
