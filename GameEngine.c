@@ -106,12 +106,30 @@ void SysTick_Init(unsigned long period)
 void SysTick_Handler(void)
 {
 	Nokia5110_ClearBuffer();
-	// _ShowBackground();
-	_ShowTerrain();
+	if (playerShip.dead)
+	{
+		if (playerShip.healthPoints)
+		{
+				Nokia5110_OutString_4x4pix_toBuffer(10, 15, "You were hurt");
+				Nokia5110_OutString_4x4pix_toBuffer(15, 25, "Press shoot");
+				Nokia5110_OutString_4x4pix_toBuffer(10, 30, "to try again!");
+				if (Switch_shoot)
+				{
+					playerShip.dead = false;
+				}
+		}
+		else 
+		{
+			Nokia5110_OutString_4x4pix_toBuffer(10, 20, "GAME OVER :(");
+		}
+	}
+	else 
+	{
+		_ShowTerrain();
+		_ControlShip();
+	}
 	_ShowHUD();
-	_ControlShip();
 	interruptCounter++;
-	Nokia5110_OutUDec_4x4pix_toBuffer(65, SCREENH - 5, Nokia5110_AskPixel(40,5));
 	Flag = true;										// Sets the flag to 1, indicating that there is a new sample for the display
 }
 
@@ -170,7 +188,7 @@ void _ShowHUD(void)
 	Nokia5110_OutChar_4x4pix_toBuffer(20, SCREENH - 5, '/');
 	Nokia5110_OutUDec_4x4pix_toBuffer(25, SCREENH - 5, MAXHP);
 	Nokia5110_OutString_4x4pix_toBuffer(35, SCREENH - 5, "score:");
-	//Nokia5110_OutUDec_4x4pix_toBuffer(65, SCREENH - 5, playerShip.score);
+	Nokia5110_OutUDec_4x4pix_toBuffer(65, SCREENH - 5, playerShip.score);
 }
 
 
@@ -255,6 +273,15 @@ void _ControlShip(void)
 	int i;
 	//%%%%%%%%%%%%% MOVEMENT OF THE SHIP %%%%%%%%%%%%%%%%% 
 	PixelY = SlidePot_toPixelY(SHIPH);										// Converts the ADC data into readable distance value and then to a position in the Y axis
+	if (Nokia5110_AskPixel(8,PixelY-(SHIPH/2)) ||	 	// If the pixel for the frontal point of the ship is already set
+			Nokia5110_AskPixel(3,PixelY) ||							// or if pixel for the inferior peak is already set 
+			Nokia5110_AskPixel(3,PixelY-SHIPH))			// or if pixel for the superior peak is already set
+	{
+		Sound_Explosion();
+		playerShip.healthPoints--;
+		playerShip.dead = true;
+		return;
+	}
 	Nokia5110_PrintBMP(0, PixelY, PlayerShipNew, 0);  		// Draws the ship in the display using the value from the slide pot
 	
 	//%%%%%%%%%%%%%%%%%% NORMAL SHOOTS %%%%%%%%%%%%%%%%%%%
