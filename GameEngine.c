@@ -46,8 +46,16 @@ typedef struct ShipVariables
 	unsigned char lives;
 }ShipType;
 
+// Structure used for the animations
+typedef struct AnimationVariables
+{
+	unsigned char *playerShipDestruction[3];			//Array of pointers to the individual image arrays
+	unsigned char playerShipDestructionCounter;		//Counter of the animation (used to select which image of the array
+}AnimationType;
+
 ShipType playerShip; 	//Object used to represent the ship
 TerrainType terrain;	//Object used to represent the terrain
+AnimationType animations;
 unsigned long interruptCounter; // It counts how many sysTick interrupts have been occured
 
 
@@ -106,7 +114,7 @@ void SysTick_Init(unsigned long period)
 void SysTick_Handler(void)
 {
 	Nokia5110_ClearBuffer();
-	if (playerShip.dead)
+	if (playerShip.dead && animations.playerShipDestructionCounter == 0)
 	{
 		if (playerShip.healthPoints)
 		{
@@ -170,6 +178,11 @@ void GameEngine_Init(void)
 	playerShip.shCounter = 0;			// We set the quantity of shown shoots to be 0
 	playerShip.healthPoints = 3;	// Initial HP of the ship
 	playerShip.score = 0;					// Initial score of the ship
+	
+	animations.playerShipDestruction[0] = (unsigned char*)&PlayerShipDestruction1;  // We point the animation arrays to the individual images on "ImageArrays.h"
+	animations.playerShipDestruction[1] = (unsigned char*)&PlayerShipDestruction2;	// So the element 0 of the array points to the first image, the element 1 to
+	animations.playerShipDestruction[2] = (unsigned char*)&PlayerShipDestruction3;	// the second image and the element 3 to the third image.
+	animations.playerShipDestructionCounter = 0;
 }
 
 //**********************_ShowHUD***********************
@@ -272,14 +285,24 @@ void _ControlShip(void)
 {
 	int i;
 	//%%%%%%%%%%%%% MOVEMENT OF THE SHIP %%%%%%%%%%%%%%%%% 
-	PixelY = SlidePot_toPixelY(SHIPH);										// Converts the ADC data into readable distance value and then to a position in the Y axis
+	PixelY = SlidePot_toPixelY(SHIPH);							// Converts the ADC data into readable distance value and then to a position in the Y axis
 	if (Nokia5110_AskPixel(8,PixelY-(SHIPH/2)) ||	 	// If the pixel for the frontal point of the ship is already set
 			Nokia5110_AskPixel(3,PixelY) ||							// or if pixel for the inferior peak is already set 
-			Nokia5110_AskPixel(3,PixelY-SHIPH))			// or if pixel for the superior peak is already set
+			Nokia5110_AskPixel(3,PixelY-SHIPH))					// or if pixel for the superior peak is already set
 	{
-		Sound_Explosion();
-		playerShip.healthPoints--;
-		playerShip.dead = true;
+		// We print the elements of the destruction animation
+		Nokia5110_PrintBMP(0, PixelY, animations.playerShipDestruction[animations.playerShipDestructionCounter], 0);
+		if (interruptCounter%20==0)
+		{
+			animations.playerShipDestructionCounter++;	// If interrupt
+		}
+		if (animations.playerShipDestructionCounter == 3)
+		{
+			Sound_Explosion();
+			playerShip.healthPoints--;
+			animations.playerShipDestructionCounter = 0;
+			playerShip.dead = true;
+		}
 		return;
 	}
 	Nokia5110_PrintBMP(0, PixelY, PlayerShipNew, 0);  		// Draws the ship in the display using the value from the slide pot
