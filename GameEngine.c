@@ -12,10 +12,50 @@
 #define MAXHP 4
 #define MAXGROUND 41  //The ground can be drawn maximal in this Y position
 
+
+//********** Finite state machine for enemy animation **************
+typedef const struct enemyFSM_Variables
+{
+	unsigned char imgNumber;
+	unsigned short delay;
+	unsigned char next[2];
+}enemyFSM_Type;
+
+#define enemyFSM_Alive1 0
+#define enemyFSM_Alive2 1
+#define enemyFSM_Alive3 2
+#define enemyFSM_Dying1 3
+#define enemyFSM_Dying2 4
+#define enemyFSM_NoShow 5
+
+enemyFSM_Type enemyFSM[6] =
+{
+	/* STATE: Alive1 */ {0, 50, {enemyFSM_Alive2, enemyFSM_Dying1}},
+	/* STATE: Alive2 */ {1, 10, {enemyFSM_Alive3, enemyFSM_Dying1}},
+	/* STATE: Alive3 */ {2, 10, {enemyFSM_Alive1, enemyFSM_Dying1}},
+	/* STATE: Dying1 */ {3, 20, {enemyFSM_Dying2, enemyFSM_Dying2}},
+	/* STATE: Dying2 */ {4, 20, {enemyFSM_NoShow, enemyFSM_NoShow}},
+	/* STATE: NoShow */ {5, 0, {enemyFSM_NoShow, enemyFSM_NoShow}}
+};
+
+typedef struct enemyVariables
+{
+	unsigned char posX;
+	unsigned char posY;
+	unsigned char dead;
+	unsigned char *image[5];
+	unsigned char actStatus;	
+}enemyType;
+
+enemyType enemy[5];
+
+#define ENEMYW 12
+#define ENEMYH 8
+
 bool Switch_shoot;		//The switch for shooting was pressed
 bool Switch_special;  //The switch for special attack was pressed
 
-// Structure used for the normal shoots
+// ************** Structure used for the normal shoots *****************
 typedef struct Pixel 	// A structure for elements represented as a pixel
 {
 	unsigned char PosX;	// Position X of that pixel
@@ -23,7 +63,7 @@ typedef struct Pixel 	// A structure for elements represented as a pixel
 	bool show;					// True if the pixel should be shown
 }PixelType;
 
-// Structure used to define the terrain
+// ************** Structure used to define the terrain ******************
 typedef struct TerrainVariables
 {
 	PixelType backgroundStars[50];	//Background stars to be shown
@@ -33,33 +73,7 @@ typedef struct TerrainVariables
 	unsigned char minGroundH;
 }TerrainType;
 
-// Structure used to define an FSM for animations
-typedef struct FSManimVariables
-{
-	unsigned char imgNmb;
-	bool staticImg;
-	unsigned char delay;
-	unsigned char nextImg[2];
-}FSManimType;
-
-const FSManimType FSManimShip[4] =
-	{
-		{0, false, 0, {0, 1}},
-		{1, true, 20, {2, 2}},
-		{2, true, 20, {3, 3}},
-		{3, true, 20, {0, 0}}
-	}; 
-
-// Structure used for the animations
-typedef struct AnimationVariables
-{
-	unsigned char *image[10];			//Array of pointers to the individual image arrays
-	unsigned char imgCounter;		//Counter of the animation (used to select which image of the array
-	unsigned char animPosX;
-	unsigned char animPosY;
-}AnimationType;
-
-// Structure used for the ship
+// *************** Structure used for the ship ***************************
 typedef struct ShipVariables
 {
 	unsigned char posX; 	//Position X of the ship
@@ -68,13 +82,20 @@ typedef struct ShipVariables
 	unsigned char shCounter; //Counter of shoots
 	unsigned char healthPoints; //Health points of the ship
 	unsigned short score;	//Score of the ship
-	unsigned char dead; // 0: Alive, 1: dying, 2: dead
+	bool dead;
 	unsigned char lives;
-	AnimationType animDestruction;
 }ShipType;
+
+// **************** Structure used for the animations ********************
+typedef struct AnimationVariables
+{
+	unsigned char *playerShipDestruction[3];			//Array of pointers to the individual image arrays
+	unsigned char playerShipDestructionCounter;		//Counter of the animation (used to select which image of the array
+}AnimationType;
 
 ShipType playerShip; 	//Object used to represent the ship
 TerrainType terrain;	//Object used to represent the terrain
+AnimationType animations;
 unsigned long interruptCounter; // It counts how many sysTick interrupts have been occured
 
 
@@ -120,6 +141,15 @@ void _ShowTerrain(void);
 // outputs: none
 void _ControlShip(void);
 
+//**********************_ControlEnemy***********************
+// This function do the following tasks:
+// - Draws the enemy
+// - Moves it randomly  
+// - Generates its shoots randomly
+// inputs: enemyNumber: Number of the array element of enemy
+// outputs: none
+void _ControlEnemy(unsigned char enemyNmb);
+
 // Initialize SysTick interrupts to trigger at 30 Hz, 33,33 ms
 void SysTick_Init(unsigned long period)
 {
@@ -133,7 +163,7 @@ void SysTick_Init(unsigned long period)
 void SysTick_Handler(void)
 {
 	Nokia5110_ClearBuffer();
-	if (playerShip.dead == 2)
+	if (playerShip.dead && animations.playerShipDestructionCounter == 0)
 	{
 		if (playerShip.healthPoints)
 		{
@@ -142,7 +172,7 @@ void SysTick_Handler(void)
 				Nokia5110_OutString_4x4pix_toBuffer(10, 30, "to try again!");
 				if (Switch_shoot)
 				{
-					playerShip.dead = 0;
+					playerShip.dead = false;
 				}
 		}
 		else 
@@ -154,6 +184,9 @@ void SysTick_Handler(void)
 	{
 		_ShowTerrain();
 		_ControlShip();
+		_ControlEnemy(0);
+		_ControlEnemy(1);
+		_ControlEnemy(2);
 	}
 	_ShowHUD();
 	Flag = true;										// Sets the flag to 1, indicating that there is a new sample for the display
@@ -197,12 +230,24 @@ void GameEngine_Init(void)
 	playerShip.shCounter = 0;			// We set the quantity of shown shoots to be 0
 	playerShip.healthPoints = 3;	// Initial HP of the ship
 	playerShip.score = 0;					// Initial score of the ship
-	playerShip.dead = 0;
 	
-	playerShip.animDestruction.image[0] = (unsigned char*)&PlayerShipDestruction1;  // We point the animation arrays to the individual images on "ImageArrays.h"
-	playerShip.animDestruction.image[1] = (unsigned char*)&PlayerShipDestruction2;	// So the element 0 of the array points to the first image, the element 1 to
-	playerShip.animDestruction.image[2] = (unsigned char*)&PlayerShipDestruction3;	// the second image and the element 3 to the third image.
-	playerShip.animDestruction.imgCounter = 0;
+	animations.playerShipDestruction[0] = (unsigned char*)&PlayerShipDestruction1;  // We point the animation arrays to the individual images on "ImageArrays.h"
+	animations.playerShipDestruction[1] = (unsigned char*)&PlayerShipDestruction2;	// So the element 0 of the array points to the first image, the element 1 to
+	animations.playerShipDestruction[2] = (unsigned char*)&PlayerShipDestruction3;	// the second image and the element 3 to the third image.
+	animations.playerShipDestructionCounter = 0;
+	
+	for (i=0; i<5; i++)
+	{
+		enemy[i].posX = SCREENW - ENEMYW - 2; 							// We initialize all enemies to be at the right border of the screen
+		enemy[i].posY = 10;
+		enemy[i].dead = 0;
+		enemy[i].image[0] = (unsigned char*)&enemy1Alive1;  // We point the animation arrays to the individual images on "ImageArrays.h"
+		enemy[i].image[1] = (unsigned char*)&enemy1Alive2;  
+		enemy[i].image[2] = (unsigned char*)&enemy1Alive3;
+		enemy[i].image[3] = (unsigned char*)&enemy1Dying1;
+		enemy[i].image[4] = (unsigned char*)&enemy1Dying2;
+		enemy[i].actStatus = enemyFSM_NoShow;								// We don't show the enemies at the beginning
+	}
 }
 
 //**********************_ShowHUD***********************
@@ -304,44 +349,39 @@ void _ShowTerrain(void)
 void _ControlShip(void)
 {
 	int i;
-	//%%%%%%%%%%%%% MOVEMENT OF THE SHIP %%%%%%%%%%%%%%%%%
-	if (playerShip.dead == 0)												// If the ship is alive
-	{
-		PixelY = SlidePot_toPixelY(SHIPH);										// Converts the ADC data into readable distance value and then to a position in the Y axis
-		Nokia5110_PrintBMP(0, PixelY, PlayerShipNew, 0);  		// Draws the ship in the display using the value from the slide pot
-	}
-	
-	//%%%%%%%%%%%%% ANIMATION OF DEATH %%%%%%%%%%%%%%%%%%%
+	//%%%%%%%%%%%%% MOVEMENT OF THE SHIP %%%%%%%%%%%%%%%%% 
+	PixelY = SlidePot_toPixelY(SHIPH);							// Converts the ADC data into readable distance value and then to a position in the Y axis
 	if (Nokia5110_AskPixel(8,PixelY-(SHIPH/2)) ||	 	// If the pixel for the frontal point of the ship is already set
 			Nokia5110_AskPixel(3,PixelY) ||							// or if pixel for the inferior peak is already set 
 			Nokia5110_AskPixel(3,PixelY-SHIPH))					// or if pixel for the superior peak is already set
 	{
-		playerShip.dead = 1;
 		// We print the elements of the destruction animation
-		Nokia5110_PrintBMP(0, PixelY, playerShip.animDestruction.image[playerShip.animDestruction.imgCounter], 0);
-		if (interruptCounter%20==0)									// Every 20 interrupts we change the image for the next one
+		Nokia5110_PrintBMP(0, PixelY, animations.playerShipDestruction[animations.playerShipDestructionCounter], 0);
+		if (interruptCounter%20==0)
 		{
-			playerShip.animDestruction.imgCounter++;	
+			animations.playerShipDestructionCounter++;	// If interrupt
 		}
-		if (playerShip.animDestruction.imgCounter == 3)	// When the image counter reaches 3 (that means that all images where shown)
+		if (animations.playerShipDestructionCounter == 3)
 		{
-			Sound_Explosion();														// We play the explosion sound
-			playerShip.healthPoints--;										// We substract 1 HP
-			playerShip.animDestruction.imgCounter = 0;		// We set the image counter back to 0 for the next animation
-			playerShip.dead = 2;													// We set the dead variable to two, meaning that the ship is dead
+			Sound_Explosion();
+			playerShip.healthPoints--;
+			animations.playerShipDestructionCounter = 0;
+			playerShip.dead = true;
 		}
+		return;
 	}
+	Nokia5110_PrintBMP(0, PixelY, PlayerShipNew, 0);  		// Draws the ship in the display using the value from the slide pot
 	
 	//%%%%%%%%%%%%%%%%%% NORMAL SHOOTS %%%%%%%%%%%%%%%%%%%
-	if (Switch_shoot &&(playerShip.dead == 0))													// If the switch is pressed we do the following operations on the next shoot on the array
+	if (Switch_shoot)																				// If the switch is pressed we do the following operations on the next shoot on the array
 	{
 		playerShip.shoots[playerShip.shCounter].show = true;							// We make showingShoot true, this variable is used to show the shoot in the display until it dissapears
-		Sound_Shoot();																											// We play the shoot sound by pressing the switch
+		Sound_Shoot();																															// We play the shoot sound by pressing the switch
 		playerShip.shoots[playerShip.shCounter].PosY = PixelY - (SHIPH/2);  // We set the position Y of the shoot equals to the center of the ship
 		playerShip.shoots[playerShip.shCounter].PosX = SHIPW;								// We set the position X of the shoot equals to the pick of the ship
 		playerShip.shCounter++;
-		if (playerShip.shCounter >= 5) playerShip.shCounter = 0;						// If ShootCounter is bigger or equal to 5, it is setted again to 0
-		Switch_shoot = false;																								// We set back the value of the switch
+		if (playerShip.shCounter >= 5) playerShip.shCounter = 0;							// If ShootCounter is bigger or equal to 5, it is setted again to 0
+		Switch_shoot = false;																	// We set back the value of the switch
 	}
 	for (i=0; i<5; i++)						// For every possible shoot
 	{
@@ -355,6 +395,69 @@ void _ControlShip(void)
 				playerShip.shoots[i].show = false;													// if the shoot reaches the end of the screen, we turn off the value indicating that a shoot should be shown
 		}
 	}
+}
+
+
+//**********************_ControlEnemy***********************
+// This function do the following tasks:
+// - Draws the enemy
+// - Moves it randomly  
+// - Generates its shoots randomly
+// inputs: enemyNumber: Number of the array element of enemy
+// outputs: none
+void _ControlEnemy(unsigned char enemyNmb)
+{
+	// %%%%%%%%%%%%%% CONTROL OF DEATH %%%%%%%%%%%%%%%%
+	unsigned char i = enemy[enemyNmb].posY;
+	unsigned char oldStatus = enemy[enemyNmb].actStatus;
+	while ((i > enemy[enemyNmb].posY - ENEMYH) && (enemy[enemyNmb].dead == 0))
+	{
+		if (Nokia5110_AskPixel(enemy[enemyNmb].posX - 2, i))
+		{
+			enemy[enemyNmb].dead = 1;
+		}
+		i--;
+	}
+	// %%%%%%%%%%%%%% FSM's NEXT STATUS %%%%%%%%%%%%%%%%%%
+	if (interruptCounter%enemyFSM[oldStatus].delay == 0)
+	{
+		enemy[enemyNmb].actStatus = enemyFSM[oldStatus].next[enemy[enemyNmb].dead];
+	}
+	// %%%%%%%%%%%%%% enemy's next position %%%%%%%%%%%%%%
+	if ((enemy[enemyNmb].actStatus < 3) && (interruptCounter%5 == 0))
+	{
+		if ((enemy[enemyNmb].posX > ENEMYW) && (enemy[enemyNmb].posX < SCREENW - ENEMYW - 2))
+		{
+			enemy[enemyNmb].posX += -1 + Random()%3;
+		}
+		if ((enemy[enemyNmb].posY > ENEMYH) && (enemy[enemyNmb].posY < MAXGROUND))
+		{
+			enemy[enemyNmb].posY += -1 + Random()%3;
+		}
+	}
+	// %%%%%%%%%%%%%% DRAW ENEMY %%%%%%%%%%%%%%%%
+	if (enemy[enemyNmb].actStatus != enemyFSM_NoShow)
+	{
+		Nokia5110_PrintBMP(enemy[enemyNmb].posX, enemy[enemyNmb].posY, enemy[enemyNmb].image[enemy[enemyNmb].actStatus], 0);
+	}
+	// %%%%%%%%%%%%%% CREATE NEW ENEMY %%%%%%%%%%%
+	else
+	{
+		unsigned char createNewEnemy = Random()%10;
+		if (createNewEnemy == 1)
+		{
+			enemy[enemyNmb].actStatus = enemyFSM_Alive1;
+			enemy[enemyNmb].posX = 2*ENEMYW + Random()%(SCREENW - 3*ENEMYW);
+			enemy[enemyNmb].posY = ENEMYH + Random()%(MAXGROUND - ENEMYH);
+			if (Nokia5110_AskPixel(enemy[enemyNmb].posX, enemy[enemyNmb].posY))
+			{
+				enemy[enemyNmb].posY -= 20;
+			}
+			enemy[enemyNmb].dead = 0;
+			Sound_Highpitch();
+		}
+	}
+	
 }
 
 

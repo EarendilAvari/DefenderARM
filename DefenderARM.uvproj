@@ -520,11 +520,6 @@
               <FileType>5</FileType>
               <FilePath>.\GameEngine.h</FilePath>
             </File>
-            <File>
-              <FileName>StartImage.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\StartImage.h</FilePath>
-            </File>
           </Files>
         </Group>
       </Groups>
