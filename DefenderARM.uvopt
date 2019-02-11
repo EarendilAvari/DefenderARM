@@ -331,10 +331,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>1</Focus>
-      <ColumnNumber>112</ColumnNumber>
+      <ColumnNumber>6</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>307</TopLine>
-      <CurrentLine>330</CurrentLine>
+      <TopLine>246</TopLine>
+      <CurrentLine>331</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\GameEngine.c</PathWithFileName>
       <FilenameWithoutPath>GameEngine.c</FilenameWithoutPath>
