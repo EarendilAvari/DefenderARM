@@ -33,6 +33,32 @@ typedef struct TerrainVariables
 	unsigned char minGroundH;
 }TerrainType;
 
+// Structure used to define an FSM for animations
+typedef struct FSManimVariables
+{
+	unsigned char imgNmb;
+	bool staticImg;
+	unsigned char delay;
+	unsigned char nextImg[2];
+}FSManimType;
+
+const FSManimType FSManimShip[4] =
+	{
+		{0, false, 0, {0, 1}},
+		{1, true, 20, {2, 2}},
+		{2, true, 20, {3, 3}},
+		{3, true, 20, {0, 0}}
+	}; 
+
+// Structure used for the animations
+typedef struct AnimationVariables
+{
+	unsigned char *image[10];			//Array of pointers to the individual image arrays
+	unsigned char imgCounter;		//Counter of the animation (used to select which image of the array
+	unsigned char animPosX;
+	unsigned char animPosY;
+}AnimationType;
+
 // Structure used for the ship
 typedef struct ShipVariables
 {
@@ -42,20 +68,13 @@ typedef struct ShipVariables
 	unsigned char shCounter; //Counter of shoots
 	unsigned char healthPoints; //Health points of the ship
 	unsigned short score;	//Score of the ship
-	bool dead;
+	unsigned char dead; // 0: Alive, 1: dying, 2: dead
 	unsigned char lives;
+	AnimationType animDestruction;
 }ShipType;
-
-// Structure used for the animations
-typedef struct AnimationVariables
-{
-	unsigned char *playerShipDestruction[3];			//Array of pointers to the individual image arrays
-	unsigned char playerShipDestructionCounter;		//Counter of the animation (used to select which image of the array
-}AnimationType;
 
 ShipType playerShip; 	//Object used to represent the ship
 TerrainType terrain;	//Object used to represent the terrain
-AnimationType animations;
 unsigned long interruptCounter; // It counts how many sysTick interrupts have been occured
 
 
@@ -114,7 +133,7 @@ void SysTick_Init(unsigned long period)
 void SysTick_Handler(void)
 {
 	Nokia5110_ClearBuffer();
-	if (playerShip.dead && animations.playerShipDestructionCounter == 0)
+	if (playerShip.dead == 2)
 	{
 		if (playerShip.healthPoints)
 		{
@@ -123,7 +142,7 @@ void SysTick_Handler(void)
 				Nokia5110_OutString_4x4pix_toBuffer(10, 30, "to try again!");
 				if (Switch_shoot)
 				{
-					playerShip.dead = false;
+					playerShip.dead = 0;
 				}
 		}
 		else 
@@ -178,11 +197,12 @@ void GameEngine_Init(void)
 	playerShip.shCounter = 0;			// We set the quantity of shown shoots to be 0
 	playerShip.healthPoints = 3;	// Initial HP of the ship
 	playerShip.score = 0;					// Initial score of the ship
+	playerShip.dead = 0;
 	
-	animations.playerShipDestruction[0] = (unsigned char*)&PlayerShipDestruction1;  // We point the animation arrays to the individual images on "ImageArrays.h"
-	animations.playerShipDestruction[1] = (unsigned char*)&PlayerShipDestruction2;	// So the element 0 of the array points to the first image, the element 1 to
-	animations.playerShipDestruction[2] = (unsigned char*)&PlayerShipDestruction3;	// the second image and the element 3 to the third image.
-	animations.playerShipDestructionCounter = 0;
+	playerShip.animDestruction.image[0] = (unsigned char*)&PlayerShipDestruction1;  // We point the animation arrays to the individual images on "ImageArrays.h"
+	playerShip.animDestruction.image[1] = (unsigned char*)&PlayerShipDestruction2;	// So the element 0 of the array points to the first image, the element 1 to
+	playerShip.animDestruction.image[2] = (unsigned char*)&PlayerShipDestruction3;	// the second image and the element 3 to the third image.
+	playerShip.animDestruction.imgCounter = 0;
 }
 
 //**********************_ShowHUD***********************
@@ -284,39 +304,44 @@ void _ShowTerrain(void)
 void _ControlShip(void)
 {
 	int i;
-	//%%%%%%%%%%%%% MOVEMENT OF THE SHIP %%%%%%%%%%%%%%%%% 
-	PixelY = SlidePot_toPixelY(SHIPH);							// Converts the ADC data into readable distance value and then to a position in the Y axis
+	//%%%%%%%%%%%%% MOVEMENT OF THE SHIP %%%%%%%%%%%%%%%%%
+	if (playerShip.dead == 0)												// If the ship is alive
+	{
+		PixelY = SlidePot_toPixelY(SHIPH);										// Converts the ADC data into readable distance value and then to a position in the Y axis
+		Nokia5110_PrintBMP(0, PixelY, PlayerShipNew, 0);  		// Draws the ship in the display using the value from the slide pot
+	}
+	
+	//%%%%%%%%%%%%% ANIMATION OF DEATH %%%%%%%%%%%%%%%%%%%
 	if (Nokia5110_AskPixel(8,PixelY-(SHIPH/2)) ||	 	// If the pixel for the frontal point of the ship is already set
 			Nokia5110_AskPixel(3,PixelY) ||							// or if pixel for the inferior peak is already set 
 			Nokia5110_AskPixel(3,PixelY-SHIPH))					// or if pixel for the superior peak is already set
 	{
+		playerShip.dead = 1;
 		// We print the elements of the destruction animation
-		Nokia5110_PrintBMP(0, PixelY, animations.playerShipDestruction[animations.playerShipDestructionCounter], 0);
-		if (interruptCounter%20==0)
+		Nokia5110_PrintBMP(0, PixelY, playerShip.animDestruction.image[playerShip.animDestruction.imgCounter], 0);
+		if (interruptCounter%20==0)									// Every 20 interrupts we change the image for the next one
 		{
-			animations.playerShipDestructionCounter++;	// If interrupt
+			playerShip.animDestruction.imgCounter++;	
 		}
-		if (animations.playerShipDestructionCounter == 3)
+		if (playerShip.animDestruction.imgCounter == 3)	// When the image counter reaches 3 (that means that all images where shown)
 		{
-			Sound_Explosion();
-			playerShip.healthPoints--;
-			animations.playerShipDestructionCounter = 0;
-			playerShip.dead = true;
+			Sound_Explosion();														// We play the explosion sound
+			playerShip.healthPoints--;										// We substract 1 HP
+			playerShip.animDestruction.imgCounter = 0;		// We set the image counter back to 0 for the next animation
+			playerShip.dead = 2;													// We set the dead variable to two, meaning that the ship is dead
 		}
-		return;
 	}
-	Nokia5110_PrintBMP(0, PixelY, PlayerShipNew, 0);  		// Draws the ship in the display using the value from the slide pot
 	
 	//%%%%%%%%%%%%%%%%%% NORMAL SHOOTS %%%%%%%%%%%%%%%%%%%
-	if (Switch_shoot)																				// If the switch is pressed we do the following operations on the next shoot on the array
+	if (Switch_shoot &&(playerShip.dead == 0))													// If the switch is pressed we do the following operations on the next shoot on the array
 	{
 		playerShip.shoots[playerShip.shCounter].show = true;							// We make showingShoot true, this variable is used to show the shoot in the display until it dissapears
-		Sound_Shoot();																															// We play the shoot sound by pressing the switch
+		Sound_Shoot();																											// We play the shoot sound by pressing the switch
 		playerShip.shoots[playerShip.shCounter].PosY = PixelY - (SHIPH/2);  // We set the position Y of the shoot equals to the center of the ship
 		playerShip.shoots[playerShip.shCounter].PosX = SHIPW;								// We set the position X of the shoot equals to the pick of the ship
 		playerShip.shCounter++;
-		if (playerShip.shCounter >= 5) playerShip.shCounter = 0;							// If ShootCounter is bigger or equal to 5, it is setted again to 0
-		Switch_shoot = false;																	// We set back the value of the switch
+		if (playerShip.shCounter >= 5) playerShip.shCounter = 0;						// If ShootCounter is bigger or equal to 5, it is setted again to 0
+		Switch_shoot = false;																								// We set back the value of the switch
 	}
 	for (i=0; i<5; i++)						// For every possible shoot
 	{
