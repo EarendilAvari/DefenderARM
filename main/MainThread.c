@@ -84,7 +84,6 @@
 
 
 bool Flag;
-unsigned long PixelY;
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
