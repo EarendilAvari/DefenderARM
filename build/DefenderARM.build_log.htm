@@ -1,0 +1,50 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\Keil\Labware\Lab15_SpaceInvaders\DefenderARM.uvproj
+Project File Date:  02/12/2019
+
+<h2>Output:</h2>
+Rebuild target 'DefenderARM'
+compiling MainThread.c...
+compiling TExaS.c...
+assembling random.s...
+assembling startup.s...
+compiling ADC.c...
+Controls\ADC.c(36): warning:  #550-D: variable "delay" was set but never used
+        unsigned long delay;
+Controls\ADC.c: 1 warning, 0 errors
+compiling SlidePot.c...
+compiling Switches.c...
+Controls\Switches.c(9): warning:  #550-D: variable "delay" was set but never used
+        unsigned long delay;
+Controls\Switches.c: 1 warning, 0 errors
+compiling Nokia5110.c...
+compiling DAC.c...
+Sounds\DAC.c(19): warning:  #550-D: variable "delay" was set but never used
+        unsigned long delay;
+Sounds\DAC.c: 1 warning, 0 errors
+compiling Sound.c...
+Sounds\SoundArrays.h(1135): warning:  #1-D: last line of file ends without a newline
+        
+Sounds\Sound.c: 1 warning, 0 errors
+compiling GameEngineMain.c...
+GameEngine\../display/ImageArrays.h(118): warning:  #1-D: last line of file ends without a newline
+  #endif
+GameEngine\GameEngineMain.c(430): warning:  #68-D: integer conversion resulted in a change of sign
+                        enemy[enemyNmb].posX += -1 + Random()%3;
+GameEngine\GameEngineMain.c(434): warning:  #68-D: integer conversion resulted in a change of sign
+                        enemy[enemyNmb].posY += -1 + Random()%3;
+GameEngine\GameEngineMain.c(491): warning:  #1-D: last line of file ends without a newline
+  }
+GameEngine\GameEngineMain.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=6996 RO-data=21940 RW-data=84 ZI-data=2276  
+".\Build\DefenderARM.axf" - 0 Error(s), 8 Warning(s).
+Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\Build\\DefenderARM.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.

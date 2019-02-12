@@ -1,0 +1,16 @@
+--cpu Cortex-M4
+".\build\mainthread.o"
+".\build\texas.o"
+".\build\random.o"
+".\build\startup.o"
+".\build\adc.o"
+".\build\slidepot.o"
+".\build\switches.o"
+".\build\nokia5110.o"
+".\build\dac.o"
+".\build\sound.o"
+".\build\gameenginemain.o"
+D:\Keil\ARM\RV31\LIB\RTX_CM3.LIB
+--ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\DefenderARM.map" -o .\Build\DefenderARM.axf

@@ -77,10 +77,10 @@ ARM Macro Assembler    Page 2
               00000000 
               0019660D 
               3C6EF35F 
-Command Line: --debug --xref --cpu=Cortex-M4 --apcs=interwork --depend=.\random
-.d -o.\random.o -ID:\Keil\ARM\RV31\INC -ID:\Keil\ARM\CMSIS\Include -ID:\Keil\AR
-M\Inc\Luminary --predefine="__RTX SETA 1" --predefine="__EVAL SETA 1" --list=.\
-random.lst random.s
+Command Line: --debug --xref --cpu=Cortex-M4 --apcs=interwork --depend=.\build\
+random.d -o.\build\random.o -ID:\Keil\ARM\RV31\INC -ID:\Keil\ARM\CMSIS\Include 
+-ID:\Keil\ARM\Inc\Luminary --predefine="__RTX SETA 1" --predefine="__EVAL SETA 
+1" --list=.\random.lst Main\random.s
 
 
 
@@ -91,7 +91,7 @@ DATA 00000000
 
 Symbol: DATA
    Definitions
-      At line 15 in file random.s
+      At line 15 in file Main\random.s
    Uses
       None
 Comment: DATA unused
@@ -99,11 +99,11 @@ M 00000000
 
 Symbol: M
    Definitions
-      At line 16 in file random.s
+      At line 16 in file Main\random.s
    Uses
-      At line 23 in file random.s
-      At line 31 in file random.s
-      At line 44 in file random.s
+      At line 23 in file Main\random.s
+      At line 31 in file Main\random.s
+      At line 44 in file Main\random.s
 
 2 symbols
 
@@ -116,7 +116,7 @@ Relocatable symbols
 
 Symbol: .text
    Definitions
-      At line 18 in file random.s
+      At line 18 in file Main\random.s
    Uses
       None
 Comment: .text unused
@@ -124,25 +124,25 @@ Random 0000001C
 
 Symbol: Random
    Definitions
-      At line 44 in file random.s
+      At line 44 in file Main\random.s
    Uses
-      At line 20 in file random.s
+      At line 20 in file Main\random.s
 Comment: Random used once
 Random32 0000000A
 
 Symbol: Random32
    Definitions
-      At line 31 in file random.s
+      At line 31 in file Main\random.s
    Uses
-      At line 21 in file random.s
+      At line 21 in file Main\random.s
 Comment: Random32 used once
 Random_Init 00000000
 
 Symbol: Random_Init
    Definitions
-      At line 22 in file random.s
+      At line 22 in file Main\random.s
    Uses
-      At line 19 in file random.s
+      At line 19 in file Main\random.s
 Comment: Random_Init used once
 4 symbols
 340 symbols in table

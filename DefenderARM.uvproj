@@ -44,7 +44,7 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>.\</OutputDirectory>
+          <OutputDirectory>.\Build\</OutputDirectory>
           <OutputName>DefenderARM</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
@@ -403,122 +403,190 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>Source</GroupName>
+          <GroupName>Main</GroupName>
           <Files>
-            <File>
-              <FileName>startup.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\startup.s</FilePath>
-            </File>
-            <File>
-              <FileName>Nokia5110.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Nokia5110.c</FilePath>
-            </File>
-            <File>
-              <FileName>random.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\random.s</FilePath>
-            </File>
             <File>
               <FileName>MainThread.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\MainThread.c</FilePath>
+              <FilePath>.\Main\MainThread.c</FilePath>
+            </File>
+            <File>
+              <FileName>sprite.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Main\sprite.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>0</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>TExaS.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\TExaS.c</FilePath>
-            </File>
-            <File>
-              <FileName>Sound.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Sound.c</FilePath>
-            </File>
-            <File>
-              <FileName>ADC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ADC.c</FilePath>
-            </File>
-            <File>
-              <FileName>DAC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\DAC.c</FilePath>
-            </File>
-            <File>
-              <FileName>Switches.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Switches.c</FilePath>
-            </File>
-            <File>
-              <FileName>SlidePot.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\SlidePot.c</FilePath>
-            </File>
-            <File>
-              <FileName>GameEngine.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\GameEngine.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Headers</GroupName>
-          <Files>
-            <File>
-              <FileName>SoundArrays.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\SoundArrays.h</FilePath>
-            </File>
-            <File>
-              <FileName>ADC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ADC.h</FilePath>
-            </File>
-            <File>
-              <FileName>ImageArrays.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ImageArrays.h</FilePath>
-            </File>
-            <File>
-              <FileName>Nokia5110.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Nokia5110.h</FilePath>
+              <FilePath>.\Main\TExaS.c</FilePath>
             </File>
             <File>
               <FileName>random.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\random.h</FilePath>
+              <FilePath>.\Main\random.h</FilePath>
             </File>
             <File>
-              <FileName>Sound.h</FileName>
+              <FileName>random.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Main\random.s</FilePath>
+            </File>
+            <File>
+              <FileName>StartImage.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Sound.h</FilePath>
+              <FilePath>.\Main\StartImage.h</FilePath>
+            </File>
+            <File>
+              <FileName>startup.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Main\startup.s</FilePath>
             </File>
             <File>
               <FileName>TExaS.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\TExaS.h</FilePath>
+              <FilePath>.\Main\TExaS.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Controls</GroupName>
+          <Files>
+            <File>
+              <FileName>ADC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Controls\ADC.c</FilePath>
             </File>
             <File>
-              <FileName>DAC.h</FileName>
+              <FileName>ADC.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\DAC.h</FilePath>
+              <FilePath>.\Controls\ADC.h</FilePath>
             </File>
             <File>
-              <FileName>Switches.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Switches.h</FilePath>
+              <FileName>SlidePot.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Controls\SlidePot.c</FilePath>
             </File>
             <File>
               <FileName>SlidePot.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\SlidePot.h</FilePath>
+              <FilePath>.\Controls\SlidePot.h</FilePath>
             </File>
             <File>
-              <FileName>GameEngine.h</FileName>
+              <FileName>Switches.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Controls\Switches.c</FilePath>
+            </File>
+            <File>
+              <FileName>Switches.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\GameEngine.h</FilePath>
+              <FilePath>.\Controls\Switches.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Display</GroupName>
+          <Files>
+            <File>
+              <FileName>ImageArrays.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\ImageArrays.h</FilePath>
+            </File>
+            <File>
+              <FileName>Nokia5110.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Nokia5110.c</FilePath>
+            </File>
+            <File>
+              <FileName>Nokia5110.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Nokia5110.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Sounds</GroupName>
+          <Files>
+            <File>
+              <FileName>DAC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sounds\DAC.c</FilePath>
+            </File>
+            <File>
+              <FileName>DAC.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Sounds\DAC.h</FilePath>
+            </File>
+            <File>
+              <FileName>Sound.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sounds\Sound.c</FilePath>
+            </File>
+            <File>
+              <FileName>Sound.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Sounds\Sound.h</FilePath>
+            </File>
+            <File>
+              <FileName>SoundArrays.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Sounds\SoundArrays.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>GameEngine</GroupName>
+          <Files>
+            <File>
+              <FileName>GameEngineMain.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\GameEngine\GameEngineMain.c</FilePath>
+            </File>
+            <File>
+              <FileName>GameEngineMain.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\GameEngine\GameEngineMain.h</FilePath>
             </File>
           </Files>
         </Group>

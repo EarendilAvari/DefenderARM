@@ -1,0 +1,12 @@
+.\build\mainthread.o: Main\MainThread.c
+.\build\mainthread.o: Main\../../tm4c123gh6pm.h
+.\build\mainthread.o: Main\Random.h
+.\build\mainthread.o: Main\TExaS.h
+.\build\mainthread.o: Main\StartImage.h
+.\build\mainthread.o: Main\../display/Nokia5110.h
+.\build\mainthread.o: D:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
+.\build\mainthread.o: Main\../controls/Switches.h
+.\build\mainthread.o: Main\../controls/SlidePot.h
+.\build\mainthread.o: Main\../sounds/Sound.h
+.\build\mainthread.o: Main\../sounds/DAC.h
+.\build\mainthread.o: Main\../gameEngine/GameEngineMain.h
