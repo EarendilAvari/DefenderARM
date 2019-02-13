@@ -33,18 +33,21 @@ Sounds\Sound.c: 1 warning, 0 errors
 compiling GameEngineMain.c...
 GameEngine\../display/ImageArrays.h(118): warning:  #1-D: last line of file ends without a newline
   #endif
-GameEngine\GameEngineMain.c(430): warning:  #68-D: integer conversion resulted in a change of sign
-                        enemy[enemyNmb].posX += -1 + Random()%3;
-GameEngine\GameEngineMain.c(434): warning:  #68-D: integer conversion resulted in a change of sign
-                        enemy[enemyNmb].posY += -1 + Random()%3;
-GameEngine\GameEngineMain.c(491): warning:  #1-D: last line of file ends without a newline
+GameEngine\GameEngineMain.c(474): warning:  #68-D: integer conversion resulted in a change of sign
+                        enemy->posX += -1 + Random()%3;
+GameEngine\GameEngineMain.c(478): warning:  #68-D: integer conversion resulted in a change of sign
+                        enemy->posY += -1 + Random()%3;
+GameEngine\GameEngineMain.c(534): warning:  #1-D: last line of file ends without a newline
   }
 GameEngine\GameEngineMain.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=6996 RO-data=21940 RW-data=84 ZI-data=2276  
+Program Size: Code=6684 RO-data=21940 RW-data=80 ZI-data=2272  
 ".\Build\DefenderARM.axf" - 0 Error(s), 8 Warning(s).
 Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\Build\\DefenderARM.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
 Verify OK.
+</pre>
+</body>
+</html>
