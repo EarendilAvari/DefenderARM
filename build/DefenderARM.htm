@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Build\DefenderARM.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Build\DefenderARM.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sun Feb 17 21:33:53 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sun Feb 17 23:02:43 2019
 <BR><P>
 <H3>Maximum Stack Usage =         76 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -672,8 +672,8 @@ Global Symbols
 <P><STRONG><a name="[e2]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[89]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40 + Unknown Stack Size
-<LI>Call Chain = __rt_entry_main &rArr; main &rArr; Nokia5110_OutString_4x4pix_toBuffer &rArr; Nokia5110_OutChar_4x4pix_toBuffer
+<BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
+<LI>Call Chain = __rt_entry_main &rArr; main &rArr; GameEngine_Init &rArr; Terrain_InitTerrain &rArr; Terrain_GroundNextY
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
@@ -801,15 +801,17 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
-<P><STRONG><a name="[9b]"></a>Enemy_StartEnemy</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, enemy.o(i.Enemy_StartEnemy))
-<BR><BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
+<P><STRONG><a name="[9b]"></a>Enemy_StartEnemy</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, enemy.o(i.Enemy_StartEnemy))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Enemy_StartEnemy
+</UL>
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
 </UL>
 
 <P><STRONG><a name="[11]"></a>GPIOPortE_Handler</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, switches.o(i.GPIOPortE_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
-<P><STRONG><a name="[98]"></a>GameEngine_Init</STRONG> (Thumb, 108 bytes, Stack size 8 bytes, gameenginecycle.o(i.GameEngine_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40 + Unknown Stack Size
+<P><STRONG><a name="[98]"></a>GameEngine_Init</STRONG> (Thumb, 122 bytes, Stack size 16 bytes, gameenginecycle.o(i.GameEngine_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
 <LI>Call Chain = GameEngine_Init &rArr; Terrain_InitTerrain &rArr; Terrain_GroundNextY
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_InitTerrain
@@ -1118,8 +1120,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[8a]"></a>main</STRONG> (Thumb, 106 bytes, Stack size 0 bytes, mainthread.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40 + Unknown Stack Size
-<LI>Call Chain = main &rArr; Nokia5110_OutString_4x4pix_toBuffer &rArr; Nokia5110_OutChar_4x4pix_toBuffer
+<BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
+<LI>Call Chain = main &rArr; GameEngine_Init &rArr; Terrain_InitTerrain &rArr; Terrain_GroundNextY
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TExaS_Init
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SwitchesInit

@@ -34,6 +34,6 @@ void Enemy_ControlEnemy(Enemy *this, unsigned long intCounter, unsigned char max
 // This function initializes the enemy variables
 // inputs: enemy: Pointer to an element of the enemy array
 // outputs: none
-void Enemy_StartEnemy(Enemy *this);
+void Enemy_StartEnemy(Enemy *this, const unsigned char *img0, const unsigned char *img1, const unsigned char *img2, const unsigned char *img3, const unsigned char *img4);
 
 #endif

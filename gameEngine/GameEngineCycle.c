@@ -178,7 +178,7 @@ void GameEngine_Init(void)
 	
 	for (i=0; i<5; i++)
 	{
-		Enemy_StartEnemy(&enemy[i]);
+		Enemy_StartEnemy(&enemy[i], enemy1Alive1, enemy1Alive2, enemy1Alive3, enemy1Dying1, enemy1Dying2);
 	}
 }
 
