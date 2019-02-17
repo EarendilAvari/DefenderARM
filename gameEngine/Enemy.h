@@ -1,3 +1,5 @@
+#ifndef ENEMY_H
+#define ENEMY_H
 
 // ************************************************************************************************
 // *********************************** DECLARATION OF "CLASS" *************************************
@@ -33,3 +35,5 @@ void Enemy_ControlEnemy(Enemy *this, unsigned long intCounter, unsigned char max
 // inputs: enemy: Pointer to an element of the enemy array
 // outputs: none
 void Enemy_StartEnemy(Enemy *this);
+
+#endif

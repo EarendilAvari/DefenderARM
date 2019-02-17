@@ -4,7 +4,7 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 D:\Keil\Labware\Lab15_SpaceInvaders\DefenderARM.uvproj
-Project File Date:  02/12/2019
+Project File Date:  02/17/2019
 
 <h2>Output:</h2>
 Rebuild target 'DefenderARM'
@@ -31,26 +31,16 @@ Sounds\SoundArrays.h(1135): warning:  #1-D: last line of file ends without a new
         
 Sounds\Sound.c: 1 warning, 0 errors
 compiling GameEngineCycle.c...
-GameEngine\Enemy.h(35): warning:  #1-D: last line of file ends without a newline
-  void Enemy_StartEnemy(Enemy *this);
-GameEngine\../display/ImageArrays.h(68): warning:  #1-D: last line of file ends without a newline
-  #endif
-GameEngine\GameEngineCycle.c(398): warning:  #1-D: last line of file ends without a newline
-  }
-GameEngine\GameEngineCycle.c: 3 warnings, 0 errors
 compiling Enemy.c...
-gameEngine\Enemy.h(35): warning:  #1-D: last line of file ends without a newline
-  void Enemy_StartEnemy(Enemy *this);
-gameEngine\Enemy.c(148): warning:  #68-D: integer conversion resulted in a change of sign
-                        this->posX += -1 + Random()%3;
 gameEngine\Enemy.c(152): warning:  #68-D: integer conversion resulted in a change of sign
+                        this->posX += -1 + Random()%3;
+gameEngine\Enemy.c(156): warning:  #68-D: integer conversion resulted in a change of sign
                         this->posY += -1 + Random()%3;
-gameEngine\Enemy.c(177): warning:  #1-D: last line of file ends without a newline
-  }
-gameEngine\Enemy.c: 4 warnings, 0 errors
+gameEngine\Enemy.c: 2 warnings, 0 errors
+compiling Terrain.c...
 linking...
-Program Size: Code=6696 RO-data=20220 RW-data=80 ZI-data=2272  
-".\Build\DefenderARM.axf" - 0 Error(s), 11 Warning(s).
+Program Size: Code=6620 RO-data=20220 RW-data=80 ZI-data=2120  
+".\Build\DefenderARM.axf" - 0 Error(s), 6 Warning(s).
 Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\Build\\DefenderARM.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
@@ -59,23 +49,33 @@ Verify OK.
 </pre>
 </body>
 </html>
-ngs, 5 errors
-compiling Enemy.c...
-gameEngine\Enemy.h(26): warning:  #1-D: last line of file ends without a newline
-  void Enemy_StartEnemy(Enemy *this);
-gameEngine\Enemy.c(160): warning:  #68-D: integer conversion resulted in a change of sign
-                        this->posX += -1 + Random()%3;
-gameEngine\Enemy.c(164): warning:  #68-D: integer conversion resulted in a change of sign
-                        this->posY += -1 + Random()%3;
-gameEngine\Enemy.c(189): warning:  #1-D: last line of file ends without a newline
+fy OK.
+EngineGeneral.c(38): warning:  #1-D: last line of file ends without a newline
   }
-gameEngine\Enemy.c: 4 warnings, 0 errors
-".\Build\DefenderARM.axf" - 5 Error(s), 11 Warning(s).
-Target not created
-xf: Error: L6200E: Symbol enemy1Dying1 multiply defined (by enemy.o and gameenginecycle.o).
-.\Build\DefenderARM.axf: Error: L6200E: Symbol enemy1Dying2 multiply defined (by enemy.o and gameenginecycle.o).
-Not enough information to list image symbols.
-Not enough information to list the image map.
-Finished: 2 information, 0 warning and 9 error messages.
-".\Build\DefenderARM.axf" - 9 Error(s), 12 Warning(s).
-Target not created
+gameEngine\GameEngineGeneral.c: 2 warnings, 0 errors
+compiling Enemy.c...
+gameEngine\Enemy.c(152): warning:  #68-D: integer conversion resulted in a change of sign
+                        this->posX += -1 + Random()%3;
+gameEngine\Enemy.c(156): warning:  #68-D: integer conversion resulted in a change of sign
+                        this->posY += -1 + Random()%3;
+gameEngine\Enemy.c(181): warning:  #1-D: last line of file ends without a newline
+  }
+gameEngine\Enemy.c: 3 warnings, 0 errors
+compiling Terrain.c...
+gameEngine\GameEngineGeneral.h(24): warning:  #1-D: last line of file ends without a newline
+  unsigned char GEGeneral_GroundNextY(unsigned char PosYLast, unsigned char minY, unsigned char maxY);
+gameEngine\Terrain.c(83): warning:  #1-D: last line of file ends without a newline
+  #endif
+gameEngine\Terrain.c: 2 warnings, 0 errors
+linking...
+Program Size: Code=6708 RO-data=20220 RW-data=80 ZI-data=2272  
+".\Build\DefenderARM.axf" - 0 Error(s), 14 Warning(s).
+Clean started: Project: 'DefenderARM'
+   deleting intermediate output files for target 'DefenderARM'
+-data=20220 RW-data=80 ZI-data=2272  
+".\Build\DefenderARM.axf" - 0 Error(s), 15 Warning(s).
+Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\Build\\DefenderARM.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.

@@ -589,9 +589,29 @@
               <FilePath>.\GameEngine\GameEngineCycle.h</FilePath>
             </File>
             <File>
+              <FileName>Pixel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\gameEngine\Pixel.h</FilePath>
+            </File>
+            <File>
               <FileName>Enemy.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\gameEngine\Enemy.c</FilePath>
+            </File>
+            <File>
+              <FileName>Enemy.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\gameEngine\Enemy.h</FilePath>
+            </File>
+            <File>
+              <FileName>Terrain.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\gameEngine\Terrain.c</FilePath>
+            </File>
+            <File>
+              <FileName>Terrain.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\gameEngine\Terrain.h</FilePath>
             </File>
           </Files>
         </Group>

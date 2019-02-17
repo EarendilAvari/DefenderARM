@@ -97,6 +97,10 @@ enemyFSM_Type enemyFSM[6] =
 };
 
 
+// ************************************************************************************************
+// *********************************** DEFINITION OF FUNCTIONS ************************************
+// ************************************************************************************************
+
 //**********************_StartEnemy***********************
 // This function initializes the enemy variables
 // inputs: enemy: Pointer to an element of the enemy array
@@ -175,3 +179,4 @@ void Enemy_ControlEnemy(Enemy *this, unsigned long intCounter, unsigned char max
 		}
 	}	
 }
+

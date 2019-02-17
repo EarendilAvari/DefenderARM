@@ -1,6 +1,8 @@
 
 #include "GameEngineCycle.h"
+#include "Pixel.h"
 #include "Enemy.h"
+#include "Terrain.h"
 #include "../../tm4c123gh6pm.h"
 #include "../controls/SlidePot.h"
 #include "../controls/Switches.h"
@@ -19,24 +21,6 @@
 // ************************************************************************************************
 // ******************************** DECLARATION OF PRIVATE DATA TYPES *****************************
 // ************************************************************************************************
-
-// ************** Structure used for the normal shoots *****************
-typedef struct Pixel 	// A structure for elements represented as a pixel
-{
-	unsigned char PosX;	// Position X of that pixel
-	unsigned char PosY; // Position Y of that pixel
-	bool show;					// True if the pixel should be shown
-}PixelType;
-
-// ************** Structure used to define the terrain ******************
-typedef struct TerrainVariables
-{
-	PixelType backgroundStars[50];	//Background stars to be shown
-	PixelType ground[SCREENW];      //Pixels that symbolize the ground
-	unsigned char starCounter; 			//How many stars are shown
-	unsigned char groundCounter;
-	unsigned char minGroundH;
-}TerrainType;
 
 // *************** Structure used for the ship ***************************
 typedef struct ShipVariables
@@ -70,7 +54,7 @@ unsigned char PixelY;	//This value has the position Y of the ship
 unsigned long interruptCounter; // It counts how many sysTick interrupts have been occured
 
 ShipType playerShip; 				//Object used to represent the ship
-TerrainType terrain;				//Object used to represent the terrain
+Terrain terrain;				//Object used to represent the terrain
 AnimationType animations;		//Object used to represent the animations of the ship
 Enemy enemy[5];							//Object used to represent the enemies
 
@@ -106,12 +90,6 @@ void _ShowHUD(void);
 // inputs: none
 // outputs: none
 void _ShowBackground(void);	
-
-//**********************_ShowTerrain***********************
-// Generates and show the terrain on the screen
-// inputs: none
-// outputs: none
-void _ShowTerrain(void);
 
 //**********************_ControlShip***********************
 // This function do the following tasks:
@@ -160,7 +138,7 @@ void SysTick_Handler(void)
 	}
 	else 
 	{
-		_ShowTerrain();
+		Terrain_ShowTerrain(&terrain, interruptCounter, MAXGROUND);
 		_ControlShip();
 		Enemy_ControlEnemy(&enemy[0],interruptCounter, MAXGROUND);
 		Enemy_ControlEnemy(&enemy[1],interruptCounter, MAXGROUND);
@@ -187,27 +165,11 @@ void GameEngine_Init(void)
 		playerShip.shoots[i].PosX = SHIPW;	// It makes the position of the shoots to be at Y=0 and
 		playerShip.shoots[i].PosY = 0;			// X = the width of the ship
 	}
-	for (i=0; i<50; i++)
-	{
-		terrain.backgroundStars[i].PosX = 0;	// It makes the position of 50 possible stars to be 0,0
-		terrain.backgroundStars[i].PosY = 0;
-		terrain.backgroundStars[i].show = false;
-	}
-	terrain.minGroundH = MAXGROUND - 10;		// It initializes the upper border of the terrain (ground) to be 10 
-																					// pixels above the border down, where the HUD starts
-	terrain.ground[0].PosX = 0;							// It makes the position of the first ground pixel to be 0,MAXGROUND, that means it 
-																					// starts down with the HUD
-	terrain.ground[0].PosY = MAXGROUND;
-	for (i=1; i<SCREENW; i++)								// For every other border pixel, we make the position X to be i, so we fill the 
-	{																				// screen with border pixels			
-		terrain.ground[i].PosX = i;						
-		terrain.ground[i].PosY = _GroundNextY(terrain.ground[i-1].PosY, terrain.minGroundH); // The coordinate Y is random and depends
-	}																																											 // of the coordinate Y of the last pixel
-	terrain.groundCounter = 0;		// We set the ground counter to be 0, so the next ground pixel will "steal" the place of the pixel located at X=0
-																// Very important that it is 0, else we get a bug
 	playerShip.shCounter = 0;			// We set the quantity of shown shoots to be 0
 	playerShip.healthPoints = 3;	// Initial HP of the ship
 	playerShip.score = 0;					// Initial score of the ship
+	
+	Terrain_InitTerrain(&terrain, MAXGROUND);
 	
 	animations.playerShipDestruction[0] = (unsigned char*)&PlayerShipDestruction1;  // We point the animation arrays to the individual images on "ImageArrays.h"
 	animations.playerShipDestruction[1] = (unsigned char*)&PlayerShipDestruction2;	// So the element 0 of the array points to the first image, the element 1 to
@@ -239,75 +201,6 @@ void _ShowHUD(void)
 	Nokia5110_OutUDec_4x4pix_toBuffer(65, SCREENH - 5, playerShip.score);
 }
 
-
-//**********************_ShowBackground***********************
-// Generates and show stars at the background
-// inputs: none
-// outputs: none
-void _ShowBackground(void)
-{
-	unsigned char i;
-	if ((interruptCounter%5) == Random32()%5) // If the modulo of interruptCounter%5 is equal to a random number between 1 and 4
-	{
-		terrain.backgroundStars[terrain.starCounter].show = true; 							//We show a star
-		terrain.backgroundStars[terrain.starCounter].PosX = SCREENW - 1;				//With x start posision at the end of the screen
-		terrain.backgroundStars[terrain.starCounter].PosY = Random32()%(SCREENH-7);	//And y start position a number between 0 and SCREENH - 8
-		terrain.starCounter++;
-		if (terrain.starCounter >= 50) terrain.starCounter = 0;									//We make place for 50 stars, if a 51 star is created, the star 0 is overwritten
-	}
-	for (i=0; i<50; i++)																											//We do this for every star
-	{
-		if ((terrain.backgroundStars[i].show) && ((interruptCounter%2)==0))			//If the star is meant to be shown and the interruptCounter is even 
-		{
-			Nokia5110_SetPixel(terrain.backgroundStars[i].PosX, terrain.backgroundStars[i].PosY); 		// We print two pixels representing the stars
-			Nokia5110_SetPixel(terrain.backgroundStars[i].PosX - 1, terrain.backgroundStars[i].PosY);
-			terrain.backgroundStars[i].PosX--;																		// We move the positionX a pixel behind
-			if (terrain.backgroundStars[i].PosX < 1)															// If the star reached the end of the display we dont show it anymore
-				terrain.backgroundStars[i].show = false;
-		}
-	}
-}
-
-//**********************_ShowTerrain***********************
-// Generates and show the terrain on the screen
-// inputs: none
-// outputs: none
-void _ShowTerrain(void)
-{
-	unsigned char i, j;
-	unsigned char PosYLast;				//Coordinate Y of the ground pixel used to generate the coordinate of the next one
-	if (interruptCounter%5 == 0)	//It is executed every 5 interrupts, so every 166,67 ms, causing a sensation that it moves
-																//slower than the shoots
-	{
-		for (i = 0; i < SCREENW; i++)	//We move the ground pixels 1 coordinate to the left
-		{
-			terrain.ground[i].PosX--;
-		}
-		terrain.ground[terrain.groundCounter].PosX = SCREENW - 1;		//We set the coordinate X of the new pixel to be at the rightmost border
-		if (terrain.groundCounter > 0)																//If the pixel we will change now is not the number 0 of the array
-		{																															//we use the previous pixel in the array to generate the coordinate Y
-			PosYLast = terrain.ground[terrain.groundCounter - 1].PosY;	//of the new ground pixel
-		}
-		else																													//If the pixel we will change now IS THE NUMBER 0 of the array
-		{																															//We use the last pixel of the array to generate the coordinate Y
-			PosYLast = terrain.ground[SCREENW - 1].PosY;								//of the new ground pixel
-		}
-		terrain.ground[terrain.groundCounter].PosY = _GroundNextY(PosYLast, terrain.minGroundH);	//This function generates a random value between the previous
-																																														  // and the following Y coordinate
-		terrain.groundCounter++;																									//We increase the groundCounter by one, meaning that we will change the next 
-																																							//element of the array in the next iteration
-		if (terrain.groundCounter >= SCREENW) terrain.groundCounter = 0;  	//If the counter reaches the length of the array, we set it back to 0, to process again the 
-																																				//first pixel on the array
-	}
-	for (i=0; i<SCREENW; i++)																//We draw this in every iteration. For every ground pixel we set all the pixels under it creating a 
-																													//mountain on the display
-	{
-		for (j = terrain.ground[i].PosY; j < MAXGROUND; j++)	
-		{
-			Nokia5110_SetPixel(terrain.ground[i].PosX, j);
-		}
-	}
-}
 
 
 //**********************_ControlShip***********************
@@ -367,32 +260,3 @@ void _ControlShip(void)
 	}
 }
 
-
-//********************_GroundNextY*********************
-// Determines the Y coordinate of the next ground pixel  
-// If the last pixel is in downest border of permitted pixels to draw the ground
-// The next pixel can only be at the same Y coordinate or 1 above
-// If the last pixel is in the uppest border of permitted pixels to draw the ground
-// The next pixel can only be at the same Y coordinate or 1 below
-// Else the next pixel can be 1 pixel below, 1 pixel above or at the same height
-// inputs: PosYLast    The Y coordinate of the last ground pixel drawn, which we use to determine
-//                     the Y coordinate of this pixel
-//                     0 is on the left; 82 is near the right
-//         minY      	 Minimum permitted Y coordinate, it is variable because it changes in the game 
-//                     to make it more difficult
-// outputs: Coordinate Y of the ground pixel we want to draw now
-unsigned char _GroundNextY(unsigned char PosYLast, unsigned char minY)
-{
-		if (PosYLast + 1 > MAXGROUND)
-		{
-			return (PosYLast - 1) + Random32()%2;
-		}
-		else if (PosYLast - 1 < minY)
-		{
-			return (PosYLast + 1) - Random32()%2;
-		}				
-		else
-		{
-			return (PosYLast - 1) + Random32()%3;
-		}
-}

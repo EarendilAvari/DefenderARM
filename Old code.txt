@@ -1,0 +1,27 @@
+//**********************_ShowBackground***********************
+// Generates and show stars at the background
+// inputs: none
+// outputs: none
+void _ShowBackground(void)
+{
+	unsigned char i;
+	if ((interruptCounter%5) == Random32()%5) // If the modulo of interruptCounter%5 is equal to a random number between 1 and 4
+	{
+		terrain.backgroundStars[terrain.starCounter].show = true; 							//We show a star
+		terrain.backgroundStars[terrain.starCounter].PosX = SCREENW - 1;				//With x start posision at the end of the screen
+		terrain.backgroundStars[terrain.starCounter].PosY = Random32()%(SCREENH-7);	//And y start position a number between 0 and SCREENH - 8
+		terrain.starCounter++;
+		if (terrain.starCounter >= 50) terrain.starCounter = 0;									//We make place for 50 stars, if a 51 star is created, the star 0 is overwritten
+	}
+	for (i=0; i<50; i++)																											//We do this for every star
+	{
+		if ((terrain.backgroundStars[i].show) && ((interruptCounter%2)==0))			//If the star is meant to be shown and the interruptCounter is even 
+		{
+			Nokia5110_SetPixel(terrain.backgroundStars[i].PosX, terrain.backgroundStars[i].PosY); 		// We print two pixels representing the stars
+			Nokia5110_SetPixel(terrain.backgroundStars[i].PosX - 1, terrain.backgroundStars[i].PosY);
+			terrain.backgroundStars[i].PosX--;																		// We move the positionX a pixel behind
+			if (terrain.backgroundStars[i].PosX < 1)															// If the star reached the end of the display we dont show it anymore
+				terrain.backgroundStars[i].show = false;
+		}
+	}
+}
