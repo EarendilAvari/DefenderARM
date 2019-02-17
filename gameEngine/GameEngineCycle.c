@@ -1,5 +1,6 @@
 
-#include "GameEngineMain.h"
+#include "GameEngineCycle.h"
+#include "Enemy.h"
 #include "../../tm4c123gh6pm.h"
 #include "../controls/SlidePot.h"
 #include "../controls/Switches.h"
@@ -14,22 +15,10 @@
 
 #define MAXHP 4
 #define MAXGROUND 41  //The ground can be drawn maximal in this Y position
-#define ENEMYW 12
-#define ENEMYH 8
 
 // ************************************************************************************************
 // ******************************** DECLARATION OF PRIVATE DATA TYPES *****************************
 // ************************************************************************************************
-
-// ***************** Structure used for the enemies ********************
-typedef struct enemyVariables
-{
-	unsigned char posX;
-	unsigned char posY;
-	unsigned char dead;
-	unsigned char *image[5];
-	unsigned char actStatus;	
-}enemyType;
 
 // ************** Structure used for the normal shoots *****************
 typedef struct Pixel 	// A structure for elements represented as a pixel
@@ -70,35 +59,6 @@ typedef struct AnimationVariables
 }AnimationType;
 
 // ************************************************************************************************
-// ****************************** DECLARATION OF FINITE STATE MACHINES ****************************
-// ************************************************************************************************
-
-//********** Finite state machine for enemy animation **************
-typedef const struct enemyFSM_Variables
-{
-	unsigned char imgNumber;
-	unsigned short delay;
-	unsigned char next[2];
-}enemyFSM_Type;
-
-#define enemyFSM_Alive1 0
-#define enemyFSM_Alive2 1
-#define enemyFSM_Alive3 2
-#define enemyFSM_Dying1 3
-#define enemyFSM_Dying2 4
-#define enemyFSM_NoShow 5
-
-enemyFSM_Type enemyFSM[6] =
-{
-	/* STATE: Alive1 */ {0, 50, {enemyFSM_Alive2, enemyFSM_Dying1}},
-	/* STATE: Alive2 */ {1, 10, {enemyFSM_Alive3, enemyFSM_Dying1}},
-	/* STATE: Alive3 */ {2, 10, {enemyFSM_Alive1, enemyFSM_Dying1}},
-	/* STATE: Dying1 */ {3, 20, {enemyFSM_Dying2, enemyFSM_Dying2}},
-	/* STATE: Dying2 */ {4, 20, {enemyFSM_NoShow, enemyFSM_NoShow}},
-	/* STATE: NoShow */ {5, 0, {enemyFSM_NoShow, enemyFSM_NoShow}}
-};
-
-// ************************************************************************************************
 // ******************************** DECLARATION OF GLOBAL VARIABLES *******************************
 // ************************************************************************************************
 
@@ -112,7 +72,7 @@ unsigned long interruptCounter; // It counts how many sysTick interrupts have be
 ShipType playerShip; 				//Object used to represent the ship
 TerrainType terrain;				//Object used to represent the terrain
 AnimationType animations;		//Object used to represent the animations of the ship
-enemyType enemy[5];					//Object used to represent the enemies
+Enemy enemy[5];							//Object used to represent the enemies
 
 
 // ************************************************************************************************
@@ -161,22 +121,7 @@ void _ShowTerrain(void);
 // outputs: none
 void _ControlShip(void);
 
-//**********************_ControlEnemy***********************
-// This function do the following tasks:
-// - Draws the enemy
-// - Moves it randomly  
-// - Generates its shoots randomly
-// inputs: enemy: Pointer to an element of the enemy array
-//         intCounter: interrupt counter
-// outputs: none
-void _ControlEnemy(enemyType *enemy, unsigned long intCounter);
 
-
-//**********************_StartEnemy***********************
-// This function initializes the enemy variables
-// inputs: enemy: Pointer to an element of the enemy array
-// outputs: none
-void _StartEnemy(enemyType *enemy);
 
 
 // ************************************************************************************************
@@ -217,9 +162,9 @@ void SysTick_Handler(void)
 	{
 		_ShowTerrain();
 		_ControlShip();
-		_ControlEnemy(&enemy[0],interruptCounter);
-		_ControlEnemy(&enemy[1],interruptCounter);
-		_ControlEnemy(&enemy[2],interruptCounter);
+		Enemy_ControlEnemy(&enemy[0],interruptCounter, MAXGROUND);
+		Enemy_ControlEnemy(&enemy[1],interruptCounter, MAXGROUND);
+		Enemy_ControlEnemy(&enemy[2],interruptCounter, MAXGROUND);
 	}
 	_ShowHUD();
 	Flag = true;										// Sets the flag to 1, indicating that there is a new sample for the display
@@ -271,7 +216,7 @@ void GameEngine_Init(void)
 	
 	for (i=0; i<5; i++)
 	{
-		_StartEnemy(&enemy[i]);
+		Enemy_StartEnemy(&enemy[i]);
 	}
 }
 
@@ -420,87 +365,6 @@ void _ControlShip(void)
 				playerShip.shoots[i].show = false;													// if the shoot reaches the end of the screen, we turn off the value indicating that a shoot should be shown
 		}
 	}
-}
-
-
-//**********************_StartEnemy***********************
-// This function initializes the enemy variables
-// inputs: enemy: Pointer to an element of the enemy array
-// outputs: none
-void _StartEnemy(enemyType *enemy)
-{
-		enemy->posX = SCREENW - ENEMYW - 2; 							// We initialize all enemies to be at the right border of the screen
-		enemy->posY = 10;
-		enemy->dead = 0;
-		enemy->image[0] = (unsigned char*)&enemy1Alive1;  // We point the animation arrays to the individual images on "ImageArrays.h"
-		enemy->image[1] = (unsigned char*)&enemy1Alive2;  
-		enemy->image[2] = (unsigned char*)&enemy1Alive3;
-		enemy->image[3] = (unsigned char*)&enemy1Dying1;
-		enemy->image[4] = (unsigned char*)&enemy1Dying2;
-		enemy->actStatus = enemyFSM_NoShow;								// We don't show the enemies at the beginning
-}
-
-//**********************_ControlEnemy***********************
-// This function do the following tasks:
-// - Draws the enemy
-// - Moves it randomly  
-// - Generates its shoots randomly
-// inputs: enemy: Pointer to an element of the enemy array
-//         intCounter: interrupt counter
-// outputs: none
-void _ControlEnemy(enemyType *enemy, unsigned long intCounter)
-{
-	// %%%%%%%%%%%%%% CONTROL OF DEATH %%%%%%%%%%%%%%%%
-	unsigned char i = enemy->posY;
-	unsigned char oldStatus = enemy->actStatus;
-	while ((i > enemy->posY - ENEMYH) && (enemy->dead == 0))
-	{
-		if (Nokia5110_AskPixel(enemy->posX - 2, i))
-		{
-			enemy->dead = 1;
-		}
-		i--;
-	}
-	// %%%%%%%%%%%%%% FSM's NEXT STATUS %%%%%%%%%%%%%%%%%%
-	if (intCounter%enemyFSM[oldStatus].delay == 0)
-	{
-		enemy->actStatus = enemyFSM[oldStatus].next[enemy->dead];
-	}
-	// %%%%%%%%%%%%%% enemy's next position %%%%%%%%%%%%%%
-	if ((enemy->actStatus < 3) && (intCounter%5 == 0))
-	{
-		if ((enemy->posX > ENEMYW) && (enemy->posX < SCREENW - ENEMYW - 2))
-		{
-			enemy->posX += -1 + Random()%3;
-		}
-		if ((enemy->posY > ENEMYH) && (enemy->posY < MAXGROUND))
-		{
-			enemy->posY += -1 + Random()%3;
-		}
-	}
-	// %%%%%%%%%%%%%% DRAW ENEMY %%%%%%%%%%%%%%%%
-	if (enemy->actStatus != enemyFSM_NoShow)
-	{
-		Nokia5110_PrintBMP(enemy->posX, enemy->posY, enemy->image[enemy->actStatus], 0);
-	}
-	// %%%%%%%%%%%%%% CREATE NEW ENEMY %%%%%%%%%%%
-	else
-	{
-		unsigned char createNewEnemy = Random()%10;
-		if (createNewEnemy == 1)
-		{
-			enemy->actStatus = enemyFSM_Alive1;
-			enemy->posX = 2*ENEMYW + Random()%(SCREENW - 3*ENEMYW);
-			enemy->posY = ENEMYH + Random()%(MAXGROUND - ENEMYH);
-			if (Nokia5110_AskPixel(enemy->posX, enemy->posY))
-			{
-				enemy->posY -= 20;
-			}
-			enemy->dead = 0;
-			Sound_Highpitch();
-		}
-	}
-	
 }
 
 

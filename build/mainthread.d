@@ -9,4 +9,4 @@
 .\build\mainthread.o: Main\../controls/SlidePot.h
 .\build\mainthread.o: Main\../sounds/Sound.h
 .\build\mainthread.o: Main\../sounds/DAC.h
-.\build\mainthread.o: Main\../gameEngine/GameEngineMain.h
+.\build\mainthread.o: Main\../gameEngine/GameEngineCycle.h

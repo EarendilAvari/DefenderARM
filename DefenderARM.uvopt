@@ -166,10 +166,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>10</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>114</TopLine>
-      <CurrentLine>86</CurrentLine>
+      <TopLine>66</TopLine>
+      <CurrentLine>83</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Main\MainThread.c</PathWithFileName>
       <FilenameWithoutPath>MainThread.c</FilenameWithoutPath>
@@ -292,7 +292,7 @@
 
   <Group>
     <GroupName>Controls</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -396,7 +396,7 @@
 
   <Group>
     <GroupName>Display</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -422,10 +422,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>2</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>307</TopLine>
+      <CurrentLine>294</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Display\Nokia5110.c</PathWithFileName>
       <FilenameWithoutPath>Nokia5110.c</FilenameWithoutPath>
@@ -550,13 +550,13 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>5</ColumnNumber>
+      <ColumnNumber>30</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>452</TopLine>
-      <CurrentLine>224</CurrentLine>
+      <TopLine>38</TopLine>
+      <CurrentLine>37</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\GameEngine\GameEngineMain.c</PathWithFileName>
-      <FilenameWithoutPath>GameEngineMain.c</FilenameWithoutPath>
+      <PathWithFileName>.\GameEngine\GameEngineCycle.c</PathWithFileName>
+      <FilenameWithoutPath>GameEngineCycle.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -571,8 +571,24 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\GameEngine\GameEngineMain.h</PathWithFileName>
-      <FilenameWithoutPath>GameEngineMain.h</FilenameWithoutPath>
+      <PathWithFileName>.\GameEngine\GameEngineCycle.h</PathWithFileName>
+      <FilenameWithoutPath>GameEngineCycle.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>25</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>2</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>58</TopLine>
+      <CurrentLine>67</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\gameEngine\Enemy.c</PathWithFileName>
+      <FilenameWithoutPath>Enemy.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

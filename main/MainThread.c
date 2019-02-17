@@ -78,7 +78,7 @@
 #include "../controls/Switches.h"
 #include "../controls/SlidePot.h"
 #include "../sounds/Sound.h"
-#include "../gameEngine/GameEngineMain.h"
+#include "../gameEngine/GameEngineCycle.h"
 
 
 

@@ -579,14 +579,19 @@
           <GroupName>GameEngine</GroupName>
           <Files>
             <File>
-              <FileName>GameEngineMain.c</FileName>
+              <FileName>GameEngineCycle.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\GameEngine\GameEngineMain.c</FilePath>
+              <FilePath>.\GameEngine\GameEngineCycle.c</FilePath>
             </File>
             <File>
-              <FileName>GameEngineMain.h</FileName>
+              <FileName>GameEngineCycle.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\GameEngine\GameEngineMain.h</FilePath>
+              <FilePath>.\GameEngine\GameEngineCycle.h</FilePath>
+            </File>
+            <File>
+              <FileName>Enemy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\gameEngine\Enemy.c</FilePath>
             </File>
           </Files>
         </Group>
