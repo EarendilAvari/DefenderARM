@@ -613,6 +613,16 @@
               <FileType>5</FileType>
               <FilePath>.\gameEngine\Terrain.h</FilePath>
             </File>
+            <File>
+              <FileName>PlayerShip.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\gameEngine\PlayerShip.c</FilePath>
+            </File>
+            <File>
+              <FileName>PlayerShip.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\gameEngine\PlayerShip.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

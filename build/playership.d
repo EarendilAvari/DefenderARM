@@ -1,0 +1,10 @@
+.\build\playership.o: gameEngine\PlayerShip.c
+.\build\playership.o: gameEngine\PlayerShip.h
+.\build\playership.o: gameEngine\pixel.h
+.\build\playership.o: D:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
+.\build\playership.o: gameEngine\../Display/Nokia5110.h
+.\build\playership.o: gameEngine\../Sounds/Sound.h
+.\build\playership.o: gameEngine\../Sounds/DAC.h
+.\build\playership.o: gameEngine\../Display/Nokia5110.h
+.\build\playership.o: gameEngine\../Controls/Switches.h
+.\build\playership.o: gameEngine\../Controls/SlidePot.h
