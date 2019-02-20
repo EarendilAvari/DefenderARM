@@ -4,7 +4,7 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 D:\Keil\Labware\Lab15_SpaceInvaders\DefenderARM.uvproj
-Project File Date:  02/17/2019
+Project File Date:  02/18/2019
 
 <h2>Output:</h2>
 Rebuild target 'DefenderARM'
@@ -35,19 +35,14 @@ GameEngine\PlayerShip.h(62): warning:  #1-D: last line of file ends without a ne
   #endif
 GameEngine\GameEngineCycle.c: 1 warning, 0 errors
 compiling Enemy.c...
-gameEngine\Enemy.c(106): warning:  #68-D: integer conversion resulted in a change of sign
-                        this->posX += -1 + Random()%3;
-gameEngine\Enemy.c(110): warning:  #68-D: integer conversion resulted in a change of sign
-                        this->posY += -1 + Random()%3;
-gameEngine\Enemy.c: 2 warnings, 0 errors
 compiling Terrain.c...
 compiling PlayerShip.c...
 gameEngine\PlayerShip.h(62): warning:  #1-D: last line of file ends without a newline
   #endif
 gameEngine\PlayerShip.c: 1 warning, 0 errors
 linking...
-Program Size: Code=6624 RO-data=20652 RW-data=84 ZI-data=2132  
-".\Build\DefenderARM.axf" - 0 Error(s), 8 Warning(s).
+Program Size: Code=6720 RO-data=20652 RW-data=84 ZI-data=2132  
+".\Build\DefenderARM.axf" - 0 Error(s), 6 Warning(s).
 Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\Build\\DefenderARM.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
@@ -56,20 +51,12 @@ Verify OK.
 </pre>
 </body>
 </html>
-efenderARM'
-   deleting intermediate output files for target 'DefenderARM'
-
-gameEngine\PlayerShip.c(91): error:  #20: identifier "MovedUp" is undefined
-        input = Hurt | (MovedUp<<1) | (MovedDown<<2);
-gameEngine\PlayerShip.c(91): error:  #20: identifier "MovedDown" is undefined
-        input = Hurt | (MovedUp<<1) | (MovedDown<<2);
-gameEngine\PlayerShip.c(93): error:  #169: expected a declaration
-        if (intCounter%PlayerShipFSM[oldStatus].delay == 0)
-gameEngine\PlayerShip.c(98): warning:  #12-D: parsing restarts here after previous syntax error
-        Nokia5110_PrintBMP(0, PixelY, this->image[input], 0);           // Draws the ship in the display using the value from the slide pot
-gameEngine\PlayerShip.c(101): error:  #169: expected a declaration
-        if (Switch_shoot)                                                                                                                                                               // If the switch is pressed we do the following operations on the next shoot on the array
-gameEngine\PlayerShip.c(124): warning: At end of source:  #12-D: parsing restarts here after previous syntax error
-gameEngine\PlayerShip.c: 4 warnings, 8 errors
-".\Build\DefenderARM.axf" - 8 Error(s), 10 Warning(s).
-Target not created
+ 1 warning, 0 errors
+linking...
+Program Size: Code=6624 RO-data=20652 RW-data=84 ZI-data=2132  
+".\Build\DefenderARM.axf" - 0 Error(s), 8 Warning(s).
+Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\Build\\DefenderARM.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.

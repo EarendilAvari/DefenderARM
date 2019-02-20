@@ -83,31 +83,46 @@ void Enemy_ControlEnemy(Enemy *this, unsigned long intCounter, unsigned char max
 {
 	// %%%%%%%%%%%%%% CONTROL OF DEATH %%%%%%%%%%%%%%%%
 	unsigned char i = this->posY;
-	unsigned char oldStatus = this->actStatus;
+	unsigned char oldStatus = this->actStatus;		//Variable used to determine the next FSM status
+	unsigned char nextPosX = this->posX;												//Next position in X calculated randomly
+	unsigned char nextPosY = this->posY;												//Next position in Y calculated randomly
+	bool moveEnemy = true;
 	
-	while ((i > this->posY - ENEMYH) && (this->dead == 0))
-	{
-		if (Nokia5110_AskPixel(this->posX - 2, i))
-		{
+	while ((i > this->posY - ENEMYH) && (this->dead == 0))	//i corresponds to the coordinates in Y axis from the bottom of
+	{																												//the enemy image to its top
+		if (Nokia5110_AskPixel(this->posX - 2, i))						//If a pixel is turned on 2 pixels before the enemy image
+		{																											//the enemy is killed
 			this->dead = 1;
 		}
 		i--;
 	}
 	// %%%%%%%%%%%%%% FSM's NEXT STATUS %%%%%%%%%%%%%%%%%%
-	if (intCounter%enemyFSM[oldStatus].delay == 0)
-	{
-		this->actStatus = enemyFSM[oldStatus].next[this->dead];
+	if (intCounter%enemyFSM[oldStatus].delay == 0)							//It changes the status of the FSM every number of interrupts
+	{																														//Given by the delay of the current status
+		this->actStatus = enemyFSM[oldStatus].next[this->dead];		//The next status is determined by the output of the FSM corresponding to the input (this->dead)
 	}
 	// %%%%%%%%%%%%%% enemy's next position %%%%%%%%%%%%%%
-	if ((this->actStatus < 3) && (intCounter%5 == 0))
+	if ((this->actStatus < 3) && (intCounter%5 == 0))										//Every 5 interrupts and only if the current status is smaller than 3 (which means alive)
 	{
-		if ((this->posX > ENEMYW) && (this->posX < SCREENW - ENEMYW - 2))
-		{
-			this->posX += -1 + Random()%3;
+		if ((this->posX > ENEMYW) && (this->posX < SCREENW - ENEMYW - 2))	//If the current position in X is larger than the width of the enemy image and shorter than  
+		{																																 	//the width of the screen minus the width of the enemy -2  
+																											
+			nextPosX = this->posX - 1 + Random()%3;													//nextPosX is equal to this->posX - 1, this->PosX or this->PosX + 1
 		}
 		if ((this->posY > ENEMYH) && (this->posY < maxY))
 		{
-			this->posY += -1 + Random()%3;
+			nextPosY = this->posY - 1 + Random()%3;
+		}
+		i = nextPosY;
+		while ((i > nextPosY - ENEMYH) && moveEnemy)
+		{
+			moveEnemy &= ~Nokia5110_AskPixel(nextPosX - 2, i) & ~Nokia5110_AskPixel(nextPosX + 2 + ENEMYW, i);
+			i--;
+		}
+		if (moveEnemy)
+		{
+			this->posX = nextPosX;
+			this->posY = nextPosY;
 		}
 	}
 	
