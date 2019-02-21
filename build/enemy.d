@@ -5,3 +5,4 @@
 .\build\enemy.o: gameEngine\../Sounds/Sound.h
 .\build\enemy.o: gameEngine\../Sounds/DAC.h
 .\build\enemy.o: gameEngine\../Main/Random.h
+.\build\enemy.o: gameEngine\Pixel.h

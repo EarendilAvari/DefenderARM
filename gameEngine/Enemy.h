@@ -1,6 +1,11 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
+#include "../Display/Nokia5110.h"
+#include "../Sounds/Sound.h"
+#include "../Main/Random.h"
+#include "Pixel.h"
+
 // ************************************************************************************************
 // *********************************** DECLARATION OF "CLASS" *************************************
 // ************************************************************************************************
@@ -10,6 +15,7 @@ struct enemyVariables
 {
 	unsigned char posX;
 	unsigned char posY;
+	PixelType shoots;				//Array of shoots of the enemy
 	unsigned char dead;
 	unsigned char *image[5];
 	unsigned char actStatus;	

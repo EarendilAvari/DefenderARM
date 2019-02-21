@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\Build\DefenderARM.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Build\DefenderARM.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Wed Feb 20 01:11:47 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Thu Feb 21 01:18:36 2019
 <BR><P>
-<H3>Maximum Stack Usage =         84 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =         92 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-SysTick_Handler &rArr; PlayerShip_ControlShip &rArr; Nokia5110_PrintBMP
+SysTick_Handler &rArr; Enemy_ControlEnemy &rArr; Nokia5110_PrintBMP
 <P>
 <H3>
 Functions with no stack information
@@ -764,7 +764,7 @@ Global Symbols
 <P><STRONG><a name="[f0]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, indicate_semi.o(.text), UNUSED)
 
 <P><STRONG><a name="[ac]"></a>ADC0_In</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, adc.o(i.ADC0_In))
-<BR><BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SlidePot_toPixelY
+<BR><BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SlidePot_toPixelY
 </UL>
 
 <P><STRONG><a name="[ab]"></a>ADC0_Init</STRONG> (Thumb, 160 bytes, Stack size 0 bytes, adc.o(i.ADC0_Init))
@@ -789,11 +789,13 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer2A_Handler
 </UL>
 
-<P><STRONG><a name="[93]"></a>Enemy_ControlEnemy</STRONG> (Thumb, 394 bytes, Stack size 40 bytes, enemy.o(i.Enemy_ControlEnemy))
-<BR><BR>[Stack]<UL><LI>Max Depth = 76 + Unknown Stack Size
+<P><STRONG><a name="[93]"></a>Enemy_ControlEnemy</STRONG> (Thumb, 546 bytes, Stack size 48 bytes, enemy.o(i.Enemy_ControlEnemy))
+<BR><BR>[Stack]<UL><LI>Max Depth = 84 + Unknown Stack Size
 <LI>Call Chain = Enemy_ControlEnemy &rArr; Nokia5110_PrintBMP
 </UL>
-<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Highpitch
+<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Shoot
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Highpitch
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetPixel
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_AskPixel
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Random
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_PrintBMP
@@ -801,23 +803,23 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
-<P><STRONG><a name="[9c]"></a>Enemy_InitEnemy</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, enemy.o(i.Enemy_InitEnemy))
+<P><STRONG><a name="[9e]"></a>Enemy_InitEnemy</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, enemy.o(i.Enemy_InitEnemy))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Enemy_InitEnemy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
+<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
 </UL>
 
 <P><STRONG><a name="[11]"></a>GPIOPortE_Handler</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, switches.o(i.GPIOPortE_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
-<P><STRONG><a name="[98]"></a>GameEngine_Init</STRONG> (Thumb, 80 bytes, Stack size 24 bytes, gameenginecycle.o(i.GameEngine_Init))
+<P><STRONG><a name="[9a]"></a>GameEngine_Init</STRONG> (Thumb, 76 bytes, Stack size 24 bytes, gameenginecycle.o(i.GameEngine_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56 + Unknown Stack Size
 <LI>Call Chain = GameEngine_Init &rArr; Terrain_InitTerrain &rArr; Terrain_GroundNextY
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_InitTerrain
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_InitShip
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_InitEnemy
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
+<BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_InitTerrain
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_InitShip
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_InitEnemy
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -825,15 +827,15 @@ Global Symbols
 <P><STRONG><a name="[94]"></a>Nokia5110_AskPixel</STRONG> (Thumb, 70 bytes, Stack size 16 bytes, nokia5110.o(i.Nokia5110_AskPixel))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Nokia5110_AskPixel
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
+<BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_ControlEnemy
 </UL>
 
-<P><STRONG><a name="[9d]"></a>Nokia5110_Clear</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, nokia5110.o(i.Nokia5110_Clear))
+<P><STRONG><a name="[9f]"></a>Nokia5110_Clear</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, nokia5110.o(i.Nokia5110_Clear))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Nokia5110_Clear &rArr; Nokia5110_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
+<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -842,53 +844,53 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
-<P><STRONG><a name="[a0]"></a>Nokia5110_DisplayBuffer</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, nokia5110.o(i.Nokia5110_DisplayBuffer))
+<P><STRONG><a name="[a2]"></a>Nokia5110_DisplayBuffer</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, nokia5110.o(i.Nokia5110_DisplayBuffer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Nokia5110_DisplayBuffer &rArr; Nokia5110_DrawFullImage &rArr; Nokia5110_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DrawFullImage
+<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DrawFullImage
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a1]"></a>Nokia5110_DrawFullImage</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, nokia5110.o(i.Nokia5110_DrawFullImage))
+<P><STRONG><a name="[a3]"></a>Nokia5110_DrawFullImage</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, nokia5110.o(i.Nokia5110_DrawFullImage))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Nokia5110_DrawFullImage &rArr; Nokia5110_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
+<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DisplayBuffer
+<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DisplayBuffer
 </UL>
 
-<P><STRONG><a name="[a2]"></a>Nokia5110_Init</STRONG> (Thumb, 316 bytes, Stack size 8 bytes, nokia5110.o(i.Nokia5110_Init))
+<P><STRONG><a name="[a4]"></a>Nokia5110_Init</STRONG> (Thumb, 316 bytes, Stack size 8 bytes, nokia5110.o(i.Nokia5110_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Nokia5110_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
+<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a4]"></a>Nokia5110_OutChar_4x4pix_toBuffer</STRONG> (Thumb, 194 bytes, Stack size 24 bytes, nokia5110.o(i.Nokia5110_OutChar_4x4pix_toBuffer))
+<P><STRONG><a name="[a6]"></a>Nokia5110_OutChar_4x4pix_toBuffer</STRONG> (Thumb, 194 bytes, Stack size 24 bytes, nokia5110.o(i.Nokia5110_OutChar_4x4pix_toBuffer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Nokia5110_OutChar_4x4pix_toBuffer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ShowHUD
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDec_4x4pix_toBuffer
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString_4x4pix_toBuffer
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDec_4x4pix_toBuffer
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString_4x4pix_toBuffer
 </UL>
 
-<P><STRONG><a name="[a3]"></a>Nokia5110_OutString_4x4pix_toBuffer</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, nokia5110.o(i.Nokia5110_OutString_4x4pix_toBuffer))
+<P><STRONG><a name="[a5]"></a>Nokia5110_OutString_4x4pix_toBuffer</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, nokia5110.o(i.Nokia5110_OutString_4x4pix_toBuffer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Nokia5110_OutString_4x4pix_toBuffer &rArr; Nokia5110_OutChar_4x4pix_toBuffer
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutChar_4x4pix_toBuffer
+<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutChar_4x4pix_toBuffer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ShowHUD
 <LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a5]"></a>Nokia5110_OutUDec_4x4pix_toBuffer</STRONG> (Thumb, 88 bytes, Stack size 28 bytes, nokia5110.o(i.Nokia5110_OutUDec_4x4pix_toBuffer))
+<P><STRONG><a name="[a7]"></a>Nokia5110_OutUDec_4x4pix_toBuffer</STRONG> (Thumb, 88 bytes, Stack size 28 bytes, nokia5110.o(i.Nokia5110_OutUDec_4x4pix_toBuffer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = Nokia5110_OutUDec_4x4pix_toBuffer &rArr; Nokia5110_OutChar_4x4pix_toBuffer
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutChar_4x4pix_toBuffer
+<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutChar_4x4pix_toBuffer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ShowHUD
 </UL>
@@ -896,25 +898,26 @@ Global Symbols
 <P><STRONG><a name="[96]"></a>Nokia5110_PrintBMP</STRONG> (Thumb, 420 bytes, Stack size 36 bytes, nokia5110.o(i.Nokia5110_PrintBMP))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = Nokia5110_PrintBMP
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
+<BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_ControlEnemy
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[9f]"></a>Nokia5110_SetCursor</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, nokia5110.o(i.Nokia5110_SetCursor))
+<P><STRONG><a name="[a1]"></a>Nokia5110_SetCursor</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, nokia5110.o(i.Nokia5110_SetCursor))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Nokia5110_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
+<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DrawFullImage
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Clear
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DrawFullImage
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Clear
 </UL>
 
-<P><STRONG><a name="[a9]"></a>Nokia5110_SetPixel</STRONG> (Thumb, 64 bytes, Stack size 12 bytes, nokia5110.o(i.Nokia5110_SetPixel))
+<P><STRONG><a name="[99]"></a>Nokia5110_SetPixel</STRONG> (Thumb, 64 bytes, Stack size 12 bytes, nokia5110.o(i.Nokia5110_SetPixel))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = Nokia5110_SetPixel
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_ShowTerrain
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_ControlEnemy
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ShowHUD
 </UL>
 
@@ -922,22 +925,22 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TExaS_Init
 </UL>
 
-<P><STRONG><a name="[a6]"></a>PlayerShip_ControlShip</STRONG> (Thumb, 406 bytes, Stack size 40 bytes, playership.o(i.PlayerShip_ControlShip))
+<P><STRONG><a name="[a8]"></a>PlayerShip_ControlShip</STRONG> (Thumb, 406 bytes, Stack size 40 bytes, playership.o(i.PlayerShip_ControlShip))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = PlayerShip_ControlShip &rArr; Nokia5110_PrintBMP
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Shoot
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetPixel
+<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Shoot
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetPixel
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_AskPixel
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SlidePot_toPixelY
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SlidePot_toPixelY
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_PrintBMP
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
-<P><STRONG><a name="[9a]"></a>PlayerShip_InitShip</STRONG> (Thumb, 104 bytes, Stack size 28 bytes, playership.o(i.PlayerShip_InitShip))
+<P><STRONG><a name="[9c]"></a>PlayerShip_InitShip</STRONG> (Thumb, 104 bytes, Stack size 28 bytes, playership.o(i.PlayerShip_InitShip))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = PlayerShip_InitShip
 </UL>
-<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
+<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
 </UL>
 
 <P><STRONG><a name="[ba]"></a>SetCode</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, texas.o(i.SetCode))
@@ -951,7 +954,7 @@ Global Symbols
 <P><STRONG><a name="[ad]"></a>SlidePot_Convert</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, slidepot.o(i.SlidePot_Convert))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SlidePot_Convert
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SlidePot_toPixelY
+<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SlidePot_toPixelY
 </UL>
 
 <P><STRONG><a name="[aa]"></a>SlidePot_Init</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, slidepot.o(i.SlidePot_Init))
@@ -962,13 +965,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a7]"></a>SlidePot_toPixelY</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, slidepot.o(i.SlidePot_toPixelY))
+<P><STRONG><a name="[a9]"></a>SlidePot_toPixelY</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, slidepot.o(i.SlidePot_toPixelY))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = SlidePot_toPixelY &rArr; SlidePot_Convert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SlidePot_Convert
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC0_In
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
+<BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
 </UL>
 
 <P><STRONG><a name="[97]"></a>Sound_Highpitch</STRONG> (Thumb, 14 bytes, Stack size 4 bytes, sound.o(i.Sound_Highpitch))
@@ -993,16 +996,17 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer2A_Start
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Shoot
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Shoot
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Highpitch
 </UL>
 
-<P><STRONG><a name="[a8]"></a>Sound_Shoot</STRONG> (Thumb, 14 bytes, Stack size 4 bytes, sound.o(i.Sound_Shoot))
+<P><STRONG><a name="[98]"></a>Sound_Shoot</STRONG> (Thumb, 14 bytes, Stack size 4 bytes, sound.o(i.Sound_Shoot))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Sound_Shoot &rArr; Sound_Play
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Play
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
+<BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_ControlEnemy
 </UL>
 
 <P><STRONG><a name="[c1]"></a>SwitchesInit</STRONG> (Thumb, 172 bytes, Stack size 0 bytes, switches.o(i.SwitchesInit))
@@ -1010,20 +1014,20 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c]"></a>SysTick_Handler</STRONG> (Thumb, 162 bytes, Stack size 8 bytes, gameenginecycle.o(i.SysTick_Handler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84 + Unknown Stack Size
-<LI>Call Chain = SysTick_Handler &rArr; PlayerShip_ControlShip &rArr; Nokia5110_PrintBMP
+<BR><BR>[Stack]<UL><LI>Max Depth = 92 + Unknown Stack Size
+<LI>Call Chain = SysTick_Handler &rArr; Enemy_ControlEnemy &rArr; Nokia5110_PrintBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_ShowTerrain
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_ControlEnemy
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ShowHUD
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_ClearBuffer
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString_4x4pix_toBuffer
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString_4x4pix_toBuffer
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
-<P><STRONG><a name="[99]"></a>SysTick_Init</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, gameenginecycle.o(i.SysTick_Init))
-<BR><BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
+<P><STRONG><a name="[9b]"></a>SysTick_Init</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, gameenginecycle.o(i.SysTick_Init))
+<BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
 </UL>
 
 <P><STRONG><a name="[b6]"></a>TExaS_Init</STRONG> (Thumb, 324 bytes, Stack size 8 bytes, texas.o(i.TExaS_Init))
@@ -1045,16 +1049,16 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Random32
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_ShowTerrain
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_InitTerrain
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_InitTerrain
 </UL>
 
-<P><STRONG><a name="[9b]"></a>Terrain_InitTerrain</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, terrain.o(i.Terrain_InitTerrain))
+<P><STRONG><a name="[9d]"></a>Terrain_InitTerrain</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, terrain.o(i.Terrain_InitTerrain))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32 + Unknown Stack Size
 <LI>Call Chain = Terrain_InitTerrain &rArr; Terrain_GroundNextY
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_GroundNextY
 </UL>
-<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
+<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
 </UL>
 
 <P><STRONG><a name="[b4]"></a>Terrain_ShowTerrain</STRONG> (Thumb, 180 bytes, Stack size 32 bytes, terrain.o(i.Terrain_ShowTerrain))
@@ -1062,7 +1066,7 @@ Global Symbols
 <LI>Call Chain = Terrain_ShowTerrain &rArr; Terrain_GroundNextY
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_GroundNextY
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetPixel
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetPixel
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
@@ -1108,10 +1112,10 @@ Global Symbols
 <P><STRONG><a name="[b5]"></a>_ShowHUD</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, gameenginecycle.o(i._ShowHUD))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = _ShowHUD &rArr; Nokia5110_OutUDec_4x4pix_toBuffer &rArr; Nokia5110_OutChar_4x4pix_toBuffer
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetPixel
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDec_4x4pix_toBuffer
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutChar_4x4pix_toBuffer
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString_4x4pix_toBuffer
+<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetPixel
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDec_4x4pix_toBuffer
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutChar_4x4pix_toBuffer
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString_4x4pix_toBuffer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
@@ -1126,11 +1130,11 @@ Global Symbols
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SlidePot_Init
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Random_Init
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_PrintBMP
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString_4x4pix_toBuffer
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Init
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DisplayBuffer
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Clear
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString_4x4pix_toBuffer
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Init
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DisplayBuffer
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Clear
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EnableInterrupts
 </UL>
 <BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
@@ -1139,11 +1143,11 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[9e]"></a>lcdwrite</STRONG> (Thumb, 66 bytes, Stack size 0 bytes, nokia5110.o(i.lcdwrite))
-<BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DrawFullImage
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Init
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Clear
+<P><STRONG><a name="[a0]"></a>lcdwrite</STRONG> (Thumb, 66 bytes, Stack size 0 bytes, nokia5110.o(i.lcdwrite))
+<BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DrawFullImage
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Init
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Clear
 </UL>
 <P>
 <H3>

@@ -3,9 +3,6 @@
 // ******************************* INTERACTION WITH ANOTHER MODULES *******************************
 // ************************************************************************************************
 #include "Enemy.h"
-#include "../Display/Nokia5110.h"
-#include "../Sounds/Sound.h"
-#include "../Main/Random.h"
 
 // ************************************************************************************************
 // ******************************** DEFINITION OF GLOBAL QUANTITIES *******************************
@@ -81,13 +78,15 @@ void Enemy_InitEnemy(Enemy *this, const unsigned char *img0, const unsigned char
 // outputs: none
 void Enemy_ControlEnemy(Enemy *this, unsigned long intCounter, unsigned char maxY)
 {
-	// %%%%%%%%%%%%%% CONTROL OF DEATH %%%%%%%%%%%%%%%%
+	
 	unsigned char i = this->posY;
 	unsigned char oldStatus = this->actStatus;		//Variable used to determine the next FSM status
-	unsigned char nextPosX = this->posX;												//Next position in X calculated randomly
-	unsigned char nextPosY = this->posY;												//Next position in Y calculated randomly
+	unsigned char nextPosX = this->posX;												//Next position in X calculated randomly, initialized with the current position on X
+	unsigned char nextPosY = this->posY;												//Next position in Y calculated randomly, initialized with the current position on Y
 	bool moveEnemy = true;
+	bool noOtherEnemy = true;
 	
+	// %%%%%%%%%%%%%% CONTROL OF DEATH %%%%%%%%%%%%%%%%
 	while ((i > this->posY - ENEMYH) && (this->dead == 0))	//i corresponds to the coordinates in Y axis from the bottom of
 	{																												//the enemy image to its top
 		if (Nokia5110_AskPixel(this->posX - 2, i))						//If a pixel is turned on 2 pixels before the enemy image
@@ -109,17 +108,18 @@ void Enemy_ControlEnemy(Enemy *this, unsigned long intCounter, unsigned char max
 																											
 			nextPosX = this->posX - 1 + Random()%3;													//nextPosX is equal to this->posX - 1, this->PosX or this->PosX + 1
 		}
-		if ((this->posY > ENEMYH) && (this->posY < maxY))
-		{
-			nextPosY = this->posY - 1 + Random()%3;
+		if ((this->posY > ENEMYH) && (this->posY < maxY))									//If the current position in Y is larger than the height of the enemy image and shorter than
+		{																																	// the maximum Y value (given by the upper border of the HUD) 
+			nextPosY = this->posY - 1 + Random()%3;													//nextPosY is equal to this->posY - 1, this->posY or this->posX + 1
 		}
+		
 		i = nextPosY;
-		while ((i > nextPosY - ENEMYH) && moveEnemy)
-		{
+		while ((i > nextPosY - ENEMYH) && moveEnemy)											// it is checked if there is something 2 pixels to the right and two pixels to the left of the 
+		{																																	// image, for the entire height of the image
 			moveEnemy &= ~Nokia5110_AskPixel(nextPosX - 2, i) & ~Nokia5110_AskPixel(nextPosX + 2 + ENEMYW, i);
 			i--;
 		}
-		if (moveEnemy)
+		if (moveEnemy)																										// If there is nothing, the enemy is moved to the position calculated before
 		{
 			this->posX = nextPosX;
 			this->posY = nextPosY;
@@ -127,26 +127,53 @@ void Enemy_ControlEnemy(Enemy *this, unsigned long intCounter, unsigned char max
 	}
 	
 	// %%%%%%%%%%%%%% DRAW ENEMY %%%%%%%%%%%%%%%%
-	if (this->actStatus != enemyFSM_NoShow)
+	if (this->actStatus != enemyFSM_NoShow)							//If the current status of the enemy is different to "not show", we print it to the display
 	{
 		Nokia5110_PrintBMP(this->posX, this->posY, this->image[this->actStatus], 0);
 	}
 	// %%%%%%%%%%%%%% CREATE NEW ENEMY %%%%%%%%%%%
-	else
+	else																								//If the enemy is not being shown (meaning it was killed and it did not come back yet
 	{
-		unsigned char createNewEnemy = Random()%10;
+		unsigned char createNewEnemy = Random()%50;				// There is a probability of 1/50 to create an enemy in this cycle
 		if (createNewEnemy == 1)
 		{
 			this->actStatus = enemyFSM_Alive1;
-			this->posX = 2*ENEMYW + Random()%(SCREENW - 3*ENEMYW);
-			this->posY = ENEMYH + Random()%(maxY - ENEMYH);
-			if (Nokia5110_AskPixel(this->posX, this->posY))
-			{
+			this->posX = 2*ENEMYW + Random()%(SCREENW - 3*ENEMYW);	//The enemy is created in a random position on X between 2*ENEMYW and SCREENW-ENEMYW
+			this->posY = ENEMYH + Random()%(maxY - ENEMYH);					//The enemy is created in a random position on Y between ENEMYH and maxY
+			if (Nokia5110_AskPixel(this->posX, this->posY))					//If the pixel is already used, the enemy is created 20 pixels above. That is to avoid
+			{																												//That the enemy is created on the terrain
 				this->posY -= 20;
 			}
 			this->dead = 0;
 			Sound_Highpitch();
 		}
 	}	
+	// %%%%%%%%%%%%%%% ENEMY SHOOTS %%%%%%%%%%%%%%%%
+	i = this->posX - 1;																							 	// It evaluates if the way to the player ship is free of other enemies, if is not, it does not 
+	while (i > 10 && noOtherEnemy)																		// not shoot, so it doesn't kill another enemies
+	{
+		noOtherEnemy &= ~Nokia5110_AskPixel(i, this->posY - ENEMYH/2);
+		i--;
+	}
+	
+	if ((Random()%50 == 1) && !this->shoots.show && this->actStatus != enemyFSM_NoShow && noOtherEnemy)	// If there is not a shoot being shown, and the current status 
+	{																																							// of the enemy is not not shown (in other words it is not dead) and we get a 1 for a 
+		this->shoots.show = true;																										// random number between 0 and 49. It shoots.
+		Sound_Shoot();
+		this->shoots.PosX = this->posX - 1;
+		this->shoots.PosY = this->posY - ENEMYH/2;
+	}
+
+	if (this->shoots.show)																							// We show the shoot until it goes out of the screen
+	{
+		Nokia5110_SetPixel(this->shoots.PosX, this->shoots.PosY);
+		Nokia5110_SetPixel(this->shoots.PosX - 1, this->shoots.PosY);
+		Nokia5110_SetPixel(this->shoots.PosX - 2, this->shoots.PosY);
+		this->shoots.PosX--;		
+		if (this->shoots.PosX <= 2)
+		{
+			this->shoots.show = false;
+		}
+	}
 }
 

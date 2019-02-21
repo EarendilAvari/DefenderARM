@@ -3,13 +3,15 @@
 .\build\gameenginecycle.o: D:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
 .\build\gameenginecycle.o: GameEngine\Pixel.h
 .\build\gameenginecycle.o: GameEngine\Enemy.h
+.\build\gameenginecycle.o: GameEngine\../Display/Nokia5110.h
+.\build\gameenginecycle.o: GameEngine\../Sounds/Sound.h
+.\build\gameenginecycle.o: GameEngine\../Sounds/DAC.h
+.\build\gameenginecycle.o: GameEngine\../Main/Random.h
 .\build\gameenginecycle.o: GameEngine\Terrain.h
 .\build\gameenginecycle.o: GameEngine\../Main/Random.h
 .\build\gameenginecycle.o: GameEngine\../Display/Nokia5110.h
 .\build\gameenginecycle.o: GameEngine\PlayerShip.h
 .\build\gameenginecycle.o: GameEngine\../Display/Nokia5110.h
-.\build\gameenginecycle.o: GameEngine\../Sounds/Sound.h
-.\build\gameenginecycle.o: GameEngine\../Sounds/DAC.h
 .\build\gameenginecycle.o: GameEngine\../Display/Nokia5110.h
 .\build\gameenginecycle.o: GameEngine\../Controls/Switches.h
 .\build\gameenginecycle.o: GameEngine\../Controls/SlidePot.h
