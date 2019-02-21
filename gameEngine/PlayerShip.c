@@ -74,6 +74,8 @@ void PlayerShip_InitShip(PlayerShip* this, const unsigned char *img0, const unsi
 			this->shoots[i].PosX = SHIPW;	// It makes the position of the shoots to be at Y=0 and
 			this->shoots[i].PosY = 0;			// X = the width of the ship
 		}
+		this->posX = 0;
+		this->posY = 30;
 		this->shCounter = 0;			// We set the quantity of shown shoots to be 0
 		this->healthPoints = 3;	// Initial HP of the ship
 		this->score = 0;					// Initial score of the ship
@@ -97,33 +99,38 @@ void PlayerShip_InitShip(PlayerShip* this, const unsigned char *img0, const unsi
 void PlayerShip_ControlShip(PlayerShip* this, unsigned char intCounter)
 {
 	unsigned char i;
-	unsigned char PixelY;
 	static unsigned char PixelY_last;
 	bool MovedUp = false;
 	bool MovedDown = false;
 	bool Hurt = false;
 	unsigned char input = 0;
 	unsigned char oldStatus = this->curStatus;
+	bool Touched = false;
 	//%%%%%%%%%%%%% MOVEMENT OF THE SHIP %%%%%%%%%%%%%%%%% 
-	PixelY = SlidePot_toPixelY(SHIPH);							// Converts the ADC data into readable distance value and then to a position in the Y axis
-	if (Nokia5110_AskPixel(8,PixelY-(SHIPH/2)) ||	 	// If the pixel for the frontal point of the ship is already set
-			Nokia5110_AskPixel(3,PixelY) ||							// or if pixel for the inferior peak is already set 
-			Nokia5110_AskPixel(3,PixelY-SHIPH))					// or if pixel for the superior peak is already set
+	this->posY = SlidePot_toPixelY(SHIPH);							// Converts the ADC data into readable distance value and then to a position in the Y axis
+	
+	i = this->posY;
+	while ((i > this->posY - SHIPH) && !Touched) 
+	{
+		Touched |= Nokia5110_AskPixel(SHIPW + 2, i);
+		i--;
+	}
+	if (Touched)					// or if pixel for the superior peak is already set
 	{
 		Hurt = true;
 	}
 	
-	if (PixelY > PixelY_last)
+	if (this->posY > PixelY_last)
 	{
 		MovedDown = true;
 	}
 	
-	if (PixelY < PixelY_last)
+	if (this->posY < PixelY_last)
 	{
 		MovedUp = true;
 	}
 	
-	PixelY_last = PixelY;
+	PixelY_last = this->posY;
 	
 	input = Hurt + (MovedUp<<1) + (MovedDown<<2);
 	
@@ -139,14 +146,14 @@ void PlayerShip_ControlShip(PlayerShip* this, unsigned char intCounter)
 		return;
 	}
 	
-	Nokia5110_PrintBMP(0, PixelY, this->image[this->curStatus], 0);  		// Draws the ship in the display using the value from the slide pot
+	Nokia5110_PrintBMP(0, this->posY, this->image[this->curStatus], 0);  		// Draws the ship in the display using the value from the slide pot
 	
 	//%%%%%%%%%%%%%%%%%% NORMAL SHOOTS %%%%%%%%%%%%%%%%%%%
 	if (Switch_shoot)																				// If the switch is pressed we do the following operations on the next shoot on the array
 	{
 		this->shoots[this->shCounter].show = true;							// We make showingShoot true, this variable is used to show the shoot in the display until it dissapears
 		Sound_Shoot();																															// We play the shoot sound by pressing the switch
-		this->shoots[this->shCounter].PosY = PixelY - (SHIPH/2);  // We set the position Y of the shoot equals to the center of the ship
+		this->shoots[this->shCounter].PosY = this->posY - (SHIPH/2);  // We set the position Y of the shoot equals to the center of the ship
 		this->shoots[this->shCounter].PosX = SHIPW;								// We set the position X of the shoot equals to the pick of the ship
 		this->shCounter++;
 		if (this->shCounter >= 5) this->shCounter = 0;							// If ShootCounter is bigger or equal to 5, it is setted again to 0
