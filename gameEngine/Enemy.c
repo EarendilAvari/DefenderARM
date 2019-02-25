@@ -67,40 +67,59 @@ void Enemy_InitEnemy(Enemy *this, const unsigned char *img0, const unsigned char
 		this->actStatus = enemyFSM_NoShow;								// We don't show the enemies at the beginning
 }
 
-//**********************Enemy_ControlEnemy***********************
-// This function do the following tasks:
-// - Draws the enemy
-// - Moves it randomly  
-// - Generates its shoots randomly
+//**********************Enemy_ControlDeath***********************
+// This function controls the death of an enemy pointed by "this".
+// It determines when the enemy should die based on the pixels that 
+// are already turned on
 // inputs: enemy: Pointer to an element of the enemy array
-//         intCounter: Indicates how many cycles of the game engine have occurred
-//				 maxY: indicates the maximal Y coordinate the enemy can have
 // outputs: none
-void Enemy_ControlEnemy(Enemy *this, unsigned long intCounter, unsigned char maxY)
+void Enemy_ControlDeath(Enemy *this)
 {
-	
-	unsigned char i = this->posY;
-	unsigned char oldStatus = this->actStatus;		//Variable used to determine the next FSM status
-	unsigned char nextPosX = this->posX;												//Next position in X calculated randomly, initialized with the current position on X
-	unsigned char nextPosY = this->posY;												//Next position in Y calculated randomly, initialized with the current position on Y
-	bool moveEnemy = true;
-	bool noOtherEnemy = true;
-	
-	// %%%%%%%%%%%%%% CONTROL OF DEATH %%%%%%%%%%%%%%%%
-	while ((i > this->posY - ENEMYH) && (this->dead == 0))	//i corresponds to the coordinates in Y axis from the bottom of
-	{																												//the enemy image to its top
+		unsigned char i = this->posY;
+		while ((i > this->posY - ENEMYH) && (this->dead == 0))	//i corresponds to the coordinates in Y axis from the bottom of
+		{																												//the enemy image to its top
 		if (Nokia5110_AskPixel(this->posX - 2, i))						//If a pixel is turned on 2 pixels before the enemy image
 		{																											//the enemy is killed
 			this->dead = 1;
 		}
 		i--;
 	}
-	// %%%%%%%%%%%%%% FSM's NEXT STATUS %%%%%%%%%%%%%%%%%%
+}
+
+
+//**********************Enemy_NextState***********************
+// This function determines the next state of the final state machine.
+// for the enemy pointed by this. So it determines which picture should
+// be shown next
+// inputs: enemy: Pointer to an element of the enemy array
+//         intCounter: Indicates how many cycles of the game engine have occurred
+// outputs: none
+void Enemy_NextState(Enemy *this, unsigned long intCounter)
+{
+	unsigned char oldStatus = this->actStatus;		//Variable used to determine the next FSM status
 	if (intCounter%enemyFSM[oldStatus].delay == 0)							//It changes the status of the FSM every number of interrupts
 	{																														//Given by the delay of the current status
 		this->actStatus = enemyFSM[oldStatus].next[this->dead];		//The next status is determined by the output of the FSM corresponding to the input (this->dead)
 	}
-	// %%%%%%%%%%%%%% enemy's next position %%%%%%%%%%%%%%
+}
+
+
+//**********************Enemy_NextPos***********************
+// This function determines the next position of the enemy pointed by this.
+// The position is two dimensional and can variate between the current position
+// minus one pixel and the current position plus one pixel. 
+// So the movement up, down, left and right is made possible.
+// Whether the position changes to one direction or to the other is generated randomly.
+// inputs: enemy: Pointer to an element of the enemy array
+//         intCounter: Indicates how many cycles of the game engine have occurred
+//				 maxY: indicates the maximal Y coordinate the enemy can have
+// outputs: none
+void Enemy_NextPos(Enemy *this, unsigned long intCounter, unsigned char maxY)
+{
+	unsigned char i;
+	unsigned char nextPosX = this->posX;												//Next position in X calculated randomly, initialized with the current position on X
+	unsigned char nextPosY = this->posY;												//Next position in Y calculated randomly, initialized with the current position on Y
+	bool moveEnemy = true;
 	if ((this->actStatus < 3) && (intCounter%5 == 0))										//Every 5 interrupts and only if the current status is smaller than 3 (which means alive)
 	{
 		if ((this->posX > ENEMYW) && (this->posX < SCREENW - ENEMYW - 2))	//If the current position in X is larger than the width of the enemy image and shorter than  
@@ -125,7 +144,20 @@ void Enemy_ControlEnemy(Enemy *this, unsigned long intCounter, unsigned char max
 			this->posY = nextPosY;
 		}
 	}
-	
+}
+
+
+//**********************Enemy_Draw***********************
+// This function whether draws the enemy into the display buffer if it should be shown
+// (based on the state of the finite state machine) or it shows it again if is not shown 
+// now because it was killed or because the game was just started.
+// To do that, a random number between 0 and 49 is asked, and if it results to be 1
+// the new enemy is created.
+// inputs: enemy: Pointer to an element of the enemy array
+//				 maxY: indicates the maximal Y coordinate the enemy can have
+// outputs: none
+void Enemy_Draw(Enemy *this, unsigned char maxY)
+{
 	// %%%%%%%%%%%%%% DRAW ENEMY %%%%%%%%%%%%%%%%
 	if (this->actStatus != enemyFSM_NoShow)							//If the current status of the enemy is different to "not show", we print it to the display
 	{
@@ -148,8 +180,19 @@ void Enemy_ControlEnemy(Enemy *this, unsigned long intCounter, unsigned char max
 			Sound_Highpitch();
 		}
 	}	
-	// %%%%%%%%%%%%%%% ENEMY SHOOTS %%%%%%%%%%%%%%%%
-	i = this->posX - 1;																							 	// It evaluates if the way to the player ship is free of other enemies, if is not, it does not 
+}
+
+//**********************Enemy_Draw***********************
+// This function generates the shoots of the enemy pointed by this.
+// The shoots are shown until they reach the right border of the display.
+// They are not generated if another enemy is on the way of the shoot in order to avoid
+// enemies killing another enemies.
+// inputs: enemy: Pointer to an element of the enemy array
+// outputs: none
+void Enemy_Shoots(Enemy *this)
+{
+	bool noOtherEnemy = true;
+	unsigned char i = this->posX - 1;																							 	// It evaluates if the way to the player ship is free of other enemies, if is not, it does not 
 	while (i > 10 && noOtherEnemy)																		// not shoot, so it doesn't kill another enemies
 	{
 		noOtherEnemy &= ~Nokia5110_AskPixel(i, this->posY - ENEMYH/2);
@@ -176,4 +219,5 @@ void Enemy_ControlEnemy(Enemy *this, unsigned long intCounter, unsigned char max
 		}
 	}
 }
+
 

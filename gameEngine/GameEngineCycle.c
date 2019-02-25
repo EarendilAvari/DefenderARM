@@ -91,9 +91,24 @@ void SysTick_Handler(void)
 	{
 		Terrain_ShowTerrain(&terrain, interruptCounter, MAXGROUND);
 		PlayerShip_ControlShip(&playerShip, interruptCounter);
-		Enemy_ControlEnemy(&enemy[0],interruptCounter, MAXGROUND);
-		Enemy_ControlEnemy(&enemy[1],interruptCounter, MAXGROUND);
-		Enemy_ControlEnemy(&enemy[2],interruptCounter, MAXGROUND);
+		
+		Enemy_ControlDeath(&enemy[0]);
+		Enemy_NextState(&enemy[0],interruptCounter);
+		Enemy_NextPos(&enemy[0],interruptCounter, MAXGROUND);
+		Enemy_Draw(&enemy[0],MAXGROUND);
+		Enemy_Shoots(&enemy[0]);
+		
+		Enemy_ControlDeath(&enemy[1]);
+		Enemy_NextState(&enemy[1],interruptCounter);
+		Enemy_NextPos(&enemy[1],interruptCounter, MAXGROUND);
+		Enemy_Draw(&enemy[1],MAXGROUND);
+		Enemy_Shoots(&enemy[1]);
+		
+		Enemy_ControlDeath(&enemy[2]);
+		Enemy_NextState(&enemy[2],interruptCounter);
+		Enemy_NextPos(&enemy[2],interruptCounter, MAXGROUND);
+		Enemy_Draw(&enemy[2],MAXGROUND);
+		Enemy_Shoots(&enemy[2]);
 	}
 	_ShowHUD();
 	Flag = true;										// Sets the flag to 1, indicating that there is a new sample for the display
