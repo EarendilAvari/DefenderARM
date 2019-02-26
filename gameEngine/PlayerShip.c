@@ -89,14 +89,17 @@ void PlayerShip_InitShip(PlayerShip* this, const unsigned char *img0, const unsi
 		this->curStatus = shipFSM_Center;								// We don't show the enemies at the beginning
 }
 
+
 //**********************PlayerShip_ControlShip***********************
-// This function do the following tasks:
-// - Draws the ship and moves it on dependance of the slide pot
-// - Generate the shoots of the ship on dependance of the shoot switch
+// This function performs the following tasks:
+// - Determines the next position of the ship
+// - Determines whether the player ship is killed in this cycle or not
+// - Changes the status of the finite state machine used for the ship
+// based on the input from the slide pot and if it is dying or not.
 // inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
 //				 intCounter: Indicates how many cycles of the game engine have occurred
 // outputs: none
-void PlayerShip_ControlShip(PlayerShip* this, unsigned char intCounter)
+void PlayerShip_ControlShip(PlayerShip *this, unsigned char intCounter)
 {
 	unsigned char i;
 	static unsigned char PixelY_last;
@@ -106,7 +109,6 @@ void PlayerShip_ControlShip(PlayerShip* this, unsigned char intCounter)
 	unsigned char input = 0;
 	unsigned char oldStatus = this->curStatus;
 	bool Touched = false;
-	//%%%%%%%%%%%%% MOVEMENT OF THE SHIP %%%%%%%%%%%%%%%%% 
 	this->posY = SlidePot_toPixelY(SHIPH);							// Converts the ADC data into readable distance value and then to a position in the Y axis
 	
 	i = this->posY;
@@ -145,10 +147,27 @@ void PlayerShip_ControlShip(PlayerShip* this, unsigned char intCounter)
 		this->healthPoints--;
 		return;
 	}
-	
+}
+
+//**********************PlayerShip_Draw***********************
+// This function whether draws the player ship on the display buffer
+// inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
+// outputs: none
+void PlayerShip_Draw(PlayerShip *this)
+{
 	Nokia5110_PrintBMP(0, this->posY, this->image[this->curStatus], 0);  		// Draws the ship in the display using the value from the slide pot
-	
-	//%%%%%%%%%%%%%%%%%% NORMAL SHOOTS %%%%%%%%%%%%%%%%%%%
+}
+
+
+//**********************PlayerShip_Shoots***********************
+// This function generates the shoots of the player ship pointed by this.
+// The shoots are shown until they reach the right border of the display.
+// The ship can generate until 5 shoots at the same time
+// inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
+// outputs: none
+void PlayerShip_Shoots(PlayerShip *this)
+{
+	unsigned char i;
 	if (Switch_shoot)																				// If the switch is pressed we do the following operations on the next shoot on the array
 	{
 		this->shoots[this->shCounter].show = true;							// We make showingShoot true, this variable is used to show the shoot in the display until it dissapears
@@ -172,4 +191,3 @@ void PlayerShip_ControlShip(PlayerShip* this, unsigned char intCounter)
 		}
 	}
 }
-

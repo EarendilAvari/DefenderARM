@@ -78,6 +78,9 @@ void SysTick_Handler(void)
 				Nokia5110_OutString_4x4pix_toBuffer(10, 30, "to try again!");
 				if (Switch_shoot)
 				{
+					Enemy_Clear(&enemy[0]);
+					Enemy_Clear(&enemy[1]);
+					Enemy_Clear(&enemy[2]);
 					playerShip.dead = false;
 					playerShip.curStatus = 0;
 				}
@@ -90,25 +93,27 @@ void SysTick_Handler(void)
 	else 
 	{
 		Terrain_ShowTerrain(&terrain, interruptCounter, MAXGROUND);
-		PlayerShip_ControlShip(&playerShip, interruptCounter);
 		
-		Enemy_ControlDeath(&enemy[0]);
 		Enemy_NextState(&enemy[0],interruptCounter);
 		Enemy_NextPos(&enemy[0],interruptCounter, MAXGROUND);
 		Enemy_Draw(&enemy[0],MAXGROUND);
-		Enemy_Shoots(&enemy[0]);
-		
-		Enemy_ControlDeath(&enemy[1]);
+		Enemy_Shoots(&enemy[0]);		
 		Enemy_NextState(&enemy[1],interruptCounter);
 		Enemy_NextPos(&enemy[1],interruptCounter, MAXGROUND);
 		Enemy_Draw(&enemy[1],MAXGROUND);
-		Enemy_Shoots(&enemy[1]);
-		
-		Enemy_ControlDeath(&enemy[2]);
+		Enemy_Shoots(&enemy[1]);		
 		Enemy_NextState(&enemy[2],interruptCounter);
 		Enemy_NextPos(&enemy[2],interruptCounter, MAXGROUND);
 		Enemy_Draw(&enemy[2],MAXGROUND);
 		Enemy_Shoots(&enemy[2]);
+		
+		PlayerShip_ControlShip(&playerShip, interruptCounter);
+		PlayerShip_Draw(&playerShip);
+		PlayerShip_Shoots(&playerShip);
+		
+		Enemy_ControlDeath(&enemy[0]);
+		Enemy_ControlDeath(&enemy[1]);
+		Enemy_ControlDeath(&enemy[2]);
 	}
 	_ShowHUD();
 	Flag = true;										// Sets the flag to 1, indicating that there is a new sample for the display

@@ -69,7 +69,7 @@ void Enemy_NextPos(Enemy *this, unsigned long intCounter, unsigned char maxY);
 void Enemy_Draw(Enemy *this, unsigned char maxY);
 
 
-//**********************Enemy_Draw***********************
+//**********************Enemy_Shoots***********************
 // This function generates the shoots of the enemy pointed by this.
 // The shoots are shown until they reach the right border of the display.
 // They are not generated if another enemy is on the way of the shoot in order to avoid
@@ -77,6 +77,14 @@ void Enemy_Draw(Enemy *this, unsigned char maxY);
 // inputs: enemy: Pointer to an element of the enemy array
 // outputs: none
 void Enemy_Shoots(Enemy *this);
+
+//**********************Enemy_Draw***********************
+// This functions clear the enemies in order to avoid killings by them when 
+// the shoot is still being shown on the display and it already killed the player
+// ship.
+// inputs: enemy: Pointer to an element of the enemy array
+// outputs: none
+void Enemy_Clear(Enemy *this);
 
 //**********************Enemy_InitEnemy***********************
 // This function initializes the enemy variables

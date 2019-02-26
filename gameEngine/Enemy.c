@@ -75,10 +75,10 @@ void Enemy_InitEnemy(Enemy *this, const unsigned char *img0, const unsigned char
 // outputs: none
 void Enemy_ControlDeath(Enemy *this)
 {
-		unsigned char i = this->posY;
-		while ((i > this->posY - ENEMYH) && (this->dead == 0))	//i corresponds to the coordinates in Y axis from the bottom of
-		{																												//the enemy image to its top
-		if (Nokia5110_AskPixel(this->posX - 2, i))						//If a pixel is turned on 2 pixels before the enemy image
+	unsigned char i = this->posY;
+	while ((i > this->posY - ENEMYH) && (this->dead == 0))	//i corresponds to the coordinates in Y axis from the bottom of
+	{																												//the enemy image to its top
+		if (Nokia5110_AskPixel(this->posX - 2, i) && (this->shoots.PosX < this->posX - 4))		//If a pixel is turned on 2 pixels before the enemy image
 		{																											//the enemy is killed
 			this->dead = 1;
 		}
@@ -220,4 +220,14 @@ void Enemy_Shoots(Enemy *this)
 	}
 }
 
-
+//**********************Enemy_Draw***********************
+// This functions clear the enemies in order to avoid killings by them when 
+// the shoot is still being shown on the display and it already killed the player
+// ship.
+// inputs: enemy: Pointer to an element of the enemy array
+// outputs: none
+void Enemy_Clear(Enemy *this)
+{
+	this->actStatus = enemyFSM_NoShow;
+	this->shoots.show = false;
+}
