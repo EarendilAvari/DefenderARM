@@ -30,8 +30,8 @@ struct enemyVariables
 // It determines when the enemy should die based on the pixels that 
 // are already turned on
 // inputs: enemy: Pointer to an element of the enemy array
-// outputs: none
-void Enemy_ControlDeath(Enemy *this);
+// outputs: 1: Enemy was killed, 0: Enemy was not killed
+bool Enemy_ControlDeath(Enemy *this);
 
 
 //**********************Enemy_NextState***********************

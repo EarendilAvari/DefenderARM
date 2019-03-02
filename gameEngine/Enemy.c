@@ -72,8 +72,8 @@ void Enemy_InitEnemy(Enemy *this, const unsigned char *img0, const unsigned char
 // It determines when the enemy should die based on the pixels that 
 // are already turned on
 // inputs: enemy: Pointer to an element of the enemy array
-// outputs: none
-void Enemy_ControlDeath(Enemy *this)
+// outputs: 1: Enemy was killed, 0: Enemy was not killed
+bool Enemy_ControlDeath(Enemy *this)
 {
 	unsigned char i = this->posY;
 	while ((i > this->posY - ENEMYH) && (this->dead == 0))	//i corresponds to the coordinates in Y axis from the bottom of
@@ -81,9 +81,11 @@ void Enemy_ControlDeath(Enemy *this)
 		if (Nokia5110_AskPixel(this->posX - 2, i) && (this->shoots.PosX < this->posX - 4))		//If a pixel is turned on 2 pixels before the enemy image
 		{																											//the enemy is killed
 			this->dead = 1;
+			return 1;
 		}
 		i--;
 	}
+	return 0;
 }
 
 

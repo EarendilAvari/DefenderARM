@@ -68,6 +68,7 @@ void SysTick_Init(unsigned long period)
 // executes the game engine every 33,3 ms
 void SysTick_Handler(void)
 {
+	Nokia5110_SaveLastBuffer();
 	Nokia5110_ClearBuffer();
 	if (playerShip.dead == 2)
 	{
@@ -113,9 +114,7 @@ void SysTick_Handler(void)
 		PlayerShip_ControlShip(&playerShip, interruptCounter);
 		PlayerShip_Draw(&playerShip);
 		
-		Enemy_ControlDeath(&enemy[0]);
-		Enemy_ControlDeath(&enemy[1]);
-		Enemy_ControlDeath(&enemy[2]);
+		playerShip.score += 1*Enemy_ControlDeath(&enemy[0]) + 1*Enemy_ControlDeath(&enemy[1]) + 1*Enemy_ControlDeath(&enemy[2]);
 	}
 	_ShowHUD();
 	Flag = true;										// Sets the flag to 1, indicating that there is a new sample for the display

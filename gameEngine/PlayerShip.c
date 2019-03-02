@@ -168,6 +168,7 @@ void PlayerShip_Draw(PlayerShip *this)
 void PlayerShip_Shoots(PlayerShip *this)
 {
 	unsigned char i;
+	bool collisionDetected = false;
 	if (Switch_shoot)																				// If the switch is pressed we do the following operations on the next shoot on the array
 	{
 		this->shoots[this->shCounter].show = true;							// We make showingShoot true, this variable is used to show the shoot in the display until it dissapears
@@ -187,9 +188,13 @@ void PlayerShip_Shoots(PlayerShip *this)
 			Nokia5110_SetPixel(this->shoots[i].PosX + 1, this->shoots[i].PosY);
 			Nokia5110_SetPixel(this->shoots[i].PosX + 1, this->shoots[i].PosY + 1);
 			//Nokia5110_SetPixel(this->shoots[i].PosX + 2, this->shoots[i].PosY);
-			this->shoots[i].PosX++;																		
-			if (this->shoots[i].PosX >= SCREENW || Nokia5110_AskPixel(this->shoots[i].PosX + 1, this->shoots[i].PosY))
+			this->shoots[i].PosX++;									
+			collisionDetected = Nokia5110_AskLastPixel(this->shoots[i].PosX, this->shoots[i].PosY + 1) || 
+													Nokia5110_AskLastPixel(this->shoots[i].PosX + 1, this->shoots[i].PosY + 1);
+			if (this->shoots[i].PosX >= SCREENW || collisionDetected)
+			{
 				this->shoots[i].show = false;													// if the shoot reaches the end of the screen, we turn off the value indicating that a shoot should be shown
+			}
 		}
 	}
 }

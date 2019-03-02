@@ -510,6 +510,7 @@ void Nokia5110_DrawFullImage(const char *ptr){
   }
 }
 char Screen[SCREENW*SCREENH/8]; // buffer stores the next image to be printed on the screen
+char ScreenLast[SCREENW*SCREENH/8]; // buffer stores the last image to be printed on the screen
 
 //********Nokia5110_PrintBMP*****************
 // Bitmaps defined above were created for the LM3S1968 or
@@ -634,6 +635,19 @@ void Nokia5110_DisplayBuffer(void){
   Nokia5110_DrawFullImage(Screen);
 }
 
+//********Nokia5110_SaveLastBuffer*****************
+// Saves the last screen buffer to be used in the current cycle
+// inputs: none
+// outputs: none
+// assumes: LCD is in default horizontal addressing mode (V = 0)
+void Nokia5110_SaveLastBuffer(void){
+	unsigned int i;
+	for (i = 0; i < SCREENW*SCREENH/8; i++)
+	{
+		ScreenLast[i] = Screen[i];
+	}
+}
+
 //********Nokia5110_SetPixel*****************
 // Turn on the specified pixel in the screen buffer.
 // inputs: x - horizontal coordinate of the pixel, must be less than 84
@@ -685,6 +699,26 @@ bool Nokia5110_AskPixel(unsigned char x, unsigned char y)
     PixelByte = ((y/8)*84) + x;
     PixelBit = y % 8;
     Result = Screen[PixelByte]&(1U<<PixelBit);
+  }
+	return (bool)Result;
+}
+
+
+//********Nokia5110_AskLastPixel*****************
+// Evaluates if the pixel searched is on or off in the buffer of the last cycle
+// inputs: x - horizontal coordinate of the pixel, must be less than 84
+//         y - vertical coordinate of the pixel, must be less than 48
+// outputs: true if the pixel is setted already, false if the pixel is cleared
+bool Nokia5110_AskLastPixel(unsigned char x, unsigned char y) 
+{
+  unsigned short PixelByte;            // byte# in screen buffer
+  unsigned char PixelBit;              // bit# in byte
+	unsigned char Result;
+  if ((x<84) && (y<48)) 
+	{              // check screen boundaries
+    PixelByte = ((y/8)*84) + x;
+    PixelBit = y % 8;
+    Result = ScreenLast[PixelByte]&(1U<<PixelBit);
   }
 	return (bool)Result;
 }

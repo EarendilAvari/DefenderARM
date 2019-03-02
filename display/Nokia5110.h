@@ -171,6 +171,13 @@ void Nokia5110_ClearBuffer(void);
 // assumes: LCD is in default horizontal addressing mode (V = 0)
 void Nokia5110_DisplayBuffer(void);
 
+//********Nokia5110_SaveLastBuffer*****************
+// Saves the last screen buffer to be used in the current cycle
+// inputs: none
+// outputs: none
+// assumes: LCD is in default horizontal addressing mode (V = 0)
+void Nokia5110_SaveLastBuffer(void);
+
 //********Nokia5110_SetPixel*****************
 // Turn on the specified pixel in the screen buffer.
 // inputs: x - horizontal coordinate of the pixel, must be less than 84
@@ -194,6 +201,13 @@ void Nokia5110_ClearPixel(unsigned char x, unsigned char y);
 //         y - vertical coordinate of the pixel, must be less than 48
 // outputs: true if the pixel is setted already, false if the pixel is cleared
 bool Nokia5110_AskPixel(unsigned char x, unsigned char y);
+
+//********Nokia5110_AskLastPixel*****************
+// Evaluates if the pixel searched is on or off in the buffer of the last cycle
+// inputs: x - horizontal coordinate of the pixel, must be less than 84
+//         y - vertical coordinate of the pixel, must be less than 48
+// outputs: true if the pixel is setted already, false if the pixel is cleared
+bool Nokia5110_AskLastPixel(unsigned char x, unsigned char y);
 
 //********Nokia5110_OutChar4x4*****************
 // Print a character to the Nokia 5110 48x84 LCD.  The
