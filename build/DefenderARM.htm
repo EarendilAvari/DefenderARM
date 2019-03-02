@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Build\DefenderARM.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Build\DefenderARM.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Tue Feb 26 01:18:55 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sat Mar 02 15:01:22 2019
 <BR><P>
 <H3>Maximum Stack Usage =         80 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -837,7 +837,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
-<P><STRONG><a name="[9a]"></a>Enemy_Shoots</STRONG> (Thumb, 144 bytes, Stack size 16 bytes, enemy.o(i.Enemy_Shoots))
+<P><STRONG><a name="[9a]"></a>Enemy_Shoots</STRONG> (Thumb, 158 bytes, Stack size 16 bytes, enemy.o(i.Enemy_Shoots))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32 + Unknown Stack Size
 <LI>Call Chain = Enemy_Shoots &rArr; Nokia5110_AskPixel
 </UL>
@@ -867,7 +867,8 @@ Global Symbols
 <P><STRONG><a name="[94]"></a>Nokia5110_AskPixel</STRONG> (Thumb, 70 bytes, Stack size 16 bytes, nokia5110.o(i.Nokia5110_AskPixel))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Nokia5110_AskPixel
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
+<BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_Shoots
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_Shoots
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_NextPos
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_Draw
@@ -991,11 +992,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
 </UL>
 
-<P><STRONG><a name="[ae]"></a>PlayerShip_Shoots</STRONG> (Thumb, 222 bytes, Stack size 16 bytes, playership.o(i.PlayerShip_Shoots))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = PlayerShip_Shoots &rArr; Nokia5110_SetPixel
+<P><STRONG><a name="[ae]"></a>PlayerShip_Shoots</STRONG> (Thumb, 282 bytes, Stack size 16 bytes, playership.o(i.PlayerShip_Shoots))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = PlayerShip_Shoots &rArr; Nokia5110_AskPixel
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Shoot
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetPixel
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_AskPixel
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>

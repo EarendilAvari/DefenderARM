@@ -114,7 +114,7 @@ void PlayerShip_ControlShip(PlayerShip *this, unsigned char intCounter)
 	i = this->posY;
 	while ((i > this->posY - SHIPH) && !Touched) 
 	{
-		Touched |= Nokia5110_AskPixel(SHIPW + 2, i);
+		Touched |= Nokia5110_AskPixel(SHIPW, i);
 		i--;
 	}
 	if (Touched)					// or if pixel for the superior peak is already set
@@ -173,7 +173,7 @@ void PlayerShip_Shoots(PlayerShip *this)
 		this->shoots[this->shCounter].show = true;							// We make showingShoot true, this variable is used to show the shoot in the display until it dissapears
 		Sound_Shoot();																															// We play the shoot sound by pressing the switch
 		this->shoots[this->shCounter].PosY = this->posY - (SHIPH/2);  // We set the position Y of the shoot equals to the center of the ship
-		this->shoots[this->shCounter].PosX = SHIPW;								// We set the position X of the shoot equals to the pick of the ship
+		this->shoots[this->shCounter].PosX = SHIPW + 1;								// We set the position X of the shoot equals to the pick of the ship
 		this->shCounter++;
 		if (this->shCounter >= 5) this->shCounter = 0;							// If ShootCounter is bigger or equal to 5, it is setted again to 0
 		Switch_shoot = false;																	// We set back the value of the switch
@@ -183,10 +183,12 @@ void PlayerShip_Shoots(PlayerShip *this)
 		if (this->shoots[i].show)		// If the shoot should be shown
 		{
 			Nokia5110_SetPixel(this->shoots[i].PosX, this->shoots[i].PosY);				// We print three pixels which move until they go out of the screen
-			Nokia5110_SetPixel(this->shoots[i].PosX + 1, this->shoots[i].PosY);	
-			Nokia5110_SetPixel(this->shoots[i].PosX + 2, this->shoots[i].PosY);
+			Nokia5110_SetPixel(this->shoots[i].PosX, this->shoots[i].PosY + 1);
+			Nokia5110_SetPixel(this->shoots[i].PosX + 1, this->shoots[i].PosY);
+			Nokia5110_SetPixel(this->shoots[i].PosX + 1, this->shoots[i].PosY + 1);
+			//Nokia5110_SetPixel(this->shoots[i].PosX + 2, this->shoots[i].PosY);
 			this->shoots[i].PosX++;																		
-			if (this->shoots[i].PosX >= SCREENW)
+			if (this->shoots[i].PosX >= SCREENW || Nokia5110_AskPixel(this->shoots[i].PosX + 1, this->shoots[i].PosY))
 				this->shoots[i].show = false;													// if the shoot reaches the end of the screen, we turn off the value indicating that a shoot should be shown
 		}
 	}

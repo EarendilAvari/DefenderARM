@@ -96,20 +96,22 @@ void SysTick_Handler(void)
 		
 		Enemy_NextState(&enemy[0],interruptCounter);
 		Enemy_NextPos(&enemy[0],interruptCounter, MAXGROUND);
-		Enemy_Draw(&enemy[0],MAXGROUND);
-		Enemy_Shoots(&enemy[0]);		
+		Enemy_Draw(&enemy[0],MAXGROUND);		
 		Enemy_NextState(&enemy[1],interruptCounter);
 		Enemy_NextPos(&enemy[1],interruptCounter, MAXGROUND);
 		Enemy_Draw(&enemy[1],MAXGROUND);
-		Enemy_Shoots(&enemy[1]);		
 		Enemy_NextState(&enemy[2],interruptCounter);
 		Enemy_NextPos(&enemy[2],interruptCounter, MAXGROUND);
 		Enemy_Draw(&enemy[2],MAXGROUND);
+		
+		PlayerShip_Shoots(&playerShip);
+		
+		Enemy_Shoots(&enemy[0]);
+		Enemy_Shoots(&enemy[1]);		
 		Enemy_Shoots(&enemy[2]);
 		
 		PlayerShip_ControlShip(&playerShip, interruptCounter);
 		PlayerShip_Draw(&playerShip);
-		PlayerShip_Shoots(&playerShip);
 		
 		Enemy_ControlDeath(&enemy[0]);
 		Enemy_ControlDeath(&enemy[1]);

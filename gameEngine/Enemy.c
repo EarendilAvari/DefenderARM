@@ -192,6 +192,7 @@ void Enemy_Draw(Enemy *this, unsigned char maxY)
 void Enemy_Shoots(Enemy *this)
 {
 	bool noOtherEnemy = true;
+	bool collisionDetected = false;
 	unsigned char i = this->posX - 1;																							 	// It evaluates if the way to the player ship is free of other enemies, if is not, it does not 
 	while (i > 10 && noOtherEnemy)																		// not shoot, so it doesn't kill another enemies
 	{
@@ -213,7 +214,8 @@ void Enemy_Shoots(Enemy *this)
 		Nokia5110_SetPixel(this->shoots.PosX - 1, this->shoots.PosY);
 		Nokia5110_SetPixel(this->shoots.PosX - 2, this->shoots.PosY);
 		this->shoots.PosX--;		
-		if (this->shoots.PosX <= 2)
+		collisionDetected = Nokia5110_AskPixel(this->shoots.PosX-2, this->shoots.PosY);
+		if (this->shoots.PosX <= 2 || collisionDetected)
 		{
 			this->shoots.show = false;
 		}
