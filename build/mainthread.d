@@ -5,6 +5,7 @@
 .\build\mainthread.o: Main\StartImage.h
 .\build\mainthread.o: Main\../display/Nokia5110.h
 .\build\mainthread.o: D:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
+.\build\mainthread.o: Main\../display/LED.h
 .\build\mainthread.o: Main\../controls/Switches.h
 .\build\mainthread.o: Main\../controls/SlidePot.h
 .\build\mainthread.o: Main\../sounds/Sound.h

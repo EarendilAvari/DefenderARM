@@ -7,6 +7,7 @@
 ".\build\slidepot.o"
 ".\build\switches.o"
 ".\build\nokia5110.o"
+".\build\led.o"
 ".\build\dac.o"
 ".\build\sound.o"
 ".\build\gameenginecycle.o"

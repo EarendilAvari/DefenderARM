@@ -17,3 +17,4 @@
 .\build\gameenginecycle.o: GameEngine\../Controls/SlidePot.h
 .\build\gameenginecycle.o: GameEngine\../../tm4c123gh6pm.h
 .\build\gameenginecycle.o: GameEngine\../display/ImageArrays.h
+.\build\gameenginecycle.o: GameEngine\../display/LED.h

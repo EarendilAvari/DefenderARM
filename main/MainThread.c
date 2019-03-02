@@ -23,7 +23,7 @@
  Copyright 2014 by Jonathan W. Valvano, valvano@mail.utexas.edu
     You may use, edit, run or distribute this file
     as long as the above copyright notice remains
- THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
+  THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
  OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
  VALVANO SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL,
@@ -75,13 +75,11 @@
 #include "StartImage.h"
 
 #include "../display/Nokia5110.h"
+#include "../display/LED.h"
 #include "../controls/Switches.h"
 #include "../controls/SlidePot.h"
 #include "../sounds/Sound.h"
 #include "../gameEngine/GameEngineCycle.h"
-
-
-
 
 bool Flag;
 
@@ -101,11 +99,16 @@ int main(void)
 	EnableInterrupts();
 	Nokia5110_Clear();
 	SlidePot_Init();
+	LED_Init();
 	Nokia5110_PrintBMP(0, 40, StartImage, 0);
 	Nokia5110_OutString_4x4pix_toBuffer(15, 35, "PRESS SHOOT");
 	Nokia5110_DisplayBuffer();
+	LED_SetGreen();
+	LED_SetYellow();
 	while (!Switch_shoot) {StartCounter++;};
 	Switch_shoot = false;
+	LED_ResetGreen();
+	LED_ResetYellow();
 	Random_Init(StartCounter);
 	GameEngine_Init();
   while(1)

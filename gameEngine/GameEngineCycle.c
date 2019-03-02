@@ -9,6 +9,7 @@
 #include "../controls/Switches.h"
 //#include "../display/Nokia5110.h"
 #include "../display/ImageArrays.h"
+#include "../display/LED.h"
 //#include "../sounds/Sound.h"
 //#include "../main/Random.h"
 
@@ -68,6 +69,7 @@ void SysTick_Init(unsigned long period)
 // executes the game engine every 33,3 ms
 void SysTick_Handler(void)
 {
+	LED_SetGreen();
 	Nokia5110_SaveLastBuffer();
 	Nokia5110_ClearBuffer();
 	if (PlayerShip_isDead(&playerShip))
@@ -118,6 +120,7 @@ void SysTick_Handler(void)
 	_ShowHUD();
 	Flag = true;										// Sets the flag to 1, indicating that there is a new sample for the display
 	interruptCounter++;
+	LED_ResetGreen();
 }
 
 
