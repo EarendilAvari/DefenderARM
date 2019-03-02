@@ -224,13 +224,13 @@ void Enemy_Shoots(Enemy *this)
 	}
 }
 
-//**********************Enemy_Draw***********************
+//**********************Enemy_Reset***********************
 // This functions clear the enemies in order to avoid killings by them when 
 // the shoot is still being shown on the display and it already killed the player
 // ship.
 // inputs: enemy: Pointer to an element of the enemy array
 // outputs: none
-void Enemy_Clear(Enemy *this)
+void Enemy_Reset(Enemy *this)
 {
 	this->actStatus = enemyFSM_NoShow;
 	this->shoots.show = false;

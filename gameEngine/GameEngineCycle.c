@@ -70,20 +70,19 @@ void SysTick_Handler(void)
 {
 	Nokia5110_SaveLastBuffer();
 	Nokia5110_ClearBuffer();
-	if (playerShip.dead == 2)
+	if (PlayerShip_isDead(&playerShip))
 	{
-		if (playerShip.healthPoints)
+		if (PlayerShip_hasLives(&playerShip))
 		{
 				Nokia5110_OutString_4x4pix_toBuffer(10, 15, "You were hurt");
 				Nokia5110_OutString_4x4pix_toBuffer(15, 25, "Press shoot");
 				Nokia5110_OutString_4x4pix_toBuffer(10, 30, "to try again!");
 				if (Switch_shoot)
 				{
-					Enemy_Clear(&enemy[0]);
-					Enemy_Clear(&enemy[1]);
-					Enemy_Clear(&enemy[2]);
-					playerShip.dead = false;
-					playerShip.curStatus = 0;
+					Enemy_Reset(&enemy[0]);
+					Enemy_Reset(&enemy[1]);
+					Enemy_Reset(&enemy[2]);
+					PlayerShip_Reset(&playerShip);
 				}
 		}
 		else 
@@ -114,7 +113,7 @@ void SysTick_Handler(void)
 		PlayerShip_ControlShip(&playerShip, interruptCounter);
 		PlayerShip_Draw(&playerShip);
 		
-		playerShip.score += 1*Enemy_ControlDeath(&enemy[0]) + 1*Enemy_ControlDeath(&enemy[1]) + 1*Enemy_ControlDeath(&enemy[2]);
+		PlayerShip_IncreaseScore(&playerShip, Enemy_ControlDeath(&enemy[0]), Enemy_ControlDeath(&enemy[1]), Enemy_ControlDeath(&enemy[2]), 0, 0);
 	}
 	_ShowHUD();
 	Flag = true;										// Sets the flag to 1, indicating that there is a new sample for the display

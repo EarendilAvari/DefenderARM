@@ -74,5 +74,36 @@ void PlayerShip_Shoots(PlayerShip *this);
 void PlayerShip_InitShip(PlayerShip* this, const unsigned char *img0, const unsigned char *img1, const unsigned char *img2,
 												 const unsigned char *img3, const unsigned char *img4, const unsigned char *img5);
 
+//**********************PlayerShip_IncreaseScore***********************
+// This function increases the score of the player based on the killed status
+// of five enemies.
+// inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
+//				 enm1killed: Enemy 1 was killed
+//				 enm2killed: Enemy 2 was killed
+//				 enm3killed: Enemy 3 was killed
+//				 enm4killed: Enemy 4 was killed
+//				 enm5killed: Enemy 5 was killed
+// outputs: none
+void PlayerShip_IncreaseScore(PlayerShip* this, bool enm1killed, bool enm2killed, 
+															bool enm3killed, bool enm4killed, bool enm5killed);
+
+
+//**********************PlayerShip_isDead***********************
+// This function return 1 if the player was killed, else it returns 0
+// inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
+// outputs: none
+bool PlayerShip_isDead(PlayerShip* this);
+
+//**********************PlayerShip_hasLives***********************
+// This function return 1 if the player has lives and therefore can still play, else it returns 0
+// inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
+// outputs: none
+bool PlayerShip_hasLives(PlayerShip* this);
+
+//**********************PlayerShip_Reset***********************
+// This function revives the player ship 
+// inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
+// outputs: none
+void PlayerShip_Reset(PlayerShip* this);
 
 #endif
