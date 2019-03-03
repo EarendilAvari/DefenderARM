@@ -31,15 +31,15 @@ void Terrain_InitTerrain (Terrain* this, unsigned char maxY)
 
 
 
-//**********************Terrain_ShowTerrain***********************
+//**********************Terrain_Create***********************
 // Generates and show the terrain on the screen
 // inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
 //				 intCounter: Indicates how many cycles of the game engine have occurred
 //				 maxY: indicates the maximal Y coordinate the ground can have
 // outputs: none
-void Terrain_ShowTerrain(Terrain* this, unsigned long intCounter, unsigned char maxY)
+void Terrain_Create(Terrain* this, unsigned long intCounter, unsigned char maxY)
 {
-	unsigned char i, j;
+	unsigned char i;
 	unsigned char PosYLast;				//Coordinate Y of the ground pixel used to generate the coordinate of the next one
 	if (intCounter%5 == 0)	//It is executed every 5 interrupts, so every 166,67 ms, causing a sensation that it moves
 																//slower than the shoots
@@ -64,6 +64,17 @@ void Terrain_ShowTerrain(Terrain* this, unsigned long intCounter, unsigned char 
 		if (this->groundCounter >= SCREENW) this->groundCounter = 0;  			//If the counter reaches the length of the array, we set it back to 0, to process again the 
 																																				//first pixel on the array
 	}
+}
+
+
+//**********************Terrain_Draw***********************
+// Draws the terrain from the top of the hill to the game HUD (determined by maxY)
+// inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
+//				 maxY: indicates the maximal Y coordinate the ground can have
+// outputs: none
+void Terrain_Draw(Terrain* this, unsigned char maxY)
+{
+	unsigned char i, j;
 	for (i=0; i<SCREENW; i++)																//We draw this in every iteration. For every ground pixel we set all the pixels under it creating a 
 																													//mountain on the display
 	{
@@ -73,7 +84,6 @@ void Terrain_ShowTerrain(Terrain* this, unsigned long intCounter, unsigned char 
 		}
 	}
 }
-
 
 //********************Terrain_GroundNextY*********************
 // Determines the Y coordinate of the next ground pixel  

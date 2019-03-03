@@ -18,3 +18,6 @@
 .\build\mainthread.o: Main\../gameEngine/PlayerShip.h
 .\build\mainthread.o: Main\../gameEngine/../Display/Nokia5110.h
 .\build\mainthread.o: Main\../gameEngine/../Display/Nokia5110.h
+.\build\mainthread.o: Main\../gameEngine/Terrain.h
+.\build\mainthread.o: Main\../gameEngine/../Main/Random.h
+.\build\mainthread.o: Main\../gameEngine/../Display/Nokia5110.h

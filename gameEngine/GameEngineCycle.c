@@ -20,11 +20,11 @@
 //******************** GLOBAL VARIABLES *****************************
 bool Switch_shoot;		//The switch for shooting was pressed
 bool Switch_special;  //The switch for special attack was pressed
-extern bool Flag;			//Flag sent to main task when the display should be drawn
+extern bool ExecuteMain;			//Flag sent to main task when the display should be drawn
 unsigned char PixelY;	//This value has the position Y of the ship
 unsigned long interruptCounter; // It counts how many sysTick interrupts have been occured
 
-Terrain terrain;							//Object used to represent the terrain
+extern Terrain terrain;				//Object used to represent the terrain (extern because is used in the main thread also)
 extern Enemy enemy[5];				//Object used to represent the enemies (extern because is used in the main thread also)
 extern PlayerShip playerShip; //Object used to represent the player ship (extern because is used in the main thread also)
 
@@ -45,10 +45,9 @@ void SysTick_Init(unsigned long period)
 // executes the game engine every 33,3 ms
 void SysTick_Handler(void)
 {
-	LED_SetGreen();
-	LED_ResetYellow();
-	Nokia5110_SaveLastBuffer();
-	Nokia5110_ClearBuffer();
+	LED_SetGreen();		// Green LED is turned on when the SysTick interrupt starts
+	Nokia5110_SaveLastBuffer();		//Screen buffer is saved to be used by the Enemy's and PlayerShip's methods
+	Nokia5110_ClearBuffer();			//Screen buffer is cleared to be drawn again in this cycle
 	if (PlayerShip_isDead(&playerShip))
 	{
 		if (PlayerShip_hasLives(&playerShip))
@@ -73,22 +72,17 @@ void SysTick_Handler(void)
 	}
 	else 
 	{
-		Terrain_ShowTerrain(&terrain, interruptCounter, MAXGROUND);
-		
+		Terrain_Create(&terrain, interruptCounter, MAXGROUND);
 		Enemy_NextState(&enemy[0],interruptCounter);
 		Enemy_NextPos(&enemy[0],interruptCounter, MAXGROUND);
 		Enemy_NextState(&enemy[1],interruptCounter);
 		Enemy_NextPos(&enemy[1],interruptCounter, MAXGROUND);
 		Enemy_NextState(&enemy[2],interruptCounter);
 		Enemy_NextPos(&enemy[2],interruptCounter, MAXGROUND);
-		
 		PlayerShip_ControlShip(&playerShip, interruptCounter);
 	}
-	Flag = true;										// Sets the flag to 1, indicating that there is a new sample for the display
+	ExecuteMain = true;										// Sets the flag to 1, indicating that the main loop should be executed
 	interruptCounter++;
-	LED_ResetGreen();
-	//LED_ToggleGreen();
-	LED_SetYellow();
 }
 
 

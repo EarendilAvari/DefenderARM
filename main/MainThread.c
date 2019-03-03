@@ -82,10 +82,12 @@
 #include "../gameEngine/GameEngineCycle.h"
 #include "../gameEngine/Enemy.h"
 #include "../gameEngine/PlayerShip.h"
+#include "../gameEngine/Terrain.h"
 
-bool Flag;
-Enemy enemy[5];					//Object used to represent the enemies
+bool ExecuteMain;
+Enemy enemy[5];								//Object used to represent the enemies
 PlayerShip playerShip;
+Terrain terrain;							//Object used to represent the terrain (extern because is used in the main thread also)
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -109,20 +111,24 @@ int main(void)
 	Nokia5110_DisplayBuffer();
 	LED_SetGreen();
 	LED_SetYellow();
-	while (!Switch_shoot) {StartCounter++;};
+	while (!Switch_shoot) 
+	{
+		StartCounter++;
+	}
 	Switch_shoot = false;
 	LED_ResetGreen();
 	LED_ResetYellow();
 	Random_Init(StartCounter);
 	GameEngine_Init();
-	Nokia5110_ClearBuffer();
-	Nokia5110_SaveLastBuffer();
+	Nokia5110_ClearBuffer();		//Screen buffer is cleared
+	Nokia5110_SaveLastBuffer();	//Last screen buffer is cleared
   while(1)
 	{
-		if (Flag)
+		if (ExecuteMain)					//If the flag in the SysTick interrupt was set, this code is executed
 		{
 			if (!PlayerShip_isDead(&playerShip))
 			{
+				Terrain_Draw(&terrain, MAXGROUND);
 				Enemy_Draw(&enemy[0],MAXGROUND);
 				Enemy_Draw(&enemy[1],MAXGROUND);
 				Enemy_Draw(&enemy[2],MAXGROUND);
@@ -138,123 +144,9 @@ int main(void)
 			}
 			GameEngine_ShowHUD();
 			Nokia5110_DisplayBuffer();
-			Flag = false;
+			ExecuteMain = false;
+		LED_ResetGreen();		//Green LED is turned OFF when main is ready
 		}
   }
 }
-
-void Delay100ms(unsigned long count)
-{unsigned long volatile time;
-  while(count>0)
-	{
-    time = 727240;  // 0.1sec at 80 MHz
-    while(time)
-		{
-	  	time--;
-    }
-    count--;
-  }
-}
-
-
-/* Main to test switches and DAC
-int main(void)
-{
-  TExaS_Init(SSI0_Real_Nokia5110_Scope);  // set system clock to 80 MHz
-  Random_Init(1);
-  Nokia5110_Init();
-	SwitchesInit();
-	DAC_Init();
-	EnableInterrupts();
-	Nokia5110_Clear();
-	Nokia5110_OutString("Counter: ");
-	//TestDisplay();
-  while(1)
-	{
-		if (Switch_shoot)
-		{
-			counter = (counter + 1)&0x0F;
-			Switch_shoot = false;
-		}
-		else if (Switch_special)
-		{
-			counter = (counter - 1)&0x0F;
-			Switch_special = false;
-		}
-		Nokia5110_SetCursor(0,1);
-		Nokia5110_OutUDec(counter);
-		DAC_Out(counter);
-		Delay100ms(1);
-  }
-
-} */
-
-/* Function to test display
-void TestDisplay()
-{
-	Nokia5110_ClearBuffer();
-	Nokia5110_DisplayBuffer();      // draw buffer
-
-  Nokia5110_PrintBMP(32, 47, PlayerShip0, 0); // player ship middle bottom
-  Nokia5110_PrintBMP(33, 47 - PLAYERH, Bunker0, 0);
-
-  Nokia5110_PrintBMP(0, ENEMY10H - 1, SmallEnemy10PointA, 0);
-  Nokia5110_PrintBMP(16, ENEMY10H - 1, SmallEnemy20PointA, 0);
-  Nokia5110_PrintBMP(32, ENEMY10H - 1, SmallEnemy20PointA, 0);
-  Nokia5110_PrintBMP(48, ENEMY10H - 1, SmallEnemy30PointA, 0);
-  Nokia5110_PrintBMP(64, ENEMY10H - 1, SmallEnemy30PointA, 0);
-  Nokia5110_DisplayBuffer();     // draw buffer
-
-  Delay100ms(50);              // delay 5 sec at 50 MHz
-
-
-  Nokia5110_Clear();
-  Nokia5110_SetCursor(1, 1);
-  Nokia5110_OutString("GAME OVER");
-  Nokia5110_SetCursor(1, 2);
-  Nokia5110_OutString("Nice try,");
-  Nokia5110_SetCursor(1, 3);
-  Nokia5110_OutString("Earthling!");
-  Nokia5110_SetCursor(2, 4);
-  Nokia5110_OutUDec(1234);
-} */
-
-
-/* Main function to test sounds
-int main(void)
-{
-  TExaS_Init(SSI0_Real_Nokia5110_Scope);  // set system clock to 80 MHz
-  Random_Init(1);
-  Nokia5110_Init();
-	SwitchesInit();
-	Sound_Init();
-	EnableInterrupts();
-	Nokia5110_Clear();
-	Sound_Shoot();
-	while(!Switch_shoot) {};
-	Switch_shoot = false;
-	Sound_Killed();
-	while(!Switch_shoot) {};
-	Switch_shoot = false;
-	Sound_Explosion();
-	while(!Switch_shoot) {};
-	Switch_shoot = false;
-	Sound_Fastinvader1();
-	while(!Switch_shoot) {};
-	Switch_shoot = false;
-	Sound_Fastinvader2();
-	while(!Switch_shoot) {};
-	Switch_shoot = false;
-	Sound_Fastinvader3();
-	while(!Switch_shoot) {};
-	Switch_shoot = false;
-	Sound_Fastinvader4();
-	while(!Switch_shoot) {};
-	Switch_shoot = false;
-	Sound_Highpitch();
-  while(1)
-	{
-  }
-
-} */
 

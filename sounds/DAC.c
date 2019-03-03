@@ -35,7 +35,9 @@ void DAC_Init(void)
 // Output: none
 void DAC_Out(unsigned long data)
 {
-  GPIO_PORTB_DATA_R = data&0x0F;		// Sends the data to the DAC pins (port B).
+	unsigned long out = data&0x0F;
+  GPIO_PORTB_DATA_R &= ~0x0F;		// Sends the data to the DAC pins (port B).
+	GPIO_PORTB_DATA_R |= out;
 																		// It masks the bits in order to be friendly and don't change the other
 																		// bits of the port
 }

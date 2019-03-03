@@ -1,5 +1,5 @@
 Dependencies for Project 'DefenderARM', Target 'DefenderARM': (DO NOT MODIFY !)
-F (.\Main\MainThread.c)(0x5C7BF6BE)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\build\mainthread.o --omf_browse .\build\mainthread.crf --depend .\build\mainthread.d)
+F (.\Main\MainThread.c)(0x5C7C151C)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\build\mainthread.o --omf_browse .\build\mainthread.crf --depend .\build\mainthread.d)
 I (Main\../../tm4c123gh6pm.h)(0x51D43872)
 I (Main\Random.h)(0x5C5A0322)
 I (Main\TExaS.h)(0x5C4E0918)
@@ -17,6 +17,7 @@ I (Main\../gameEngine/../Display/Nokia5110.h)(0x5C7A95D9)
 I (Main\../gameEngine/../Main/Random.h)(0x5C5A0322)
 I (Main\../gameEngine/Pixel.h)(0x5C69BD2D)
 I (Main\../gameEngine/PlayerShip.h)(0x5C7AAEC9)
+I (Main\../gameEngine/Terrain.h)(0x5C7BFD83)
 F (.\Main\sprite.c)(0x5C634992)()
 F (.\Main\TExaS.c)(0x5C4E07F0)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\build\texas.o --omf_browse .\build\texas.crf --depend .\build\texas.d)
 I (Main\TExaS.h)(0x5C4E0918)
@@ -38,7 +39,7 @@ I (Controls\Switches.h)(0x5C4DE5AF)
 I (D:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
 F (.\Controls\Switches.h)(0x5C4DE5AF)()
 F (.\Display\ImageArrays.h)(0x5C69F579)()
-F (.\Display\Nokia5110.c)(0x5C7A95B1)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\build\nokia5110.o --omf_browse .\build\nokia5110.crf --depend .\build\nokia5110.d)
+F (.\Display\Nokia5110.c)(0x5C7BF998)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\build\nokia5110.o --omf_browse .\build\nokia5110.crf --depend .\build\nokia5110.d)
 I (Display\Nokia5110.h)(0x5C7A95D9)
 I (D:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
 F (.\Display\Nokia5110.h)(0x5C7A95D9)()
@@ -46,7 +47,7 @@ F (.\display\LED.c)(0x5C7AD5A4)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apc
 I (display\../../tm4c123gh6pm.h)(0x51D43872)
 I (display\LED.h)(0x5C7ACD2B)
 F (.\display\LED.h)(0x5C7ACD2B)()
-F (.\Sounds\DAC.c)(0x5C7AC71D)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\build\dac.o --omf_browse .\build\dac.crf --depend .\build\dac.d)
+F (.\Sounds\DAC.c)(0x5C7C090A)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\build\dac.o --omf_browse .\build\dac.crf --depend .\build\dac.d)
 I (Sounds\../../tm4c123gh6pm.h)(0x51D43872)
 I (Sounds\DAC.h)(0x5BDC737A)
 F (.\Sounds\DAC.h)(0x5BDC737A)()
@@ -57,7 +58,7 @@ I (Sounds\DAC.h)(0x5BDC737A)
 I (Sounds\SoundArrays.h)(0x5C6349F6)
 F (.\Sounds\Sound.h)(0x5C53856A)()
 F (.\Sounds\SoundArrays.h)(0x5C6349F6)()
-F (.\GameEngine\GameEngineCycle.c)(0x5C7BF6A7)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\build\gameenginecycle.o --omf_browse .\build\gameenginecycle.crf --depend .\build\gameenginecycle.d)
+F (.\GameEngine\GameEngineCycle.c)(0x5C7C14B7)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\build\gameenginecycle.o --omf_browse .\build\gameenginecycle.crf --depend .\build\gameenginecycle.d)
 I (GameEngine\GameEngineCycle.h)(0x5C7BF682)
 I (D:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
 I (GameEngine\Pixel.h)(0x5C69BD2D)
@@ -66,7 +67,7 @@ I (GameEngine\../Display/Nokia5110.h)(0x5C7A95D9)
 I (GameEngine\../Sounds/Sound.h)(0x5C53856A)
 I (GameEngine\../Sounds/DAC.h)(0x5BDC737A)
 I (GameEngine\../Main/Random.h)(0x5C5A0322)
-I (GameEngine\Terrain.h)(0x5C69FC27)
+I (GameEngine\Terrain.h)(0x5C7BFD83)
 I (GameEngine\PlayerShip.h)(0x5C7AAEC9)
 I (GameEngine\../Controls/Switches.h)(0x5C4DE5AF)
 I (GameEngine\../Controls/SlidePot.h)(0x5C5771C1)
@@ -84,13 +85,13 @@ I (gameEngine\../Sounds/DAC.h)(0x5BDC737A)
 I (gameEngine\../Main/Random.h)(0x5C5A0322)
 I (gameEngine\Pixel.h)(0x5C69BD2D)
 F (.\gameEngine\Enemy.h)(0x5C7AAEFD)()
-F (.\gameEngine\Terrain.c)(0x5C69FC30)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\build\terrain.o --omf_browse .\build\terrain.crf --depend .\build\terrain.d)
-I (gameEngine\Terrain.h)(0x5C69FC27)
+F (.\gameEngine\Terrain.c)(0x5C7BFD88)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\build\terrain.o --omf_browse .\build\terrain.crf --depend .\build\terrain.d)
+I (gameEngine\Terrain.h)(0x5C7BFD83)
 I (gameEngine\Pixel.h)(0x5C69BD2D)
 I (D:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
 I (gameEngine\../Main/Random.h)(0x5C5A0322)
 I (gameEngine\../Display/Nokia5110.h)(0x5C7A95D9)
-F (.\gameEngine\Terrain.h)(0x5C69FC27)()
+F (.\gameEngine\Terrain.h)(0x5C7BFD83)()
 F (.\gameEngine\PlayerShip.c)(0x5C7BEF9D)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\build\playership.o --omf_browse .\build\playership.crf --depend .\build\playership.d)
 I (gameEngine\PlayerShip.h)(0x5C7AAEC9)
 I (gameEngine\pixel.h)(0x5C69BD2D)
