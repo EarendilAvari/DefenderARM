@@ -9,6 +9,10 @@
 #define MAXHP 4
 #define SHIPW	10
 #define SHIPH	7 
+#define SPECIAL_SHOOT_MID_W 10
+#define SPECIAL_SHOOT_MID_H 5
+#define SPECIAL_SHOOT_SIDE_W 8
+#define SPECIAL_SHOOT_SIDE_H 9
 
 // ************************************************************************************************
 // ****************************** DECLARATION OF FINITE STATE MACHINES ****************************
@@ -88,6 +92,32 @@ void PlayerShip_InitShip(PlayerShip* this, const unsigned char *img0, const unsi
 		this->image[5] = (unsigned char*)img5;
 		this->curStatus = shipFSM_Center;								// We don't show the enemies at the beginning
 }
+
+//**********************PlayerShip_InitSpecialShoot***********************
+// This function initializes the special shoots
+// inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
+//				 imgMid1:  image of the special shoot in the middle 1
+//				 imgMid2:  image of the special shoot in the middle 2
+//				 imgUp1: 	 image of the special shoot in the top 1
+// 				 imgUp2: 	 image of the special shoot in the top 2
+//				 imgDown1: image of the special shoot in the bottom 1
+// 				 imgDown2: image of the special shoot in the bottom 2
+// outputs: none
+void PlayerShip_InitSpecialShoot(PlayerShip* this, const unsigned char* imgMid1, const unsigned char* imgMid2,
+																									 const unsigned char* imgUp1, const unsigned char* imgUp2,
+																									 const unsigned char* imgDown1, const unsigned char* imgDown2)
+{
+		this->specialShootMiddle.show = false;
+		this->specialShootUp.show = false;
+		this->specialShootDown.show = false;
+		this->specialShootMiddle.image[0] = (unsigned char*)imgMid1;
+		this->specialShootMiddle.image[1] = (unsigned char*)imgMid2;
+		this->specialShootUp.image[0] = (unsigned char*)imgUp1;
+		this->specialShootUp.image[1] = (unsigned char*)imgUp2;
+		this->specialShootDown.image[0] = (unsigned char*)imgDown1;
+		this->specialShootDown.image[1] = (unsigned char*)imgDown2;
+}
+
 
 
 //**********************PlayerShip_ControlShip***********************
@@ -199,6 +229,45 @@ void PlayerShip_Shoots(PlayerShip *this)
 		}
 	}
 }
+
+//**********************PlayerShip_specialShoots***********************
+// This function generates a special shoot by pressing the special button
+// inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
+//				 intCounter: Indicates how many cycles of the game engine have occurred
+// outputs: none
+void PlayerShip_specialShoot(PlayerShip *this, unsigned long intCounter)
+{
+	if (Switch_special)
+	{
+		this->specialShootMiddle.show = true;
+		//this->specialShootUp.show = true;
+		//this->specialShootDown.show = true;
+		this->specialShootMiddle.posY = this->posY - (SHIPH/2);
+		//this->specialShootUp.posY = this->posY - SHIPH;
+		//this->specialShootDown.posY = this->posY;
+		this->specialShootMiddle.posX = SHIPW + 1;
+		//this->specialShootUp.posX = SHIPW + 1;
+		//this->specialShootDown.posX = SHIPW + 1;
+		this->specialShootMiddle.curStatus = 0;
+		Sound_Shoot();
+		Switch_special = false;
+	}
+	if (this->specialShootMiddle.show)
+	{
+		Nokia5110_PrintBMP(this->specialShootMiddle.posX, this->specialShootMiddle.posY, 
+							this->specialShootMiddle.image[this->specialShootMiddle.curStatus], 0);
+		if (intCounter%3 == 0)
+		{
+			this->specialShootMiddle.posX++;
+			this->specialShootMiddle.curStatus = (this->specialShootMiddle.curStatus + 1)&0x01;
+		}
+		if (this->specialShootMiddle.posX > SCREENW - SPECIAL_SHOOT_MID_W)
+		{
+			this->specialShootMiddle.show = false;
+		}
+	}
+}
+
 
 //**********************PlayerShip_IncreaseScore***********************
 // This function increases the score of the player based on the killed status

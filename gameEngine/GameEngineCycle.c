@@ -80,6 +80,7 @@ void SysTick_Handler(void)
 		Enemy_NextState(&enemy[2],interruptCounter);
 		Enemy_NextPos(&enemy[2],interruptCounter, MAXGROUND);
 		PlayerShip_ControlShip(&playerShip, interruptCounter);
+		PlayerShip_specialShoot(&playerShip, interruptCounter);
 	}
 	ExecuteMain = true;										// Sets the flag to 1, indicating that the main loop should be executed
 	interruptCounter++;
@@ -98,6 +99,8 @@ void GameEngine_Init(void)
 	SysTick_Init(2666665);	//It initializes the SysTick for 30 Hz
 	PlayerShip_InitShip(&playerShip, PlayerShipCenter, PlayerShipUp, PlayerShipDown,
 																	 PlayerShipDestruction1, PlayerShipDestruction2, PlayerShipDestruction3);
+	PlayerShip_InitSpecialShoot(&playerShip, SpecialShootMiddle1, SpecialShootMiddle2, SpecialShootUp1,
+																					 SpecialShootUp2, SpecialShootDown1, SpecialShootDown2);
 	
 	Terrain_InitTerrain(&terrain, MAXGROUND);
 	

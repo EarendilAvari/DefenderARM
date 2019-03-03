@@ -15,12 +15,25 @@
 // *********************************** DECLARATION OF "CLASS" *************************************
 // ************************************************************************************************
 
+
+typedef struct SpecialShootVariables
+{
+	unsigned char posX;
+	unsigned char posY;
+	bool show;
+	unsigned char curStatus;
+	unsigned char *image[2];
+}SpecialShoot;
+
 // *************** Structure used for the ship ***************************
 typedef struct PlayerShipVariables
 {
 	unsigned char posX; 				//Position X of the ship
 	unsigned char posY; 				//Position Y of the ship
 	PixelType shoots[5];				//Array of shoots of the ship
+	SpecialShoot specialShootMiddle;
+	SpecialShoot specialShootUp;
+	SpecialShoot specialShootDown;
 	unsigned char shCounter; 		//Counter of shoots
 	unsigned char healthPoints; //Health points of the ship
 	unsigned short score;				//Score of the ship
@@ -28,6 +41,9 @@ typedef struct PlayerShipVariables
 	unsigned char curStatus;		// Current status of the ship
 	unsigned char *image[6];
 }PlayerShip;
+
+
+
 
 // ************************************************************************************************
 // ******************************** DECLARATION OF PUBLIC FUNCTIONS *******************************
@@ -105,5 +121,27 @@ bool PlayerShip_hasLives(PlayerShip* this);
 // inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
 // outputs: none
 void PlayerShip_Reset(PlayerShip* this);
+
+//**********************PlayerShip_InitSpecialShoot***********************
+// This function initializes the special shoots
+// inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
+//				 imgMid1:  image of the special shoot in the middle 1
+//				 imgMid2:  image of the special shoot in the middle 2
+//				 imgUp1: 	 image of the special shoot in the top 1
+// 				 imgUp2: 	 image of the special shoot in the top 2
+//				 imgDown1: image of the special shoot in the bottom 1
+// 				 imgDown2: image of the special shoot in the bottom 2
+// outputs: none
+void PlayerShip_InitSpecialShoot(PlayerShip* this, const unsigned char* imgMid1, const unsigned char* imgMid2,
+																									 const unsigned char* imgUp1, const unsigned char* imgUp2,
+																									 const unsigned char* imgDown1, const unsigned char* imgDown2);
+																									 
+																									 
+//**********************PlayerShip_specialShoots***********************
+// This function generates a special shoot by pressing the special button
+// inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
+//				 intCounter: Indicates how many cycles of the game engine have occurred
+// outputs: none
+void PlayerShip_specialShoot(PlayerShip *this, unsigned long intCounter);
 
 #endif
