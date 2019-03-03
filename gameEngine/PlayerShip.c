@@ -145,6 +145,7 @@ void PlayerShip_ControlShip(PlayerShip *this, unsigned char intCounter)
 	{
 		this->dead = 2;
 		this->healthPoints--;
+		Sound_Explosion();
 		return;
 	}
 }

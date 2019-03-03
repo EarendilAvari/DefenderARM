@@ -81,6 +81,7 @@ bool Enemy_ControlDeath(Enemy *this)
 		if (Nokia5110_AskPixel(this->posX - 2, i) && (this->shoots.PosX < this->posX - 4))		//If a pixel is turned on 2 pixels before the enemy image
 		{																											//the enemy is killed
 			this->dead = 1;
+			Sound_Killed();
 			return 1;
 		}
 		i--;
@@ -124,20 +125,41 @@ void Enemy_NextPos(Enemy *this, unsigned long intCounter, unsigned char maxY)
 	bool moveEnemy = true;
 	if ((this->actStatus < 3) && (intCounter%5 == 0))										//Every 5 interrupts and only if the current status is smaller than 3 (which means alive)
 	{
-		if ((this->posX > ENEMYW) && (this->posX < SCREENW - ENEMYW - 2))	//If the current position in X is larger than the width of the enemy image and shorter than  
-		{																																 	//the width of the screen minus the width of the enemy -2  
-																											
-			nextPosX = this->posX - 1 + Random()%3;													//nextPosX is equal to this->posX - 1, this->PosX or this->PosX + 1
+		// The next position of the enemy is randomly determined, 
+		// If the enemy is in a border it can only move away from it or 
+		// stay in there.
+		// The enemy can move in the square delimited by ENEMYW at the left
+		// SCREENW at the right, 0 at the top, and maxY at the bottom
+		if (this->posX < ENEMYW)
+		{
+			nextPosX = this->posX + Random()%2;
 		}
-		if ((this->posY > ENEMYH) && (this->posY < maxY))									//If the current position in Y is larger than the height of the enemy image and shorter than
-		{																																	// the maximum Y value (given by the upper border of the HUD) 
-			nextPosY = this->posY - 1 + Random()%3;													//nextPosY is equal to this->posY - 1, this->posY or this->posX + 1
+		else if (this->posX > SCREENW - ENEMYW - 2)
+		{
+			nextPosX = this->posX - 1 + Random()%2;
+		}
+		else 
+		{
+			nextPosX = this->posX - 1 + Random()%3;
+		}
+		
+		if (this->posY < ENEMYH)
+		{
+			nextPosY = this->posY + Random()%2;
+		}
+		else if (this->posY > maxY)
+		{
+			nextPosY = this->posY - 1 + Random()%2;
+		}
+		else 
+		{
+			nextPosY = this->posY - 1 + Random()%3;
 		}
 		
 		i = nextPosY;
 		while ((i > nextPosY - ENEMYH) && moveEnemy)											// it is checked if there is something 2 pixels to the right and two pixels to the left of the 
 		{																																	// image, for the entire height of the image
-			moveEnemy &= ~Nokia5110_AskPixel(nextPosX - 2, i) & ~Nokia5110_AskPixel(nextPosX + 2 + ENEMYW, i);
+			moveEnemy &= ~Nokia5110_AskLastPixel(nextPosX - 2, i) & ~Nokia5110_AskLastPixel(nextPosX + 2 + ENEMYW, i);
 			i--;
 		}
 		if (moveEnemy)																										// If there is nothing, the enemy is moved to the position calculated before
@@ -160,6 +182,7 @@ void Enemy_NextPos(Enemy *this, unsigned long intCounter, unsigned char maxY)
 // outputs: none
 void Enemy_Draw(Enemy *this, unsigned char maxY)
 {
+	unsigned char i, j;
 	// %%%%%%%%%%%%%% DRAW ENEMY %%%%%%%%%%%%%%%%
 	if (this->actStatus != enemyFSM_NoShow)							//If the current status of the enemy is different to "not show", we print it to the display
 	{
@@ -169,22 +192,32 @@ void Enemy_Draw(Enemy *this, unsigned char maxY)
 	else																								//If the enemy is not being shown (meaning it was killed and it did not come back yet
 	{
 		unsigned char createNewEnemy = Random()%50;				// There is a probability of 1/50 to create an enemy in this cycle
+		bool safeToDraw = true;
 		if (createNewEnemy == 1)
 		{
-			this->actStatus = enemyFSM_Alive1;
 			this->posX = 2*ENEMYW + Random()%(SCREENW - 3*ENEMYW);	//The enemy is created in a random position on X between 2*ENEMYW and SCREENW-ENEMYW
 			this->posY = ENEMYH + Random()%(maxY - ENEMYH);					//The enemy is created in a random position on Y between ENEMYH and maxY
-			if (Nokia5110_AskPixel(this->posX, this->posY))					//If the pixel is already used, the enemy is created 20 pixels above. That is to avoid
-			{																												//That the enemy is created on the terrain
-				this->posY -= 20;
+			// The entire area that will be used by the new enemy is ckecked
+			// If there is already an enemy in that place, the enemy is not created at this cycle
+			// In order to do that the variable safeToDraw is used
+			for (i = this->posX - 2; i < (this->posX + ENEMYW); i++)
+			{
+				for (j = this->posY; j > (this->posY-ENEMYH); j--)
+				{
+					safeToDraw &= !Nokia5110_AskLastPixel(i, j);
+				}
 			}
-			this->dead = 0;
-			Sound_Highpitch();
-		}
+			if (safeToDraw)
+			{
+				this->actStatus = enemyFSM_Alive1;
+				this->dead = 0;
+				Sound_Highpitch();
+			}
+		}	
 	}	
 }
 
-//**********************Enemy_Draw***********************
+//**********************Enemy_Shoots***********************
 // This function generates the shoots of the enemy pointed by this.
 // The shoots are shown until they reach the right border of the display.
 // They are not generated if another enemy is on the way of the shoot in order to avoid
