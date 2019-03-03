@@ -11,3 +11,10 @@
 .\build\mainthread.o: Main\../sounds/Sound.h
 .\build\mainthread.o: Main\../sounds/DAC.h
 .\build\mainthread.o: Main\../gameEngine/GameEngineCycle.h
+.\build\mainthread.o: Main\../gameEngine/Enemy.h
+.\build\mainthread.o: Main\../gameEngine/../Display/Nokia5110.h
+.\build\mainthread.o: Main\../gameEngine/../Main/Random.h
+.\build\mainthread.o: Main\../gameEngine/Pixel.h
+.\build\mainthread.o: Main\../gameEngine/PlayerShip.h
+.\build\mainthread.o: Main\../gameEngine/../Display/Nokia5110.h
+.\build\mainthread.o: Main\../gameEngine/../Display/Nokia5110.h

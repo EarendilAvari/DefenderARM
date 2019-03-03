@@ -114,7 +114,7 @@ void PlayerShip_ControlShip(PlayerShip *this, unsigned char intCounter)
 	i = this->posY;
 	while ((i > this->posY - SHIPH) && !Touched) 
 	{
-		Touched |= Nokia5110_AskPixel(SHIPW, i);
+		Touched |= Nokia5110_AskLastPixel(SHIPW, i);
 		i--;
 	}
 	if (Touched)					// or if pixel for the superior peak is already set

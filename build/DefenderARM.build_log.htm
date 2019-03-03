@@ -4,26 +4,24 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 D:\Keil\Labware\Lab15_SpaceInvaders\DefenderARM.uvproj
-Project File Date:  02/18/2019
+Project File Date:  03/02/2019
 
 <h2>Output:</h2>
-Build target 'DefenderARM'
-compiling GameEngineCycle.c...
-GameEngine\../display/LED.h(43): warning:  #14-D: extra text after expected end of preprocessing directive
+Rebuild target 'DefenderARM'
+compiling MainThread.c...
+Main\../display/LED.h(43): warning:  #14-D: extra text after expected end of preprocessing directive
   #endif LED_H
-GameEngine\GameEngineCycle.c: 1 warning, 0 errors
-linking...
-Program Size: Code=7616 RO-data=20652 RW-data=84 ZI-data=2652  
-".\Build\DefenderARM.axf" - 0 Error(s), 1 Warning(s).
-Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\Build\\DefenderARM.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-</pre>
-</body>
-</html>
-ble "delay" was set but never used
+Main\MainThread.c: 1 warning, 0 errors
+compiling TExaS.c...
+assembling random.s...
+assembling startup.s...
+compiling ADC.c...
+Controls\ADC.c(36): warning:  #550-D: variable "delay" was set but never used
+        unsigned long delay;
+Controls\ADC.c: 1 warning, 0 errors
+compiling SlidePot.c...
+compiling Switches.c...
+Controls\Switches.c(9): warning:  #550-D: variable "delay" was set but never used
         unsigned long delay;
 Controls\Switches.c: 1 warning, 0 errors
 compiling Nokia5110.c...
@@ -49,10 +47,13 @@ compiling Enemy.c...
 compiling Terrain.c...
 compiling PlayerShip.c...
 linking...
-Program Size: Code=7636 RO-data=20652 RW-data=84 ZI-data=2652  
+Program Size: Code=7664 RO-data=20652 RW-data=84 ZI-data=2652  
 ".\Build\DefenderARM.axf" - 0 Error(s), 8 Warning(s).
 Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\Build\\DefenderARM.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
 Verify OK.
+nd 2 error messages.
+".\Build\DefenderARM.axf" - 2 Error(s), 8 Warning(s).
+Target not created

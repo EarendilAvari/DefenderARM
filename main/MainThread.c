@@ -80,8 +80,12 @@
 #include "../controls/SlidePot.h"
 #include "../sounds/Sound.h"
 #include "../gameEngine/GameEngineCycle.h"
+#include "../gameEngine/Enemy.h"
+#include "../gameEngine/PlayerShip.h"
 
 bool Flag;
+Enemy enemy[5];					//Object used to represent the enemies
+PlayerShip playerShip;
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -111,10 +115,28 @@ int main(void)
 	LED_ResetYellow();
 	Random_Init(StartCounter);
 	GameEngine_Init();
+	Nokia5110_ClearBuffer();
+	Nokia5110_SaveLastBuffer();
   while(1)
 	{
 		if (Flag)
 		{
+			if (!PlayerShip_isDead(&playerShip))
+			{
+				Enemy_Draw(&enemy[0],MAXGROUND);
+				Enemy_Draw(&enemy[1],MAXGROUND);
+				Enemy_Draw(&enemy[2],MAXGROUND);
+				PlayerShip_Draw(&playerShip);
+				
+				PlayerShip_Shoots(&playerShip);
+		
+				Enemy_Shoots(&enemy[0]);
+				Enemy_Shoots(&enemy[1]);		
+				Enemy_Shoots(&enemy[2]);
+				
+				PlayerShip_IncreaseScore(&playerShip, Enemy_ControlDeath(&enemy[0]), Enemy_ControlDeath(&enemy[1]), Enemy_ControlDeath(&enemy[2]), 0, 0);
+			}
+			GameEngine_ShowHUD();
 			Nokia5110_DisplayBuffer();
 			Flag = false;
 		}

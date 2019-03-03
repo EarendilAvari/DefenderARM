@@ -14,13 +14,6 @@
 //#include "../main/Random.h"
 
 // ************************************************************************************************
-// ******************************** DEFINITION OF GLOBAL QUANTITIES *******************************
-// ************************************************************************************************
-
-#define MAXHP 4
-#define MAXGROUND 41  //The ground can be drawn maximal in this Y position
-
-// ************************************************************************************************
 // ******************************** DECLARATION OF GLOBAL VARIABLES *******************************
 // ************************************************************************************************
 
@@ -31,26 +24,9 @@ extern bool Flag;			//Flag sent to main task when the display should be drawn
 unsigned char PixelY;	//This value has the position Y of the ship
 unsigned long interruptCounter; // It counts how many sysTick interrupts have been occured
 
-Terrain terrain;				//Object used to represent the terrain
-Enemy enemy[5];							//Object used to represent the enemies
-PlayerShip playerShip;
-
-
-// ************************************************************************************************
-// ******************************** DECLARATION OF PRIVATE FUNCTIONS ******************************
-// ************************************************************************************************
-
-//**********************_ShowHUD***********************
-// Shows the HP and the score of the player at the bottom of the screen
-// inputs: none
-// outputs: none
-void _ShowHUD(void);		
-
-//**********************_ShowBackground***********************
-// Generates and show stars at the background
-// inputs: none
-// outputs: none
-void _ShowBackground(void);	
+Terrain terrain;							//Object used to represent the terrain
+extern Enemy enemy[5];				//Object used to represent the enemies (extern because is used in the main thread also)
+extern PlayerShip playerShip; //Object used to represent the player ship (extern because is used in the main thread also)
 
 
 // ************************************************************************************************
@@ -70,6 +46,7 @@ void SysTick_Init(unsigned long period)
 void SysTick_Handler(void)
 {
 	LED_SetGreen();
+	LED_ResetYellow();
 	Nokia5110_SaveLastBuffer();
 	Nokia5110_ClearBuffer();
 	if (PlayerShip_isDead(&playerShip))
@@ -85,6 +62,8 @@ void SysTick_Handler(void)
 					Enemy_Reset(&enemy[1]);
 					Enemy_Reset(&enemy[2]);
 					PlayerShip_Reset(&playerShip);
+					Switch_shoot = false;
+					Nokia5110_ClearBuffer();
 				}
 		}
 		else 
@@ -98,29 +77,18 @@ void SysTick_Handler(void)
 		
 		Enemy_NextState(&enemy[0],interruptCounter);
 		Enemy_NextPos(&enemy[0],interruptCounter, MAXGROUND);
-		Enemy_Draw(&enemy[0],MAXGROUND);		
 		Enemy_NextState(&enemy[1],interruptCounter);
 		Enemy_NextPos(&enemy[1],interruptCounter, MAXGROUND);
-		Enemy_Draw(&enemy[1],MAXGROUND);
 		Enemy_NextState(&enemy[2],interruptCounter);
 		Enemy_NextPos(&enemy[2],interruptCounter, MAXGROUND);
-		Enemy_Draw(&enemy[2],MAXGROUND);
-		
-		PlayerShip_Shoots(&playerShip);
-		
-		Enemy_Shoots(&enemy[0]);
-		Enemy_Shoots(&enemy[1]);		
-		Enemy_Shoots(&enemy[2]);
 		
 		PlayerShip_ControlShip(&playerShip, interruptCounter);
-		PlayerShip_Draw(&playerShip);
-		
-		PlayerShip_IncreaseScore(&playerShip, Enemy_ControlDeath(&enemy[0]), Enemy_ControlDeath(&enemy[1]), Enemy_ControlDeath(&enemy[2]), 0, 0);
 	}
-	_ShowHUD();
 	Flag = true;										// Sets the flag to 1, indicating that there is a new sample for the display
 	interruptCounter++;
 	LED_ResetGreen();
+	//LED_ToggleGreen();
+	LED_SetYellow();
 }
 
 
@@ -145,11 +113,11 @@ void GameEngine_Init(void)
 	}
 }
 
-//**********************_ShowHUD***********************
+//**********************GameEngine_ShowHUD***********************
 // Shows the HP and the score of the player at the bottom of the screen
 // inputs: none
 // outputs: none
-void _ShowHUD(void)
+void GameEngine_ShowHUD(void)
 {
 	unsigned char i;
 	for (i = 0; i < SCREENW; i++)			// Draws a line at the bottom to separate the HUD from the playing area
