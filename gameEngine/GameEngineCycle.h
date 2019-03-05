@@ -25,9 +25,10 @@ void GameEngine_Init(void);
 
 //**********************GameEngine_ShowHUD***********************
 // Shows the HP and the score of the player at the bottom of the screen
-// inputs: none
+// inputs: timerSpecialAttack: time needed to unlock special attack
+//				 intCounter: Indicates how many cycles of the game engine have occurred
 // outputs: none
-void GameEngine_ShowHUD(void);
+void GameEngine_ShowHUD(unsigned long intCounter, unsigned short timerSpecialAttack);
 
 #endif
 

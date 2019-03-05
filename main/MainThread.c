@@ -142,7 +142,6 @@ int main(void)
 				
 				PlayerShip_IncreaseScore(&playerShip, Enemy_ControlDeath(&enemy[0]), Enemy_ControlDeath(&enemy[1]), Enemy_ControlDeath(&enemy[2]), 0, 0);
 			}
-			GameEngine_ShowHUD();
 			Nokia5110_DisplayBuffer();
 			ExecuteMain = false;
 		LED_ResetGreen();		//Green LED is turned OFF when main is ready

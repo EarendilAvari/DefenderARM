@@ -241,8 +241,9 @@ void PlayerShip_Shoots(PlayerShip *this)
 // inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
 //				 intCounter: Indicates how many cycles of the game engine have occurred
 //				 maxY: indicates the maximal Y coordinate the shoots can have
+//				 timerSpecialAttack: time needed to unlock special attack
 // outputs: none
-void PlayerShip_specialShoot(PlayerShip *this, unsigned long intCounter, unsigned char maxY)
+void PlayerShip_specialShoot(PlayerShip *this, unsigned long intCounter, unsigned short* timerSpecialAttack, unsigned char maxY)
 {
 	if (Switch_special)
 	{
@@ -258,7 +259,6 @@ void PlayerShip_specialShoot(PlayerShip *this, unsigned long intCounter, unsigne
 		this->specialShootUp.posX = SHIPW + 1;
 		this->specialShootDown.posX = SHIPW + 1;
 		this->specialShootMiddle.curStatus = 0;
-		Sound_Shoot();
 		Switch_special = false;
 	}
 	
@@ -270,10 +270,12 @@ void PlayerShip_specialShoot(PlayerShip *this, unsigned long intCounter, unsigne
 		if (intCounter%6 == 0)
 		{
 			this->specialShootMiddle.curStatus = (this->specialShootMiddle.curStatus + 1)&0x01;
+			Sound_Fastinvader1();
 		}
 		if (this->specialShootMiddle.posX > SCREENW - SPECIAL_SHOOT_MID_W)
 		{
 			this->specialShootMiddle.show = false;
+			*timerSpecialAttack = 0;
 		}
 	}
 	

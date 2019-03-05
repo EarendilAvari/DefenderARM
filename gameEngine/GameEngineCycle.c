@@ -23,6 +23,7 @@ bool Switch_special;  //The switch for special attack was pressed
 extern bool ExecuteMain;			//Flag sent to main task when the display should be drawn
 unsigned char PixelY;	//This value has the position Y of the ship
 unsigned long interruptCounter; // It counts how many sysTick interrupts have been occured
+unsigned short timeToSpecial; 	// Time to unlock special attack 
 
 extern Terrain terrain;				//Object used to represent the terrain (extern because is used in the main thread also)
 extern Enemy enemy[5];				//Object used to represent the enemies (extern because is used in the main thread also)
@@ -80,8 +81,17 @@ void SysTick_Handler(void)
 		Enemy_NextState(&enemy[2],interruptCounter);
 		Enemy_NextPos(&enemy[2],interruptCounter, MAXGROUND);
 		PlayerShip_ControlShip(&playerShip, interruptCounter);
-		PlayerShip_specialShoot(&playerShip, interruptCounter, MAXGROUND);
+		if (timeToSpecial < 606)
+		{
+			timeToSpecial++;
+			Switch_special = false;
+		}
+		else
+		{
+			PlayerShip_specialShoot(&playerShip, interruptCounter, &timeToSpecial, MAXGROUND);
+		}
 	}
+	GameEngine_ShowHUD(interruptCounter, timeToSpecial);
 	ExecuteMain = true;										// Sets the flag to 1, indicating that the main loop should be executed
 	interruptCounter++;
 }
@@ -108,13 +118,16 @@ void GameEngine_Init(void)
 	{
 		Enemy_InitEnemy(&enemy[i], enemy1Alive1, enemy1Alive2, enemy1Alive3, enemy1Dying1, enemy1Dying2);
 	}
+	
+	timeToSpecial = 606;
 }
 
 //**********************GameEngine_ShowHUD***********************
 // Shows the HP and the score of the player at the bottom of the screen
-// inputs: none
+// inputs: timerSpecialAttack: time needed to unlock special attack
+//				 intCounter: Indicates how many cycles of the game engine have occurred
 // outputs: none
-void GameEngine_ShowHUD(void)
+void GameEngine_ShowHUD(unsigned long intCounter, unsigned short timerSpecialAttack)
 {
 	unsigned char i;
 	for (i = 0; i < SCREENW; i++)			// Draws a line at the bottom to separate the HUD from the playing area
@@ -125,7 +138,11 @@ void GameEngine_ShowHUD(void)
 	Nokia5110_OutUDec_4x4pix_toBuffer(15, SCREENH - 5, playerShip.healthPoints);
 	Nokia5110_OutChar_4x4pix_toBuffer(20, SCREENH - 5, '/');
 	Nokia5110_OutUDec_4x4pix_toBuffer(25, SCREENH - 5, MAXHP);
-	Nokia5110_OutString_4x4pix_toBuffer(35, SCREENH - 5, "score:");
-	Nokia5110_OutUDec_4x4pix_toBuffer(65, SCREENH - 5, playerShip.score);
+	Nokia5110_OutString_4x4pix_toBuffer(35, SCREENH - 5, "sc:");
+	Nokia5110_OutUDec_4x4pix_toBuffer(50, SCREENH - 5, playerShip.score);
+	if ((timerSpecialAttack >= 606) && (intCounter%20 < 10))
+	{
+		Nokia5110_OutString_4x4pix_toBuffer(70, SCREENH - 5, "SP"); 
+	}
 }
 
