@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Build\DefenderARM.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Build\DefenderARM.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Mon Mar 04 00:34:02 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Tue Mar 05 22:42:15 2019
 <BR><P>
 <H3>Maximum Stack Usage =         84 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -704,9 +704,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[98]"></a>Random</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, random.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_Shoots
+<BR><BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_NextPos
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_Shoots
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_Draw
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_NextPos
 </UL>
 
 <P><STRONG><a name="[fc]"></a>DisableInterrupts</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text), UNUSED)
@@ -857,11 +857,11 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 56 + Unknown Stack Size
 <LI>Call Chain = GameEngine_Init &rArr; Terrain_InitTerrain &rArr; Terrain_GroundNextY
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_InitTerrain
+<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_InitTerrain
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_InitSpecialShoot
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_InitShip
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_InitEnemy
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -901,10 +901,10 @@ Global Symbols
 <P><STRONG><a name="[99]"></a>Nokia5110_AskLastPixel</STRONG> (Thumb, 70 bytes, Stack size 16 bytes, nokia5110.o(i.Nokia5110_AskLastPixel))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Nokia5110_AskLastPixel
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_Shoots
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_Draw
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
+<BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_ControlShip
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_NextPos
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_Shoots
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_Draw
 </UL>
 
 <P><STRONG><a name="[94]"></a>Nokia5110_AskPixel</STRONG> (Thumb, 70 bytes, Stack size 16 bytes, nokia5110.o(i.Nokia5110_AskPixel))
@@ -982,10 +982,10 @@ Global Symbols
 <P><STRONG><a name="[97]"></a>Nokia5110_PrintBMP</STRONG> (Thumb, 420 bytes, Stack size 36 bytes, nokia5110.o(i.Nokia5110_PrintBMP))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = Nokia5110_PrintBMP
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_Draw
+<BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_specialShoot
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_Draw
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_Draw
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_specialShoot
 </UL>
 
 <P><STRONG><a name="[bf]"></a>Nokia5110_SaveLastBuffer</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, nokia5110.o(i.Nokia5110_SaveLastBuffer))
@@ -1074,8 +1074,8 @@ Global Symbols
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[b4]"></a>PlayerShip_specialShoot</STRONG> (Thumb, 104 bytes, Stack size 16 bytes, playership.o(i.PlayerShip_specialShoot))
-<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = PlayerShip_specialShoot &rArr; Nokia5110_PrintBMP
+<P><STRONG><a name="[b4]"></a>PlayerShip_specialShoot</STRONG> (Thumb, 360 bytes, Stack size 24 bytes, playership.o(i.PlayerShip_specialShoot))
+<BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = PlayerShip_specialShoot &rArr; Nokia5110_PrintBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Shoot
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_PrintBMP
@@ -1163,25 +1163,20 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Play
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_Shoots
+<BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_specialShoot
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_Shoots
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_Shoots
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_specialShoot
 </UL>
 
 <P><STRONG><a name="[d3]"></a>SwitchesInit</STRONG> (Thumb, 172 bytes, Stack size 0 bytes, switches.o(i.SwitchesInit))
 <BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[c]"></a>SysTick_Handler</STRONG> (Thumb, 248 bytes, Stack size 8 bytes, gameenginecycle.o(i.SysTick_Handler))
+<P><STRONG><a name="[c]"></a>SysTick_Handler</STRONG> (Thumb, 250 bytes, Stack size 8 bytes, gameenginecycle.o(i.SysTick_Handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80 + Unknown Stack Size
 <LI>Call Chain = SysTick_Handler &rArr; PlayerShip_ControlShip &rArr; SlidePot_toPixelY &rArr; SlidePot_Convert
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_isDead
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SaveLastBuffer
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString_4x4pix_toBuffer
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_ClearBuffer
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_SetGreen
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_Create
+<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_Create
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_specialShoot
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_hasLives
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_Reset
@@ -1189,6 +1184,11 @@ Global Symbols
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_Reset
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_NextState
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_NextPos
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_isDead
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SaveLastBuffer
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString_4x4pix_toBuffer
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_ClearBuffer
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_SetGreen
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>

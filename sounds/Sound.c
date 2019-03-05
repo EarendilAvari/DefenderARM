@@ -84,11 +84,13 @@ void Sound_Killed(void)
   Sound_Play(invaderkilled,3377);
 }
 
+
 void Sound_Explosion(void)
 {
   Sound_Play(explosion,2000);
 }
 
+/*
 void Sound_Fastinvader1(void)
 {
   Sound_Play(fastinvader1,982);
@@ -107,9 +109,10 @@ void Sound_Fastinvader3(void)
 void Sound_Fastinvader4(void)
 {
   Sound_Play(fastinvader4,1098);
-}
+} */
 
 void Sound_Highpitch(void)
 {
   Sound_Play(highpitch,1802);
 }
+

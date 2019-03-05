@@ -142,6 +142,6 @@ void PlayerShip_InitSpecialShoot(PlayerShip* this, const unsigned char* imgMid1,
 // inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
 //				 intCounter: Indicates how many cycles of the game engine have occurred
 // outputs: none
-void PlayerShip_specialShoot(PlayerShip *this, unsigned long intCounter);
+void PlayerShip_specialShoot(PlayerShip *this, unsigned long intCounter, unsigned char maxY);
 
 #endif

@@ -80,7 +80,7 @@ void SysTick_Handler(void)
 		Enemy_NextState(&enemy[2],interruptCounter);
 		Enemy_NextPos(&enemy[2],interruptCounter, MAXGROUND);
 		PlayerShip_ControlShip(&playerShip, interruptCounter);
-		PlayerShip_specialShoot(&playerShip, interruptCounter);
+		PlayerShip_specialShoot(&playerShip, interruptCounter, MAXGROUND);
 	}
 	ExecuteMain = true;										// Sets the flag to 1, indicating that the main loop should be executed
 	interruptCounter++;

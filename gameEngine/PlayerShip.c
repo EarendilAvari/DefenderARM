@@ -95,6 +95,8 @@ void PlayerShip_InitShip(PlayerShip* this, const unsigned char *img0, const unsi
 
 //**********************PlayerShip_InitSpecialShoot***********************
 // This function initializes the special shoots
+// This function is separated from the rest of the player ship initialization because a lot of images are
+// used to create this special shoot
 // inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
 //				 imgMid1:  image of the special shoot in the middle 1
 //				 imgMid2:  image of the special shoot in the middle 2
@@ -232,38 +234,86 @@ void PlayerShip_Shoots(PlayerShip *this)
 
 //**********************PlayerShip_specialShoots***********************
 // This function generates a special shoot by pressing the special button
+// The special shoot is a big misile going through the X axis and also two misiles going up and down with a 45 
+// degrees angle
+// The three misiles use two BMPs to create an animation. In order to create that animation a finite state
+// machine without inputs and two states is used. The status switches between 0 and 1 every 6 SysTick interrupts 
 // inputs: this: Corresponds to the structure including the parameters of the class, in this case the ship
 //				 intCounter: Indicates how many cycles of the game engine have occurred
+//				 maxY: indicates the maximal Y coordinate the shoots can have
 // outputs: none
-void PlayerShip_specialShoot(PlayerShip *this, unsigned long intCounter)
+void PlayerShip_specialShoot(PlayerShip *this, unsigned long intCounter, unsigned char maxY)
 {
 	if (Switch_special)
 	{
+		// If the switch special is pressed, a new special shoot is generated
+		// with position at the center, top and bottom of the player ship
 		this->specialShootMiddle.show = true;
-		//this->specialShootUp.show = true;
-		//this->specialShootDown.show = true;
+		this->specialShootUp.show = true;
+		this->specialShootDown.show = true;
 		this->specialShootMiddle.posY = this->posY - (SHIPH/2);
-		//this->specialShootUp.posY = this->posY - SHIPH;
-		//this->specialShootDown.posY = this->posY;
+		this->specialShootUp.posY = this->posY - SHIPH;
+		this->specialShootDown.posY = this->posY;
 		this->specialShootMiddle.posX = SHIPW + 1;
-		//this->specialShootUp.posX = SHIPW + 1;
-		//this->specialShootDown.posX = SHIPW + 1;
+		this->specialShootUp.posX = SHIPW + 1;
+		this->specialShootDown.posX = SHIPW + 1;
 		this->specialShootMiddle.curStatus = 0;
 		Sound_Shoot();
 		Switch_special = false;
 	}
+	
 	if (this->specialShootMiddle.show)
 	{
 		Nokia5110_PrintBMP(this->specialShootMiddle.posX, this->specialShootMiddle.posY, 
 							this->specialShootMiddle.image[this->specialShootMiddle.curStatus], 0);
-		if (intCounter%3 == 0)
+		this->specialShootMiddle.posX++;
+		if (intCounter%6 == 0)
 		{
-			this->specialShootMiddle.posX++;
 			this->specialShootMiddle.curStatus = (this->specialShootMiddle.curStatus + 1)&0x01;
 		}
 		if (this->specialShootMiddle.posX > SCREENW - SPECIAL_SHOOT_MID_W)
 		{
 			this->specialShootMiddle.show = false;
+		}
+	}
+	
+	if (this->specialShootUp.show)
+	{
+		Nokia5110_PrintBMP(this->specialShootUp.posX, this->specialShootUp.posY, 
+							this->specialShootUp.image[this->specialShootUp.curStatus], 0);
+		if (intCounter%2)
+		{
+			this->specialShootUp.posX++;
+			this->specialShootUp.posY--;
+		}
+		if (intCounter%6 == 0)
+		{
+			this->specialShootUp.curStatus = (this->specialShootUp.curStatus + 1)&0x01;
+		}
+		if ((this->specialShootUp.posX > SCREENW - SPECIAL_SHOOT_SIDE_W) || 
+				(this->specialShootUp.posY < SPECIAL_SHOOT_SIDE_H))
+		{
+			this->specialShootUp.show = false;
+		}
+	}
+	
+	if (this->specialShootDown.show)
+	{
+		Nokia5110_PrintBMP(this->specialShootDown.posX, this->specialShootDown.posY, 
+							this->specialShootDown.image[this->specialShootDown.curStatus], 0);
+		if (intCounter%2)
+		{
+			this->specialShootDown.posX++;
+			this->specialShootDown.posY++;
+		}
+		if (intCounter%6 == 0)
+		{
+			this->specialShootDown.curStatus = (this->specialShootDown.curStatus + 1)&0x01;
+		}
+		if ((this->specialShootDown.posX > SCREENW - SPECIAL_SHOOT_SIDE_W) || 
+				(this->specialShootDown.posY > maxY))
+		{
+			this->specialShootDown.show = false;
 		}
 	}
 }
