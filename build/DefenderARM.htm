@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Build\DefenderARM.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Build\DefenderARM.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Wed Mar 06 00:27:30 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sat Mar 09 22:35:44 2019
 <BR><P>
 <H3>Maximum Stack Usage =         84 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -853,8 +853,8 @@ Global Symbols
 <P><STRONG><a name="[11]"></a>GPIOPortE_Handler</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, switches.o(i.GPIOPortE_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
-<P><STRONG><a name="[9f]"></a>GameEngine_Init</STRONG> (Thumb, 108 bytes, Stack size 24 bytes, gameenginecycle.o(i.GameEngine_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56 + Unknown Stack Size
+<P><STRONG><a name="[9f]"></a>GameEngine_Init</STRONG> (Thumb, 182 bytes, Stack size 16 bytes, gameenginecycle.o(i.GameEngine_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
 <LI>Call Chain = GameEngine_Init &rArr; Terrain_InitTerrain &rArr; Terrain_GroundNextY
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_InitTerrain
@@ -890,8 +890,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[bf]"></a>LED_SetGreen</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, led.o(i.LED_SetGreen))
-<BR><BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
 <P><STRONG><a name="[d7]"></a>LED_SetYellow</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, led.o(i.LED_SetYellow))
@@ -924,8 +924,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c1]"></a>Nokia5110_ClearBuffer</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, nokia5110.o(i.Nokia5110_ClearBuffer))
-<BR><BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
 <P><STRONG><a name="[ac]"></a>Nokia5110_DisplayBuffer</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, nokia5110.o(i.Nokia5110_DisplayBuffer))
@@ -956,9 +956,9 @@ Global Symbols
 <P><STRONG><a name="[a8]"></a>Nokia5110_OutChar_4x4pix_toBuffer</STRONG> (Thumb, 194 bytes, Stack size 24 bytes, nokia5110.o(i.Nokia5110_OutChar_4x4pix_toBuffer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Nokia5110_OutChar_4x4pix_toBuffer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_ShowHUD
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDec_4x4pix_toBuffer
+<BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDec_4x4pix_toBuffer
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString_4x4pix_toBuffer
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_ShowHUD
 </UL>
 
 <P><STRONG><a name="[a6]"></a>Nokia5110_OutString_4x4pix_toBuffer</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, nokia5110.o(i.Nokia5110_OutString_4x4pix_toBuffer))
@@ -966,9 +966,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutChar_4x4pix_toBuffer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_ShowHUD
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[a7]"></a>Nokia5110_OutUDec_4x4pix_toBuffer</STRONG> (Thumb, 88 bytes, Stack size 28 bytes, nokia5110.o(i.Nokia5110_OutUDec_4x4pix_toBuffer))
@@ -989,8 +989,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c0]"></a>Nokia5110_SaveLastBuffer</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, nokia5110.o(i.Nokia5110_SaveLastBuffer))
-<BR><BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
 <P><STRONG><a name="[ab]"></a>Nokia5110_SetCursor</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, nokia5110.o(i.Nokia5110_SetCursor))
@@ -1005,10 +1005,10 @@ Global Symbols
 <P><STRONG><a name="[9e]"></a>Nokia5110_SetPixel</STRONG> (Thumb, 64 bytes, Stack size 12 bytes, nokia5110.o(i.Nokia5110_SetPixel))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = Nokia5110_SetPixel
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_ShowHUD
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_Draw
+<BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Terrain_Draw
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_Shoots
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_Shoots
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_ShowHUD
 </UL>
 
 <P><STRONG><a name="[c9]"></a>PLL_Init</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, texas.o(i.PLL_Init))
@@ -1070,8 +1070,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c2]"></a>PlayerShip_isDead</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, playership.o(i.PlayerShip_isDead))
-<BR><BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
 <P><STRONG><a name="[b4]"></a>PlayerShip_specialShoot</STRONG> (Thumb, 366 bytes, Stack size 24 bytes, playership.o(i.PlayerShip_specialShoot))
@@ -1184,8 +1184,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 80 + Unknown Stack Size
 <LI>Call Chain = SysTick_Handler &rArr; PlayerShip_ControlShip &rArr; SlidePot_toPixelY &rArr; SlidePot_Convert
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_ShowHUD
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_isDead
+<BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerShip_isDead
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SaveLastBuffer
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString_4x4pix_toBuffer
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_ClearBuffer
@@ -1198,6 +1197,7 @@ Global Symbols
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_Reset
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_NextState
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_NextPos
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_ShowHUD
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>

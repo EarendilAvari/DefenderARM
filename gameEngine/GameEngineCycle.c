@@ -114,10 +114,11 @@ void GameEngine_Init(void)
 	
 	Terrain_InitTerrain(&terrain, MAXGROUND);
 	
-	for (i=0; i<5; i++)
-	{
-		Enemy_InitEnemy(&enemy[i], enemy1Alive1, enemy1Alive2, enemy1Alive3, enemy1Dying1, enemy1Dying2);
-	}
+	Enemy_InitEnemy(&enemy[0], enemy1Alive1, enemy1Alive2, enemy1Alive3, enemy1Dying1, enemy1Dying2);
+	Enemy_InitEnemy(&enemy[1], enemy2Alive1, enemy2Alive2, enemy2Alive3, enemy2Dying1, enemy2Dying2);
+	Enemy_InitEnemy(&enemy[2], enemy3Alive1, enemy3Alive2, enemy3Alive3, enemy3Dying1, enemy3Dying2);
+	Enemy_InitEnemy(&enemy[3], enemy1Alive1, enemy1Alive2, enemy1Alive3, enemy1Dying1, enemy1Dying2);
+	Enemy_InitEnemy(&enemy[4], enemy2Alive1, enemy2Alive2, enemy2Alive3, enemy2Dying1, enemy2Dying2);
 	
 	timeToSpecial = 606;
 }

@@ -7,23 +7,21 @@ D:\Keil\Labware\Lab15_SpaceInvaders\DefenderARM.uvproj
 Project File Date:  03/02/2019
 
 <h2>Output:</h2>
-Build target 'DefenderARM'
-compiling PlayerShip.c...
-linking...
-Program Size: Code=8380 RO-data=17416 RW-data=84 ZI-data=2692  
-".\Build\DefenderARM.axf" - 0 Error(s), 0 Warning(s).
-Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\Build\\DefenderARM.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-uild\DefenderARM.axf" - 0 Error(s), 1 Warning(s).
-Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\Build\\DefenderARM.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-le "delay" was set but never used
+Rebuild target 'DefenderARM'
+compiling MainThread.c...
+Main\../display/LED.h(43): warning:  #14-D: extra text after expected end of preprocessing directive
+  #endif LED_H
+Main\MainThread.c: 1 warning, 0 errors
+compiling TExaS.c...
+assembling random.s...
+assembling startup.s...
+compiling ADC.c...
+Controls\ADC.c(36): warning:  #550-D: variable "delay" was set but never used
+        unsigned long delay;
+Controls\ADC.c: 1 warning, 0 errors
+compiling SlidePot.c...
+compiling Switches.c...
+Controls\Switches.c(9): warning:  #550-D: variable "delay" was set but never used
         unsigned long delay;
 Controls\Switches.c: 1 warning, 0 errors
 compiling Nokia5110.c...
@@ -44,21 +42,15 @@ Sounds\Sound.c: 1 warning, 0 errors
 compiling GameEngineCycle.c...
 GameEngine\../display/LED.h(43): warning:  #14-D: extra text after expected end of preprocessing directive
   #endif LED_H
-GameEngine\GameEngineCycle.c: 1 warning, 0 errors
+GameEngine\GameEngineCycle.c(108): warning:  #177-D: variable "i" was declared but never referenced
+        int i;
+GameEngine\GameEngineCycle.c: 2 warnings, 0 errors
 compiling Enemy.c...
 compiling Terrain.c...
 compiling PlayerShip.c...
 linking...
-Program Size: Code=8384 RO-data=17416 RW-data=84 ZI-data=2692  
-".\Build\DefenderARM.axf" - 0 Error(s), 8 Warning(s).
-Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\Build\\DefenderARM.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-reated
-
-oad failed  -  Target DLL has been cancelled
+Program Size: Code=8620 RO-data=23420 RW-data=84 ZI-data=2692  
+".\Build\DefenderARM.axf" - 0 Error(s), 9 Warning(s).
 Load "D:\\Keil\\Labware\\Lab15_SpaceInvaders\\Build\\DefenderARM.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
