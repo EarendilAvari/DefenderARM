@@ -85,6 +85,7 @@
 #include "../gameEngine/Terrain.h"
 
 bool ExecuteMain;
+unsigned short difficulty;			// Difficulty of the game, it changes with the score of the player
 Enemy enemy[5];								//Object used to represent the enemies
 PlayerShip playerShip;
 Terrain terrain;							//Object used to represent the terrain (extern because is used in the main thread also)
@@ -129,18 +130,36 @@ int main(void)
 			if (!PlayerShip_isDead(&playerShip))
 			{
 				Terrain_Draw(&terrain, MAXGROUND);
-				Enemy_Draw(&enemy[0],MAXGROUND);
-				Enemy_Draw(&enemy[1],MAXGROUND);
-				Enemy_Draw(&enemy[2],MAXGROUND);
+				Enemy_Draw(&enemy[0],MAXGROUND, difficulty);
+				Enemy_Draw(&enemy[1],MAXGROUND, difficulty);
+				Enemy_Draw(&enemy[2],MAXGROUND, difficulty);
+				
+				if (difficulty > 2)
+				{
+					Enemy_Draw(&enemy[3], MAXGROUND, difficulty);
+				}
+				if (difficulty > 4)
+				{
+					Enemy_Draw(&enemy[4], MAXGROUND, difficulty);
+				}
 				PlayerShip_Draw(&playerShip);
 				
 				PlayerShip_Shoots(&playerShip);
 		
-				Enemy_Shoots(&enemy[0]);
-				Enemy_Shoots(&enemy[1]);		
-				Enemy_Shoots(&enemy[2]);
+				Enemy_Shoots(&enemy[0], difficulty);
+				Enemy_Shoots(&enemy[1], difficulty);		
+				Enemy_Shoots(&enemy[2], difficulty);
+				if (difficulty > 2)
+				{
+					Enemy_Shoots(&enemy[3], difficulty);
+				}
+				if (difficulty > 4)
+				{
+					Enemy_Shoots(&enemy[4], difficulty);
+				}
 				
-				PlayerShip_IncreaseScore(&playerShip, Enemy_ControlDeath(&enemy[0]), Enemy_ControlDeath(&enemy[1]), Enemy_ControlDeath(&enemy[2]), 0, 0);
+				PlayerShip_IncreaseScore(&playerShip, Enemy_ControlDeath(&enemy[0]), Enemy_ControlDeath(&enemy[1]), 
+																 Enemy_ControlDeath(&enemy[2]), Enemy_ControlDeath(&enemy[3]), Enemy_ControlDeath(&enemy[4]));
 			}
 			Nokia5110_DisplayBuffer();
 			ExecuteMain = false;

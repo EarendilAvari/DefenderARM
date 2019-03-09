@@ -2,6 +2,11 @@
 #define GAMEENGINEMAIN_H
 
 #include <stdbool.h>
+#include "GameEngineCycle.h"
+#include "Pixel.h"
+#include "Enemy.h"
+#include "Terrain.h"
+#include "PlayerShip.h"
 
 // ************************************************************************************************
 // ******************************** DEFINITION OF GLOBAL QUANTITIES *******************************
@@ -29,6 +34,13 @@ void GameEngine_Init(void);
 //				 intCounter: Indicates how many cycles of the game engine have occurred
 // outputs: none
 void GameEngine_ShowHUD(unsigned long intCounter, unsigned short timerSpecialAttack);
+
+//**********************GameEngine_IncreaseDifficulty***********************
+// Shows the HP and the score of the player at the bottom of the screen
+// inputs: player: Pointer to the playership object
+//				 diff: Pointer to difficulty variable
+// outputs: none
+void GameEngine_IncreaseDifficulty(PlayerShip* player, unsigned short* diff);
 
 #endif
 

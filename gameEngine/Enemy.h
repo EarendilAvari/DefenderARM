@@ -65,8 +65,9 @@ void Enemy_NextPos(Enemy *this, unsigned long intCounter, unsigned char maxY);
 // the new enemy is created.
 // inputs: enemy: Pointer to an element of the enemy array
 //				 maxY: indicates the maximal Y coordinate the enemy can have
+//				 diff: difficulty of the game
 // outputs: none
-void Enemy_Draw(Enemy *this, unsigned char maxY);
+void Enemy_Draw(Enemy *this, unsigned char maxY, unsigned short diff);
 
 
 //**********************Enemy_Shoots***********************
@@ -75,8 +76,9 @@ void Enemy_Draw(Enemy *this, unsigned char maxY);
 // They are not generated if another enemy is on the way of the shoot in order to avoid
 // enemies killing another enemies.
 // inputs: enemy: Pointer to an element of the enemy array
+//				 diff: difficulty of the game
 // outputs: none
-void Enemy_Shoots(Enemy *this);
+void Enemy_Shoots(Enemy *this, unsigned short diff);
 
 //**********************Enemy_Reset***********************
 // This functions clear the enemies in order to avoid killings by them when 

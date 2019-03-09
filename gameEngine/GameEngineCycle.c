@@ -1,15 +1,11 @@
 
-#include "GameEngineCycle.h"
-#include "Pixel.h"
-#include "Enemy.h"
-#include "Terrain.h"
-#include "PlayerShip.h"
 #include "../../tm4c123gh6pm.h"
 //#include "../controls/SlidePot.h"
 #include "../controls/Switches.h"
 //#include "../display/Nokia5110.h"
 #include "../display/ImageArrays.h"
 #include "../display/LED.h"
+#include "GameEngineCycle.h"
 //#include "../sounds/Sound.h"
 //#include "../main/Random.h"
 
@@ -24,6 +20,7 @@ extern bool ExecuteMain;			//Flag sent to main task when the display should be d
 unsigned char PixelY;	//This value has the position Y of the ship
 unsigned long interruptCounter; // It counts how many sysTick interrupts have been occured
 unsigned short timeToSpecial; 	// Time to unlock special attack 
+extern unsigned short difficulty;			// Difficulty of the game, it changes with the score of the player
 
 extern Terrain terrain;				//Object used to represent the terrain (extern because is used in the main thread also)
 extern Enemy enemy[5];				//Object used to represent the enemies (extern because is used in the main thread also)
@@ -81,6 +78,16 @@ void SysTick_Handler(void)
 		Enemy_NextState(&enemy[2],interruptCounter);
 		Enemy_NextPos(&enemy[2],interruptCounter, MAXGROUND);
 		PlayerShip_ControlShip(&playerShip, interruptCounter);
+		if (difficulty > 2)
+		{
+			Enemy_NextState(&enemy[3],interruptCounter);
+			Enemy_NextPos(&enemy[3], interruptCounter, MAXGROUND);
+		}
+		if (difficulty > 4)
+		{
+			Enemy_NextState(&enemy[4], interruptCounter);
+			Enemy_NextPos(&enemy[4], interruptCounter, MAXGROUND);
+		}
 		if (timeToSpecial < 606)
 		{
 			timeToSpecial++;
@@ -92,6 +99,8 @@ void SysTick_Handler(void)
 		}
 	}
 	GameEngine_ShowHUD(interruptCounter, timeToSpecial);
+	GameEngine_IncreaseDifficulty(&playerShip, &difficulty);
+	Nokia5110_OutUDec_4x4pix_toBuffer(35, 5, difficulty);
 	ExecuteMain = true;										// Sets the flag to 1, indicating that the main loop should be executed
 	interruptCounter++;
 }
@@ -105,7 +114,6 @@ void SysTick_Handler(void)
 // outputs: none
 void GameEngine_Init(void)
 {
-	int i;
 	SysTick_Init(2666665);	//It initializes the SysTick for 30 Hz
 	PlayerShip_InitShip(&playerShip, PlayerShipCenter, PlayerShipUp, PlayerShipDown,
 																	 PlayerShipDestruction1, PlayerShipDestruction2, PlayerShipDestruction3);
@@ -121,6 +129,7 @@ void GameEngine_Init(void)
 	Enemy_InitEnemy(&enemy[4], enemy2Alive1, enemy2Alive2, enemy2Alive3, enemy2Dying1, enemy2Dying2);
 	
 	timeToSpecial = 606;
+	difficulty = 0;
 }
 
 //**********************GameEngine_ShowHUD***********************
@@ -147,3 +156,18 @@ void GameEngine_ShowHUD(unsigned long intCounter, unsigned short timerSpecialAtt
 	}
 }
 
+//**********************GameEngine_IncreaseDifficulty***********************
+// Shows the HP and the score of the player at the bottom of the screen
+// inputs: player: Pointer to the playership object
+//				 diff: Pointer to difficulty variable
+// outputs: none
+void GameEngine_IncreaseDifficulty(PlayerShip* player, unsigned short* diff)
+{
+	static unsigned short LastScore;
+	
+	if ((player->score != LastScore) && (player->score%5 == 0))
+	{
+		*diff = *diff + 1;
+	}
+	LastScore = player->score;
+}
