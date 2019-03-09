@@ -62,4 +62,11 @@ void Terrain_Draw(Terrain* this, unsigned char maxY);
 // outputs: Coordinate Y of the ground pixel we want to draw now
 unsigned char Terrain_GroundNextY(unsigned char PosYLast, unsigned char minY, unsigned char maxY);
 
+//**********************Terrain_SetHeight***********************
+// Sets the height of the terrain
+// inputs: this: Corresponds to the structure including the parameters of the class, in this case the terrain
+//				 height: indicates the new height of the ground
+// outputs: none
+void Terrain_SetHeight(Terrain* this, unsigned char height);
+
 #endif

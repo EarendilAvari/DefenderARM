@@ -86,6 +86,7 @@
 
 bool ExecuteMain;
 unsigned short difficulty;			// Difficulty of the game, it changes with the score of the player
+unsigned short GroundMaxHeight;		// Max height of the ground
 Enemy enemy[5];								//Object used to represent the enemies
 PlayerShip playerShip;
 Terrain terrain;							//Object used to represent the terrain (extern because is used in the main thread also)
@@ -130,17 +131,17 @@ int main(void)
 			if (!PlayerShip_isDead(&playerShip))
 			{
 				Terrain_Draw(&terrain, MAXGROUND);
-				Enemy_Draw(&enemy[0],MAXGROUND, difficulty);
-				Enemy_Draw(&enemy[1],MAXGROUND, difficulty);
-				Enemy_Draw(&enemy[2],MAXGROUND, difficulty);
+				Enemy_Draw(&enemy[0],GroundMaxHeight, difficulty);
+				Enemy_Draw(&enemy[1],GroundMaxHeight, difficulty);
+				Enemy_Draw(&enemy[2],GroundMaxHeight, difficulty);
 				
 				if (difficulty > 2)
 				{
-					Enemy_Draw(&enemy[3], MAXGROUND, difficulty);
+					Enemy_Draw(&enemy[3], GroundMaxHeight, difficulty);
 				}
 				if (difficulty > 4)
 				{
-					Enemy_Draw(&enemy[4], MAXGROUND, difficulty);
+					Enemy_Draw(&enemy[4], GroundMaxHeight, difficulty);
 				}
 				PlayerShip_Draw(&playerShip);
 				

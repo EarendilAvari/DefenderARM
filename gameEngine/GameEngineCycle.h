@@ -42,5 +42,12 @@ void GameEngine_ShowHUD(unsigned long intCounter, unsigned short timerSpecialAtt
 // outputs: none
 void GameEngine_IncreaseDifficulty(PlayerShip* player, unsigned short* diff);
 
+//**********************GameEngine_IncreaseGroundHeight***********************
+// Increases the maximum height of the ground depending on the difficulty
+// inputs: player: Pointer to the playership object
+//				 diff: Pointer to difficulty variable
+// outputs: none
+void GameEngine_IncreaseGroundHeight(unsigned short* GroundHeight, unsigned short diff);
+
 #endif
 

@@ -192,7 +192,7 @@ void Enemy_Draw(Enemy *this, unsigned char maxY, unsigned short diff)
 	// %%%%%%%%%%%%%% CREATE NEW ENEMY %%%%%%%%%%%
 	else																								//If the enemy is not being shown (meaning it was killed and it did not come back yet
 	{
-		unsigned char createNewEnemy = Random()%(50 - diff);				// There is a probability of 1/50 to create an enemy in this cycle
+		unsigned char createNewEnemy = Random()%(70 - diff);				// There is a probability of 1/50 to create an enemy in this cycle
 		bool safeToDraw = true;
 		if (createNewEnemy == 1)
 		{
@@ -237,7 +237,7 @@ void Enemy_Shoots(Enemy *this, unsigned short diff)
 		i--;
 	}
 	
-	if ((Random()%(70 - 5*diff) == 0) && !this->shoots.show && this->actStatus != enemyFSM_NoShow && noOtherEnemy)	// If there is not a shoot being shown, and the current status 
+	if ((Random()%(70 - 2*diff) == 0) && !this->shoots.show && this->actStatus != enemyFSM_NoShow && noOtherEnemy)	// If there is not a shoot being shown, and the current status 
 	{																																							// of the enemy is not not shown (in other words it is not dead) and we get a 1 for a 
 		this->shoots.show = true;																										// random number between 0 and 49. It shoots.
 		Sound_Shoot();

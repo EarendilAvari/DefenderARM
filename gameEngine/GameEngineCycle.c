@@ -21,6 +21,7 @@ unsigned char PixelY;	//This value has the position Y of the ship
 unsigned long interruptCounter; // It counts how many sysTick interrupts have been occured
 unsigned short timeToSpecial; 	// Time to unlock special attack 
 extern unsigned short difficulty;			// Difficulty of the game, it changes with the score of the player
+extern unsigned short GroundMaxHeight;		// Max height of the ground
 
 extern Terrain terrain;				//Object used to represent the terrain (extern because is used in the main thread also)
 extern Enemy enemy[5];				//Object used to represent the enemies (extern because is used in the main thread also)
@@ -70,23 +71,24 @@ void SysTick_Handler(void)
 	}
 	else 
 	{
+		Terrain_SetHeight(&terrain, GroundMaxHeight);
 		Terrain_Create(&terrain, interruptCounter, MAXGROUND);
 		Enemy_NextState(&enemy[0],interruptCounter);
-		Enemy_NextPos(&enemy[0],interruptCounter, MAXGROUND);
+		Enemy_NextPos(&enemy[0],interruptCounter, GroundMaxHeight);
 		Enemy_NextState(&enemy[1],interruptCounter);
-		Enemy_NextPos(&enemy[1],interruptCounter, MAXGROUND);
+		Enemy_NextPos(&enemy[1],interruptCounter, GroundMaxHeight);
 		Enemy_NextState(&enemy[2],interruptCounter);
-		Enemy_NextPos(&enemy[2],interruptCounter, MAXGROUND);
+		Enemy_NextPos(&enemy[2],interruptCounter, GroundMaxHeight);
 		PlayerShip_ControlShip(&playerShip, interruptCounter);
 		if (difficulty > 2)
 		{
 			Enemy_NextState(&enemy[3],interruptCounter);
-			Enemy_NextPos(&enemy[3], interruptCounter, MAXGROUND);
+			Enemy_NextPos(&enemy[3], interruptCounter, GroundMaxHeight);
 		}
 		if (difficulty > 4)
 		{
 			Enemy_NextState(&enemy[4], interruptCounter);
-			Enemy_NextPos(&enemy[4], interruptCounter, MAXGROUND);
+			Enemy_NextPos(&enemy[4], interruptCounter, GroundMaxHeight);
 		}
 		if (timeToSpecial < 606)
 		{
@@ -100,7 +102,9 @@ void SysTick_Handler(void)
 	}
 	GameEngine_ShowHUD(interruptCounter, timeToSpecial);
 	GameEngine_IncreaseDifficulty(&playerShip, &difficulty);
-	Nokia5110_OutUDec_4x4pix_toBuffer(35, 5, difficulty);
+	GameEngine_IncreaseGroundHeight(&GroundMaxHeight, difficulty);
+	// Nokia5110_OutUDec_4x4pix_toBuffer(35, 5, difficulty);			(For debugging)
+	// Nokia5110_OutUDec_4x4pix_toBuffer(50, 5, GroundMaxHeight);	(for debugging)
 	ExecuteMain = true;										// Sets the flag to 1, indicating that the main loop should be executed
 	interruptCounter++;
 }
@@ -128,8 +132,10 @@ void GameEngine_Init(void)
 	Enemy_InitEnemy(&enemy[3], enemy1Alive1, enemy1Alive2, enemy1Alive3, enemy1Dying1, enemy1Dying2);
 	Enemy_InitEnemy(&enemy[4], enemy2Alive1, enemy2Alive2, enemy2Alive3, enemy2Dying1, enemy2Dying2);
 	
-	timeToSpecial = 606;
+	timeToSpecial = 0;
 	difficulty = 0;
+	GroundMaxHeight = MAXGROUND - 10;
+	
 }
 
 //**********************GameEngine_ShowHUD***********************
@@ -157,7 +163,7 @@ void GameEngine_ShowHUD(unsigned long intCounter, unsigned short timerSpecialAtt
 }
 
 //**********************GameEngine_IncreaseDifficulty***********************
-// Shows the HP and the score of the player at the bottom of the screen
+// Increases the difficulty of the game depending on the score of the player
 // inputs: player: Pointer to the playership object
 //				 diff: Pointer to difficulty variable
 // outputs: none
@@ -171,3 +177,20 @@ void GameEngine_IncreaseDifficulty(PlayerShip* player, unsigned short* diff)
 	}
 	LastScore = player->score;
 }
+
+//**********************GameEngine_IncreaseGroundHeight***********************
+// Increases the maximum height of the ground depending on the difficulty
+// inputs: player: Pointer to the playership object
+//				 diff: Pointer to difficulty variable
+// outputs: none
+void GameEngine_IncreaseGroundHeight(unsigned short* GroundHeight, unsigned short diff)
+{
+	static unsigned short LastDiff;
+	
+	if ((diff != LastDiff) && (diff%2 == 0))
+	{
+		*GroundHeight = *GroundHeight - 2;
+	}
+	LastDiff = diff;
+}
+

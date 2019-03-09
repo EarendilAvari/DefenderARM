@@ -114,3 +114,14 @@ unsigned char Terrain_GroundNextY(unsigned char PosYLast, unsigned char minY, un
 			return (PosYLast - 1) + Random32()%3;
 		}
 }
+
+//**********************Terrain_SetHeight***********************
+// Sets the height of the terrain
+// inputs: this: Corresponds to the structure including the parameters of the class, in this case the terrain
+//				 height: indicates the new height of the ground
+// outputs: none
+void Terrain_SetHeight(Terrain* this, unsigned char height)
+{
+	this->minGroundH = height;
+}
+
