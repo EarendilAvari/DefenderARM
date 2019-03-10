@@ -19,7 +19,8 @@ bool Switch_special;  //The switch for special attack was pressed
 extern bool ExecuteMain;			//Flag sent to main task when the display should be drawn
 unsigned char PixelY;	//This value has the position Y of the ship
 unsigned long interruptCounter; // It counts how many sysTick interrupts have been occured
-unsigned short timeToSpecial; 	// Time to unlock special attack 
+unsigned short timeToSpecial; 	// Time needed to unlock special attack (changes with the difficulty) 
+unsigned short timerSpecialAttack;	// Timer used to unlock special attack (increases in every cycle the special attack is not unlocked)
 extern unsigned short difficulty;			// Difficulty of the game, it changes with the score of the player
 extern unsigned short GroundMaxHeight;		// Max height of the ground
 
@@ -90,21 +91,24 @@ void SysTick_Handler(void)
 			Enemy_NextState(&enemy[4], interruptCounter);
 			Enemy_NextPos(&enemy[4], interruptCounter, GroundMaxHeight);
 		}
-		if (timeToSpecial < 606)
+		if (timerSpecialAttack < timeToSpecial)
 		{
-			timeToSpecial++;
+			timerSpecialAttack++;
 			Switch_special = false;
 		}
 		else
 		{
-			PlayerShip_specialShoot(&playerShip, interruptCounter, &timeToSpecial, MAXGROUND);
+			PlayerShip_specialShoot(&playerShip, interruptCounter, &timerSpecialAttack, MAXGROUND);
 		}
 	}
-	GameEngine_ShowHUD(interruptCounter, timeToSpecial);
+	GameEngine_ShowHUD(interruptCounter, timerSpecialAttack, timeToSpecial);
 	GameEngine_IncreaseDifficulty(&playerShip, &difficulty);
 	GameEngine_IncreaseGroundHeight(&GroundMaxHeight, difficulty);
+	GameEngine_IncreaseTimeSpecial(&timeToSpecial, difficulty);
 	// Nokia5110_OutUDec_4x4pix_toBuffer(35, 5, difficulty);			(For debugging)
 	// Nokia5110_OutUDec_4x4pix_toBuffer(50, 5, GroundMaxHeight);	(for debugging)
+	// Nokia5110_OutUDec_4x4pix_toBuffer(35, 5, timerSpecialAttack);			
+	// Nokia5110_OutUDec_4x4pix_toBuffer(60, 5, timeToSpecial);
 	ExecuteMain = true;										// Sets the flag to 1, indicating that the main loop should be executed
 	interruptCounter++;
 }
@@ -132,7 +136,8 @@ void GameEngine_Init(void)
 	Enemy_InitEnemy(&enemy[3], enemy1Alive1, enemy1Alive2, enemy1Alive3, enemy1Dying1, enemy1Dying2);
 	Enemy_InitEnemy(&enemy[4], enemy2Alive1, enemy2Alive2, enemy2Alive3, enemy2Dying1, enemy2Dying2);
 	
-	timeToSpecial = 0;
+	timeToSpecial = 606;
+	timerSpecialAttack = 0;
 	difficulty = 0;
 	GroundMaxHeight = MAXGROUND - 10;
 	
@@ -140,10 +145,11 @@ void GameEngine_Init(void)
 
 //**********************GameEngine_ShowHUD***********************
 // Shows the HP and the score of the player at the bottom of the screen
-// inputs: timerSpecialAttack: time needed to unlock special attack
+// inputs: timerSpecialAttack: timer to unlock special attack
+// 				 timetoSpecial: time needed to unlock special attack
 //				 intCounter: Indicates how many cycles of the game engine have occurred
 // outputs: none
-void GameEngine_ShowHUD(unsigned long intCounter, unsigned short timerSpecialAttack)
+void GameEngine_ShowHUD(unsigned long intCounter, unsigned short timerSpecialAttack, unsigned short timetoSpecial)
 {
 	unsigned char i;
 	for (i = 0; i < SCREENW; i++)			// Draws a line at the bottom to separate the HUD from the playing area
@@ -156,7 +162,7 @@ void GameEngine_ShowHUD(unsigned long intCounter, unsigned short timerSpecialAtt
 	Nokia5110_OutUDec_4x4pix_toBuffer(25, SCREENH - 5, MAXHP);
 	Nokia5110_OutString_4x4pix_toBuffer(35, SCREENH - 5, "sc:");
 	Nokia5110_OutUDec_4x4pix_toBuffer(50, SCREENH - 5, playerShip.score);
-	if ((timerSpecialAttack >= 606) && (intCounter%20 < 10))
+	if ((timerSpecialAttack >= timetoSpecial) && (intCounter%20 < 10))
 	{
 		Nokia5110_OutString_4x4pix_toBuffer(70, SCREENH - 5, "SP"); 
 	}
@@ -180,8 +186,8 @@ void GameEngine_IncreaseDifficulty(PlayerShip* player, unsigned short* diff)
 
 //**********************GameEngine_IncreaseGroundHeight***********************
 // Increases the maximum height of the ground depending on the difficulty
-// inputs: player: Pointer to the playership object
-//				 diff: Pointer to difficulty variable
+// inputs: GroundHeight: Pointer to the ground height
+//				 diff: Difficulty variable
 // outputs: none
 void GameEngine_IncreaseGroundHeight(unsigned short* GroundHeight, unsigned short diff)
 {
@@ -194,3 +200,18 @@ void GameEngine_IncreaseGroundHeight(unsigned short* GroundHeight, unsigned shor
 	LastDiff = diff;
 }
 
+//**********************GameEngine_IncreaseTimeSpecial***********************
+// Increases the time needed to unlock special attack depending on the difficulty
+// inputs: player: Pointer to timeSpecial variable
+//				 diff: Difficulty variable
+// outputs: none
+void GameEngine_IncreaseTimeSpecial(unsigned short* timeSpecial, unsigned short diff)
+{
+	static unsigned short LastDiff;
+	
+	if ((diff != LastDiff) && (diff%2 == 0))
+	{
+		*timeSpecial = *timeSpecial + 152; // 152 means 5 seconds
+	}
+	LastDiff = diff;
+}

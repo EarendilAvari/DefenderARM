@@ -30,10 +30,11 @@ void GameEngine_Init(void);
 
 //**********************GameEngine_ShowHUD***********************
 // Shows the HP and the score of the player at the bottom of the screen
-// inputs: timerSpecialAttack: time needed to unlock special attack
+// inputs: timerSpecialAttack: timer to unlock special attack
+// 				 timetoSpecial: time needed to unlock special attack
 //				 intCounter: Indicates how many cycles of the game engine have occurred
 // outputs: none
-void GameEngine_ShowHUD(unsigned long intCounter, unsigned short timerSpecialAttack);
+void GameEngine_ShowHUD(unsigned long intCounter, unsigned short timerSpecialAttack, unsigned short timetoSpecial);
 
 //**********************GameEngine_IncreaseDifficulty***********************
 // Shows the HP and the score of the player at the bottom of the screen
@@ -48,6 +49,13 @@ void GameEngine_IncreaseDifficulty(PlayerShip* player, unsigned short* diff);
 //				 diff: Pointer to difficulty variable
 // outputs: none
 void GameEngine_IncreaseGroundHeight(unsigned short* GroundHeight, unsigned short diff);
+
+//**********************GameEngine_IncreaseTimeSpecial***********************
+// Increases the time needed to unlock special attack depending on the difficulty
+// inputs: player: Pointer to timeSpecial variable
+//				 diff: Difficulty variable
+// outputs: none
+void GameEngine_IncreaseTimeSpecial(unsigned short* timeSpecial, unsigned short diff);
 
 #endif
 
