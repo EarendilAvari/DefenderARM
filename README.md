@@ -1,6 +1,6 @@
 This is a game based on the classic arcade game Defender. It was developed for the Edx course “Embedded Systems - Shape The World: Multi-Threaded Interfacing” from professor Dr. Jonathan Valvano and Dr. Ramesh Yerraballi.
 
-A demonstration of the game: https://youtu.be/wyMWwUWHzJU
+A demonstration of the game: https://www.youtube.com/watch?v=5pWYAvgqLeY
 
 The game is run on a Launchpad TM4C123 of Texas Instruments which uses an ARM Cortex M4F 32-bit microcontroller with 80 MHz clock frequency, 256 KiB Flash memory, 32 KiB RAM and 2 KiB of EEPROM.
 
